@@ -1,0 +1,73 @@
+
+.nav {
+    display:inline-block;
+    font-size:0.9em;
+}
+.nav-item {
+    float:left;
+    *display:inline;
+    zoom:1;
+}
+.nav-item a {
+    display:block;
+    padding:15px 20px;
+    color:#FFF;
+    background:#B81D22;
+}
+.nav-item a:hover {
+    background: #fff;
+    color:#9C9C9C;
+}
+.nav-mobile {
+   display: none;
+	cursor: pointer;
+	position: absolute;
+	top: 0;
+	right: 0;
+	background: url(../images/nav_icon.png) 18% 52% no-repeat;
+	height:32px;
+	width: 36px;
+}
+    .nav-mobile {
+        display:block;
+    }
+    .nav {
+        width:100%;
+    }
+    .nav-list {
+        display:none;
+    }
+    .nav-item {
+        width:100%;
+        float:none;
+    }
+    .nav-item a {
+        background:#B81D22;
+        padding:10px;
+    	border-bottom:1px solid #AA1E1E;
+    	 font-family: 'ambleregular';
+    	text-transform:uppercase;	
+        color:#FFF;
+        -webkit-transition: color .2s linear,background .2s linear;
+		-moz-transition: color .2s linear,background .2s linear;
+		-o-transition: color .2s linear,background .2s linear;
+		transition: color .2s linear,background .2s linear;
+		font-weight: normal;
+		font-size: 0.875em;
+    }
+    .nav-inner {
+        display: none;
+    }
+    .nav-active, .nav-active-inner .nav-inner {
+        display:block;
+    }
+    .nav-inner li a{
+    	 color:#9C9C9C;
+    	 background:url(../images/drop_arrow.png) no-repeat 0;
+    	 border-bottom: 1px solid #EEE;
+    	 padding-left:15px;
+    }
+     .nav-inner li a:hover{
+     	color: #B81D22;
+     	background:url(../images/drop_arrow.png) no-repeat 0;
+     }

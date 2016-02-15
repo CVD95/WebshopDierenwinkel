@@ -1,0 +1,46 @@
+﻿@model List<WorkshopASPNETMVC_III_Start.Models.Genre>
+@{
+    ViewBag.Title = "Genres";
+}
+<h2>Genres</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>Verslavend</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr> 
+                    <td>@Model[i].Naam</td>
+                    <td>@Model[i].Verslavend</td>
+                    <td>@Html.ActionLink("wijzig", "WijzigGenre", new { genreId = @Model[i].ID})</td>
+                    <td>@Html.ActionLink("verwijder", "VerwijderGenre", new { genreId = @Model[i].ID})</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+
+
+
+<h2>Nieuwe genre toevoegen</h2>
+<table>
+    <tr> 
+        <!--referentie(link) aanmaken met html code-->
+        <td><a href="/Genre/NewGenreOldSchool">New Genre (oldschool)</a></td> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("New Genre (parameter binding)", "NewGenreParameterBinding", "Genre")</td> 
+        <td>@Html.ActionLink("New Genre (model binding)", "NewGenreModelBinding", "Genre")</td>  
+    </tr>
+</table>

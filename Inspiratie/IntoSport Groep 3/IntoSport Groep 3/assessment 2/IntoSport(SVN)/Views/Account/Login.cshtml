@@ -1,0 +1,46 @@
+﻿@model IntoSport.Models.LoginModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<img src="http://i.imgur.com/ridJ02I.png" />
+<header id="art-content-header">
+</header>
+@using (Html.BeginForm("Login", "Account"))
+{
+    <span style="color:red">@Html.ValidationMessage("loginfout")</span>
+    
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Gebruikersnaam
+        </div>
+        @Html.TextBoxFor(model => model.UserName, new { placeholder = "Uw gebruikersnaam", id="loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.UserName)
+    </div>
+    <div class="myNameIsBoxxy">
+
+        <div class="fieldName">
+            Wachtwoord
+         </div>
+         @Html.TextBoxFor(model => model.PassWord, new { placeholder = "●●●●●●●●●●●", type = "password", id="loginAccount" })
+         @Html.ValidationMessageFor(Model => Model.PassWord)
+        <!-- <input type="password" id="loginAccount" maxlength="25" placeholder="●●●●●●●●●●●">-->
+    </div>
+    <table class="boxButtonWrapper">
+        <tr>
+            <td>
+                <div class="boxButton">
+                    <input type="submit" value="log in" />
+                 </div>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <div class="boxButton">
+                    @Html.ActionLink("Registreren", "Registreren", "Account")
+                </div>
+            </td>
+        </tr>
+    </table>
+}

@@ -1,0 +1,23 @@
+﻿@model Webshop.Models.SearchResultModel
+@if (Model != null)
+{
+<br />
+<br />
+    foreach (Webshop.Models.Product product in Model.Products)
+    {
+<br />
+<div class="product-list" ;style="width: 700px; float: left;">
+    <div style="min-height: 16px" ;>
+        @Html.ActionLink((string)@product.ProductName, "PreviewFromId", "Home", new { Id = product.Id }, null)
+        <p align="right">€ @product.Price</p>
+    </div>
+    <hr>
+    <div style="min-height: 16px" ;>
+        <p>@product.ProductDescription</p>
+        <p align="right">in voorraad: @product.Stock</p>
+    </div>
+    <br />
+</div>
+    }
+}
+<br /><br />

@@ -1,0 +1,218 @@
+﻿@model IntoSport.Models.ManagerViewModel
+
+@{
+    ViewBag.Title = "Manager";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Manager</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+<span style="color:Red">@ViewBag.FoutMelding</span>
+}
+@if (Model != null)
+{
+    <div class="tabs">
+    
+       <div class="tab">
+           <input type="radio" id="tab-1" name="tab-group-1" checked>
+           <label for="tab-1">Omzet</label>
+
+           <div class="content">
+               <table>
+                        <thead>
+                            <tr>
+                                <h3>Omzet van de afgelopen 12 maanden</h3>
+                            </tr>
+    	                    <tr>
+                                <th>Naam product</th>
+        	                    <th>Omzet</th>
+                                <th>Winst</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+						@{
+						double totaalOmzet = 0;
+						double totaalWinst = 0;
+							foreach (IntoSport.Models.Manager overzicht in Model.overzicht1){
+								totaalOmzet = totaalOmzet + @overzicht.Omzet;
+								totaalWinst = totaalWinst + @overzicht.Winst;
+							}
+						}
+						<tr>
+							<td>Totaal</td>
+							<td> @totaalOmzet</td>
+							<td> @totaalWinst</td>
+						</tr>
+                            @foreach (IntoSport.Models.Manager overzicht in Model.overzicht1)
+                            {
+                                <tr> 
+                                    <td>@overzicht.Productnaam</td>
+                                    @*<td>@overzicht.maandconverter(overzicht.Maand)</td>
+                                    <td>@overzicht.Jaar</td>*@
+                                    <td>@overzicht.Omzet</td>
+                                    <td>@overzicht.Winst</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+					<br></br>
+					<form method="post" action="/Home/Manager">  
+                                <fieldset>
+                                <div class="editor-label">
+                                           Selecteer Maand
+                                        </div>
+        
+                                        <div class = "editor-field">
+                                <select name="maand">
+                                <option value="1">Januari</option>
+                                <option value="2">Februari</option>
+                                <option value="3">Maart</option>
+                                <option value="4">April</option>
+                                <option value="5">Mei</option>
+                                <option value="6">Juni</option>
+                                <option value="7">Juli</option>
+                                <option value="8">Augustus</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                                </select>
+                                </div>
+
+								<div class="myNameIsBoxxy">
+									<div class="fieldName">
+										Selecteer Jaar
+									</div>
+									<input type="text" name="jaar" placeholder = "Uw jaartal", id="loginAccount" />
+								</div>
+
+                                           <div class="boxButton">
+                                            <input type="submit" value="Bekijk" />
+                                        </div>
+                                </fieldset>
+                            </form>
+
+                            <table>
+                        <thead>
+                            <tr>
+                                <h3>Omzet</h3>
+                            </tr>
+    	                    <tr>
+                                <th>Naam product</th>
+                                <th>Maand</th>
+                                <th>Jaar</th>
+        	                    <th>Omzet</th>
+                                <th>Winst</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (IntoSport.Models.Manager overzichtPerMaand in Model.overzichtPerMaand)
+                            {
+                                <tr> 
+                                    <td>@overzichtPerMaand.Productnaam</td>
+                                    <td>@overzichtPerMaand.maandconverter(overzichtPerMaand.Maand)</td>
+                                    <td>@overzichtPerMaand.Jaar</td>
+                                    <td>@overzichtPerMaand.Omzet</td>
+                                    <td>@overzichtPerMaand.Winst</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+           </div> 
+       </div>
+    
+       <div class="tab">
+           <input type="radio" id="tab-2" name="tab-group-1">
+           <label for="tab-2">Winstgevende Producten</label>
+            
+           <div class="content">
+                <table id = "productWinst">
+                    <thead>
+                        <tr>
+                            <h3>Producten met de meeste winst</h3>
+                        </tr>
+    	                <tr>
+                            <th>Naam product</th>
+        	                <th>Omzet</th>
+                            <th>Winst</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+					@{
+						double totaalOmzet1 = 0;
+						double totaalWinst1 = 0;
+							foreach (IntoSport.Models.Manager overzicht in Model.topwinst){
+								totaalOmzet1 = totaalOmzet1 + @overzicht.Omzet;
+								totaalWinst1 = totaalWinst1 + @overzicht.Winst;
+							}
+						}
+						<tr>
+							<td>Totaal</td>
+							<td> @totaalOmzet1</td>
+							<td> @totaalWinst1</td>
+						</tr>
+                        @foreach (IntoSport.Models.Manager overzicht in Model.topwinst)
+                        {
+                            <tr> 
+                                <td>@overzicht.Productnaam</td>
+                                <td>@overzicht.Omzet</td>
+                                <td>@overzicht.Winst</td>
+                    
+                  
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+           </div> 
+       </div>
+    
+        <div class="tab">
+           <input type="radio" id="tab-3" name="tab-group-1">
+           <label for="tab-3">Verliesmakende Producten</label>
+     
+           <div class="content">
+            <table id = "productVerlies">
+                    <thead>
+                        <tr>
+                            <h3>Producten met de minste winst</h3>
+                        </tr>
+    	                <tr>
+                            <th>Naam product</th>
+        	                <th>Omzet</th>
+                            <th>Winst</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+					@{
+						double totaalOmzet2 = 0;
+						double totaalWinst2 = 0;
+							foreach (IntoSport.Models.Manager overzicht in Model.topverlies){
+								totaalOmzet2 = totaalOmzet2 + @overzicht.Omzet;
+								totaalWinst2 = totaalWinst2 + @overzicht.Winst;
+							}
+						}
+						<tr>
+							<td>Totaal</td>
+							<td> @totaalOmzet2</td>
+							<td> @totaalWinst2</td>
+						</tr>
+                        @foreach (IntoSport.Models.Manager overzicht in Model.topverlies)
+                        {
+                            <tr> 
+                                <td>@overzicht.Productnaam</td>
+                                <td>@overzicht.Omzet</td>
+                                <td>@overzicht.Winst</td>
+                    
+                  
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+           </div> 
+       </div>
+    
+    </div>
+}

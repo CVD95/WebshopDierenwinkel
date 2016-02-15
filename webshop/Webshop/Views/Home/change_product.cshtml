@@ -1,0 +1,130 @@
+﻿@model Webshop.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "UpdateProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateProduct", "Home"))
+{
+    
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <div style="padding: 15px;">
+                <legend>Product Toevoegen</legend>
+                <br />
+                @if (Model != null)
+                {
+                    if (Model.Product != null)
+                    {
+
+                    <!--  <div class="editor-label">
+                      Product Code
+                </div> -->
+
+                    <div class="editor-field">
+                        @Html.HiddenFor(model => model.Product.Id)
+                    </div>
+
+                    <div class="editor-label">product naam</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Product.ProductName, new { @Value = Model.Product.ProductName })
+                        @Html.ValidationMessageFor(model => model.Product.ProductName)
+                    </div>
+
+                    <div class="editor-label">product beschrijving</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Product.ProductDescription, new { @Value = Model.Product.ProductDescription })
+                        @Html.ValidationMessageFor(model => model.Product.ProductDescription)
+                    </div>
+
+                    <div class="editor-label">prijs</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Product.Price, new { @Value = Model.Product.Price })
+                        @Html.ValidationMessageFor(model => model.Product.Price)
+                    </div>
+
+                    <div class="editor-label">Inkoopprijs</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Product.BuyPrice, new { @Value = Model.Product.BuyPrice })
+                        @Html.ValidationMessageFor(model => model.Product.BuyPrice)
+                    </div>
+
+                    <div class="editor-label">Voorraad</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Product.Stock, new { @Value = Model.Product.Stock })
+                        @Html.ValidationMessageFor(model => model.Product.Stock)
+                    </div>
+
+                    <div class="editor-label">Categorie</div>
+
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories, new {@Value = Model.SelectedCategoryId})
+                        @Html.ValidationMessageFor(model => model.SelectedCategoryId)
+                    </div>
+                    <br />
+                    <p>
+                        <td><input type="submit" value="Wijzig" /></td>
+                    </p>
+                    }
+                    else
+                    {
+                        <div class="editor-field">
+                            @Html.HiddenFor(model => model.Product.Id)
+                        </div>
+
+                        <div class="editor-label">product naam</div>
+
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Product.ProductName)
+                            @Html.ValidationMessageFor(model => model.Product.ProductName)
+                        </div>
+
+                        <div class="editor-label">product beschrijving</div>
+
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Product.ProductDescription)
+                            @Html.ValidationMessageFor(model => model.Product.ProductDescription)
+                        </div>
+
+                        <div class="editor-label">prijs</div>
+
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Product.Price)
+                            @Html.ValidationMessageFor(model => model.Product.Price)
+                        </div>
+
+                        <div class="editor-label">Inkoopprijs</div>
+
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Product.BuyPrice)
+                            @Html.ValidationMessageFor(model => model.Product.BuyPrice)
+                        </div>
+
+                        <div class="editor-label">Voorraad</div>
+
+                        <div class="editor-field">
+                            @Html.TextBoxFor(model => model.Product.Stock)
+                            @Html.ValidationMessageFor(model => model.Product.Stock)
+                        </div>
+
+                        <div class="editor-label">Categorie</div>
+
+                        <div class="editor-field">
+                            @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories)
+                            @Html.ValidationMessageFor(model => model.SelectedCategoryId)
+                        </div>
+                        <br />
+                        <p>
+                            <td><input type="submit" value="Create" /></td>
+                        </p>
+                    }
+                }
+            </div>
+        </fieldset>
+    }

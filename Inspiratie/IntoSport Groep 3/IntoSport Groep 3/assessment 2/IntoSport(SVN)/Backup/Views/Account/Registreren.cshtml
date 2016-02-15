@@ -1,0 +1,137 @@
+﻿@model IntoSport.Models.RegistrerenModel
+
+@{
+    ViewBag.Title = "Registreren";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h2>Registreren</h2>
+<header id="art-content-header">
+</header>
+
+@using (Html.BeginForm("Registreren", "Account"))
+{
+    <span style="color:red">@Html.ValidationMessage("registratiefout")</span>
+    
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Gebruikersnaam:
+        </div>
+        @Html.TextBoxFor(model => model.Gebruikersnaam, new { placeholder = "Uw gebruikersnaam", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Gebruikersnaam)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Wachtwoord:
+        </div>
+        @Html.TextBoxFor(model => model.Wachtwoord, new { type = "password", placeholder = "●●●●●●●●●●●", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Wachtwoord)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Naam:
+        </div>
+        @Html.TextBoxFor(model => model.Naam, new { placeholder = "Uw naam", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Naam)
+    </div>
+    
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Adres:
+        </div>
+        @Html.TextBoxFor(model => model.Adres, new { placeholder = "Straatnaam", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Adres)
+    </div>
+
+    
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Woonplaats:
+        </div>
+        @Html.TextBoxFor(model => model.Woonplaats, new { placeholder = "Utrecht", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Woonplaats)
+    </div>
+
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Telefoonnummer:
+        </div>
+        @Html.TextBoxFor(model => model.Telefoonnummer, new { placeholder = "0649193221", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Telefoonnummer)
+    </div>
+
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Email:
+        </div>
+        @Html.TextBoxFor(model => model.Email, new { placeholder = "voorbeeld@email.nl", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Email)
+    </div>
+
+    <table class="boxButtonWrapper">
+        <tr>
+            <td>
+                <div class="boxButton">
+                    <input type="submit" value="Registreer" />
+                 </div>
+            </td>
+        </tr>
+    </table>
+ }
+<!--
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Account...">
+        <div class="fieldName">
+            Account</div>
+    </input>
+</div>
+<div class="myNameIsBoxxy">
+    <div class="fieldName">
+        Wachtwoord</div>
+    <input type="password" id="loginAccount" maxlength="25" placeholder="●●●●●●●●●●●">
+</div>
+
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Naam...">
+        <div class="fieldName">
+            Naam</div>
+    </input>
+</div>
+
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Tussenvoegsel...">
+        <div class="fieldName">
+            Tussenvoegsel</div>
+    </input>
+
+    <table class="boxButtonWrapper">
+        <tr>
+            <td>
+                <div class="boxButton">
+                    <input type="submit" value="log in" />
+                 </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Achternaam...">
+        <div class="fieldName">
+            Achternaam</div>
+    </input>
+</div>
+
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Email...">
+        <div class="fieldName">
+            Email</div>
+    </input>
+</div>
+
+<div class="myNameIsBoxxy">
+    <input type="text" id="loginAccount" maxlength="25" placeholder="Telefoonnummer...">
+        <div class="fieldName">
+            Telefoonnummer</div>
+    </input>
+</div>
+-->

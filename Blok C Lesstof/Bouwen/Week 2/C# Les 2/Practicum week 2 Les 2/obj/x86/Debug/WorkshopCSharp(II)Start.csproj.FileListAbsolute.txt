@@ -1,0 +1,13 @@
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopCSharp(II)Start\bin\Debug\WorkshopCSharp(II)Start.exe
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopCSharp(II)Start\bin\Debug\WorkshopCSharp(II)Start.pdb
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopCSharp(II)Start\obj\x86\Debug\ResolveAssemblyReference.cache
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopCSharp(II)Start\obj\x86\Debug\WorkshopCSharp(II)Start.exe
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopCSharp(II)Start\obj\x86\Debug\WorkshopCSharp(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\obj\x86\Debug\WorkshopCSharp(II)Start.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\obj\x86\Debug\WorkshopCSharp(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\obj\x86\Debug\WorkshopCSharp(II)Start.csprojResolveAssemblyReference.cache
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\bin\Debug\WorkshopCSharp(II)Start.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\bin\Debug\WorkshopCSharp(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\WorkshopCSharp(II)Start\WorkshopCSharp(II)Start\bin\Debug\MySql.Data.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\obj\x86\Debug\WorkshopCSharp(II)Start.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\obj\x86\Debug\WorkshopCSharp(II)Start.pdb

@@ -1,0 +1,27 @@
+﻿@{
+    ViewBag.Title = "New Genre (Model binding)";
+}
+<h2>New Genre (Model binding)</h2>
+<form method="post" action="/Genre/CreateGenreModelBinding/">   
+    <fieldset>
+        <legend>Genre</legend>
+
+        <div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+            <input type="text" name="naam" />
+        </div>
+        <div class="editor-label">
+           Verslavend
+        </div>
+        <div class="editor-field">
+           <input type="checkbox" name="verslavend" />
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+</form>
+
+

@@ -1,0 +1,78 @@
+﻿@model IntoSport.Models.ProductViewModel
+
+@{
+    ViewBag.Title = "WijzigenProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WijzigenProduct</h2>
+@using (Html.BeginForm("WijzigenProduct", "Home"))
+           {
+                <form method="post" action="Home/WijzigenProduct/">
+               @Html.ValidationSummary(true)
+               <fieldset>
+                <legend>Wijzigen Product</legend>
+
+                <!--  <div class="editor-label">
+                            Product Code
+                      </div> -->
+                	<div class="editor-field">
+				@Html.HiddenFor(model => model.producten.productCode)
+			</div>
+
+                <div class = "editor-label">product naam</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productNaam)
+                @Html.ValidationMessageFor(model => model.producten.productNaam)</div>
+
+
+                <div class = "editor-label">product merk</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productMerk)
+                @Html.ValidationMessageFor(model => model.producten.productMerk)</div>
+
+                <div class = "editor-label">Inkoopprijs</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productInkoopprijs)
+                @Html.ValidationMessageFor(model => model.producten.productInkoopprijs)</div>
+
+                <div class = "editor-label">Verkoopprijs</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productVerkoopprijs)
+                @Html.ValidationMessageFor(model => model.producten.productVerkoopprijs)</div>
+
+                <div class = "editor-label">voorraad</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productVoorraad)
+                @Html.ValidationMessageFor(model => model.producten.productVoorraad)</div>
+
+                <div class = "editor-label">Aanbiedingscode</div>
+                <!--eric dropdown toegevoegd -->
+                <div class = "editor-field">
+                @Html.DropDownListFor(model => model.SelectedaanbiedingID, Model.aanbieding)
+                @Html.ValidationMessageFor(model => model.SelectedaanbiedingID)</div>
+
+                <div class = "editor-label">Producttype</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.producten.productType)
+                @Html.ValidationMessageFor(model => model.producten.productType)</div>    
+
+                <div class= "editor-label">Omschrijving</div>
+
+                <div class="editor-field">
+                @Html.TextBoxFor(model => model.producten.productOmschrijving)
+                @Html.ValidationMessageFor(model => model.producten.productOmschrijving)
+                </div>
+                <p>
+                    <input type="submit" value = "Wijzig product" />
+                </p>
+
+               </fieldset>
+               </form>
+           }

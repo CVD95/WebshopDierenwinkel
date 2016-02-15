@@ -1,0 +1,21 @@
+﻿@model Webshop.Models.LoginDataModel
+
+<br /><br />
+@using (Html.BeginForm("LoginRequest", "Home"))
+{
+    @Html.ValidationSummary(true);
+    <p>Gebruikersnaam</p>
+    @Html.TextBoxFor(model => model.Username);
+    @Html.ValidationMessageFor(model => model.Username);
+    <br />
+    <p>Wachtwoord</p>
+    @Html.PasswordFor(model => model.Password);
+    @Html.ValidationMessageFor(model => model.Password);
+
+
+    <p>
+        <td><input type="submit" value="Inloggen" /></td>
+    </p>
+
+}
+<br />

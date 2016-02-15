@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "Zoekopdracht";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Zoek Product</h2>
+<header id="art-content-header">
+</header>
+              <form method = "post" action="/Home/Zoekresultaten/">
+
+                    <div>Zoeken naar Producten</div>
+                        <input type="text" name = "Zoekresultaten" />
+
+                        <div>Zoek Criteria</div>
+                        <select name="Categorie">
+                        <option value="naam">Productnaam</option>
+                        <option value="merk">Merk Product</option>
+                        <option value="producttype">Type Product</option>
+                        <option value="omschrijving">Omschijving Product</option>
+                        <option value="verkoopprijs">Prijs Product</option>
+                        <option value="voorraad">Voorraad Product</option>
+                        </select>
+
+                    <p>
+                        <input type="submit" value = "Zoek naar Producten" />
+                    </p>

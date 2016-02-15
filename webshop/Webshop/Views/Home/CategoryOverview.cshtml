@@ -1,0 +1,50 @@
+﻿@model List<Webshop.Models.Category>
+@{
+    ViewBag.Title = "Beheerder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main">
+    <div class="content">
+
+        @if (@ViewBag.Error != null)
+        {
+            <span style="color:red">@ViewBag.Error</span>
+        }
+        @if (Model != null)
+        {
+            <table id="hor-minimalist-b" style="border-collapse: separate; border-spacing: 5px;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Naam</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Webshop.Models.Category category in Model)
+                {
+                        <tr>
+                            <td>@category.Id</td>
+                            <td>@category.Name</td>
+
+                            <td>@Html.ActionLink("Wijzigen", "Change_Category", new { categoryId = category.Id })</td>
+                            <td>@Html.ActionLink("Verwijderen", "DeleteCategory", new { categoryId = category.Id })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+            <h2>Product aanmaken.</h2>
+            <table>
+                <tr>
+                    <!--referentie(link) aanmaken met een Razor helper-->
+                    <td>@Html.ActionLink("Nieuwe categorie toevoegen", "add_category", "Home")</td>
+                </tr>
+            </table>
+
+        }
+        </div>
+</div>

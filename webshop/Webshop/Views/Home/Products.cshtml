@@ -1,0 +1,66 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@using Webshop.Models;
+@model Webshop.ViewModels.IndexModel
+@{
+    ViewBag.Title = "Products";
+}
+<link href="/Content/PagedList.css" rel="stylesheet" type="text/css" />
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>Categoriën</h3>
+                @foreach (var category in Model.Categories)
+                {
+                    <li><a href="@Url.Action("Products", "Home", new { p = new ProductPageModel { PageNumber = 0, Category = category })"> @category.Name</a></li>
+                }
+                @if (Model.ProductPageModel.Category != null)
+                {
+                    <li><a href="@Url.Action("Products", "Home", null)">Reset categoriën</a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="main">
+    <div class="content">
+        <div class="section group">
+            <div>
+                <ul>
+                    @foreach (var product in ViewBag.OnePageOfProducts)
+                    {
+                        <div class="grid_1_of_4 images_1_of_4">
+                            <a href="preview.html">
+                                <img src="@Url.Content("~/Content/images/kattenbak.jpg")" alt="Artikel" title="Artikel" />
+                                <h2>
+                                    @product.ProductName
+                                </h2>
+                                <div class="price-details">
+                                    <div class="price-number">
+                                        <p>
+                                            <span class="rupees">€@product.Price</span>
+                                        </p>
+                                    </div>
+                                    <div class="add-cart">
+                                        <h4>
+                                            <a href="preview.html">Voeg aan winkelwagen toe.</a>
+                                        </h4>
+                                    </div>
+                                    <div class="clear">
+                                    </div>
+                                </div>
+                        </div>
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+    </div>
+    <div class="txt-center">@Html.PagedListPager((IPagedList)ViewBag.OnePageOfProducts, page => Url.Action("Products", new { page }))</div>
+</div>
+
+
+
+    

@@ -1,0 +1,55 @@
+﻿@model IntoSport.Models.Aanbieding
+
+@{
+    ViewBag.Title = "WijzigAanbieding";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WijzigAanbieding</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+
+@using (Html.BeginForm("WijzigAanbieding", "Home"))
+           {
+	<form method="post" action="/Home/WijzigAanbieding">   
+		<fieldset>
+			<legend>Aanbieding</legend>
+
+				<input type="hidden"  value="@Model.aanbiedingscode" name="id" />
+
+			<div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+           
+            @Html.TextBoxFor(model => Model.naam)
+            @Html.ValidationMessageFor(model => Model.naam)
+        </div>
+
+			<div class="editor-label">
+			   Korting
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => Model.kortingspercentage)
+				@Html.ValidationMessageFor(model => Model.kortingspercentage)
+			</div>
+
+			<div class="editor-label">
+			   Geldigheid
+			</div>
+			<div class="editor-field">
+          
+				@Html.TextBoxFor(model => Model.geldig_tot, new { id = "datepicker" })
+				@Html.ValidationMessageFor(model => Model.geldig_tot)
+			</div>
+
+			<p>
+				<input type="submit" value="Wijzig" />
+			</p>
+		</fieldset>
+	</form>
+}

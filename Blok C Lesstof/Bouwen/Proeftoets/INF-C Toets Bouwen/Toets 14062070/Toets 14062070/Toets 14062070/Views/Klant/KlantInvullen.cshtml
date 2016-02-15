@@ -1,0 +1,49 @@
+﻿@{
+    ViewBag.Title = "New Klant";
+}
+<h2>New Genre (Model binding)</h2>
+<form method="post" action="/Klant/CreateKlantModelBinding/">   
+    <fieldset>
+        <legend>Klant</legend>
+
+        <div class="editor-label">
+           Naam 
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Naam" />
+        </div>
+        
+        <div class="editor-label">
+           Woonplaats 
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Woonplaats" />
+        </div>
+
+        <div class="editor-label">
+           Beschrijving 
+        </div>
+        <div class="editor-field">
+            <input type="text" name="beschrijving" />
+        </div>
+
+        <div class="editor-label">
+           geboortedatum 
+        </div>
+        <div class="editor-field">
+            <input type="text" name="Geboortedatum" />
+        </div>
+
+
+
+        <div class="editor-field">
+           Man : <input type="radio" value = "Man" id = "geslacht" />
+           Vrouw : <input type="radio" value = "Vrouw" id = "geslacht" />
+        </div>
+
+
+        <p>
+            <input type="submit" value="Opslaan" />
+        </p>
+    </fieldset>
+</form>

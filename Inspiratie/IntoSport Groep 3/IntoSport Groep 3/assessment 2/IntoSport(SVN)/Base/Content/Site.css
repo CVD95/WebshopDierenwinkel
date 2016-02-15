@@ -1,0 +1,704 @@
+﻿/* Styles for basic forms
+-----------------------------------------------------------*/
+
+fieldset 
+{
+    border:1px solid #ddd;
+    padding:0 1.4em 1.4em 1.4em;
+    margin:0 0 1.5em 0;
+}
+
+legend 
+{
+    font-size:1.2em;
+    font-weight: bold;
+}
+
+textarea 
+{
+    min-height: 75px;
+}
+
+.editor-label 
+{
+    margin: 1em 0 0 0;
+}
+
+.editor-field 
+{
+    margin:0.5em 0 0 0;
+}
+
+
+/* Styles for validation helpers
+-----------------------------------------------------------*/
+.field-validation-error
+{
+    color: #ff0000;
+}
+
+.field-validation-valid
+{
+    display: none;
+}
+
+.input-validation-error
+{
+    border: 1px solid #ff0000;
+    background-color: #ffeeee;
+}
+
+.validation-summary-errors
+{
+    font-weight: bold;
+    color: #ff0000;
+}
+
+.validation-summary-valid
+{
+    display: none;
+}
+
+ /* main layout
+    ----------------------------------------------------------*/
+    .main-content,
+    .featured + .main-content {
+        background-position: 10px 0;
+    }
+
+    .content-wrapper {
+        padding-right: 10px;
+        padding-left: 10px;
+    }
+
+    .featured .content-wrapper {
+        padding: 10px;
+    }
+
+    /* page content */
+    article, aside {
+        float: none;
+        width: 100%;
+    }
+
+    /* ordered list */
+    ol.round {
+        list-style-type: none;
+        padding-left: 0;
+    }
+
+        ol.round li {
+            padding-left: 10px;
+            margin: 25px 0;
+        }
+
+            ol.round li.zero,
+            ol.round li.one,
+            ol.round li.two,
+            ol.round li.three,
+            ol.round li.four,
+            ol.round li.five,
+            ol.round li.six,
+            ol.round li.seven,
+            ol.round li.eight,
+            ol.round li.nine {
+                background: none;
+            }
+
+     /* features */
+     section.feature {
+        float: none;
+        padding: 10px;
+        width: auto;
+     }
+
+        section.feature img {
+            color: #999;
+            content: attr(alt);
+            font-size: 1.5em;
+            font-weight: 600;
+        }
+
+    /* forms */
+    input {
+        width: 90%;
+    }
+
+    /* login page */
+    #loginForm {
+        border-right: none;
+        float: none;
+        width: auto;
+    }
+
+        #loginForm .validation-error {
+            display: block;
+            margin-left: 15px;
+        }
+
+    #socialLoginForm {
+        margin-left: 0;
+        float: none;
+        width: auto;
+    }
+
+<!-- Team Trick -->
+/* ##############################################
+#												#
+#	Team Trick CSS Stylesheet				    #
+#	Author: StarTale J.							#
+#	                                         	#
+###############################################*/
+/*//////*/
+/*BASICS*/
+/*//////*/
+* { word-wrap: break-word; }
+h3 {color: #FFF;}.navi ul { display: none;}a {text-decoration: none;}li {list-style-type: none;}img {border: 0;}body {margin: 0 auto;}.mainplayer {margin-left: 10px;margin:10px;}
+p  {font-family: "Georgia", serif;}
+@media all and (max-width: 1250px) {
+	.box-lines {max-width: 225px; }
+}
+@media all and (max-width: 1200px) {
+	.box-lines {max-width: 200px;}
+}
+@media all and (max-width: 1000px) {
+	#right-content { display: none; }
+} @media all and (max-width: 900px) {
+	.column_4 {display:none;}
+}
+/*//////*/
+/*HEADER*/
+/*//////*/
+#header-wrapper {
+	width: 100%;
+	min-height: 175px;
+	/*background: url(/assets/header-image/bg-fill-t-3.jpg);
+	background-repeat: repeat-x;*/
+    /*TODO: Make BG repeatable! */
+    background: url(http://www.cenzion.com/assets/images/backgrounds/bg_grass5.jpg);
+    background-repeat: repeat-x;
+    background-size: 50% 100%;
+	position: relative;
+}
+
+#header{
+	width: 100%;
+	height: 63px;
+	margin: 0 auto;
+}
+
+#header-content {
+	width: 1000px;
+	height: 130px;
+	margin: 0 auto;
+}
+a#logo {display: block; width: 180px; height: 60px;background-image: url(/assets/header-image/logosprite.png); margin:0 auto; }
+#header-c-logo {float: left; width: 180px; height: 60px;margin: 15px 0 0;}
+a#logo:hover { background-position: 0 -60px;}
+
+.navigation {height: 63px; width: 700px; font-family: "Trebuchet MS", sans-serif; font-size: 16px;float: left; margin: 0 auto; padding-left: 60px;}
+	.navi ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden;}
+	.navi li {float: left; display: inline;}
+	.navi a {color: #FFF; display: block; height: 25px; width: 100px; text-align: center; padding-top: 22px;}
+	.navi a:hover{color: #E1A400;}
+.navi li:hover ul {
+    display: block;
+    position: absolute;
+}
+.navi li:hover li {
+	height: 11px;
+    float: none;
+    font-size: 11px;
+}
+.navi li:hover li a{font-weight: 700; }
+.navi li:hover li a:hover {
+    background: #1e7c9a;
+	border-bottom: 1px solid white;
+}
+
+
+/*******/
+/**MID**/
+/*******/
+#mid-content {
+	width:  1000px;
+	height: 250px;
+	margin: 0 auto;
+}
+
+#mid-content-wrapper {
+	width: 1000px;
+	height: 230px;
+	border-top: 1px solid #fff;
+	border-bottom-left-radius: 0.5em;
+	border-bottom-right-radius: 0.5em;
+	box-shadow: 0 10px 10px #888;
+	margin: 0 auto;
+	background: url(/assets/header-image/mcw.jpg) white;
+}
+
+.boxModel {
+    width: inherit;
+    height: 200px;
+    margin-top: 12px;
+    margin-left: 15px;
+    overflow: hidden; /* TODO: Overflow hidden weghalen als er maar 3 RANDOM AFGEPRIJSDE items worden getoont, OF Slider maken! */
+}
+
+.boxModelFoto {
+    width: 250px;
+    height: 200px;
+    display: inline;
+}
+/*///////*/
+/*CONTENT*/
+/*///////*/
+
+#generic-body-loader {
+	width: 100%;
+	height: 100%;
+	margin: 0 auto;
+	background: #ffffff;
+}
+
+#body-wrapper {
+	width: 1200px;
+	min-height: 1000px;
+	height: auto;
+	margin: 0 auto;
+	border-style: 2px solid;
+	border-radius: 5px;
+	overflow: hidden;
+}
+
+#main-content { 
+	width: 830px;
+	min-height: 1000px;
+	height: auto;
+	float: left;
+	border-right: 1px solid #dfdfdf;
+}
+
+.art-content {
+	width: 820px;
+	min-height: 300px;
+	height: auto;
+	margin: 0 auto;
+	margin-top: 40px;
+	border-bottom: 1px dotted lightgray;
+	}
+	#art-content-header {width: 820px; min-height:40px; height: auto; font-family: "myriad-pro-condensed-1","myriad-pro-condensed-2", Helvetica, Arial; 
+	font-size: 18px; font-weight: bold;text-align: left center; margin: 0 auto; border-bottom: 2px solid darkred;}
+	#art-content-inner {width: 715px; min-height: 240px; height: auto; margin: 0 auto; padding-left: 7.5px; padding-right: 7.5px; /*border-left: 2px solid darkred; */}
+	.a-c-title{ width: 820px; font-size: 18px;}
+	.a-c-img {float: left; padding: 3px; max-width: 300px; margin: 3px;}
+	.a-c-about{width: 820px; font-size: 12px; padding-top: 15px;}
+	.a-c-about li { display: inline; padding: 5px;}
+
+#right-content {
+	width: 360px;
+	min-height: 1000px;
+	height: auto;
+	float: left;
+	position: relative;
+	background: url(/assets/generic-body-image/sb-shadow.png) repeat-y scroll 0px 0px transparent;
+}
+#side-content {
+	width: 360px;
+	min-height: 1000px;
+	height: auto;
+	margin-top: 20px;
+	float: right;
+}
+
+#box-forum-wrapper {
+	width: 360px;
+	min-height: 30px;
+	margin: 0 auto;
+	}
+	.box{
+	width: 300px;
+	height: 30px;
+	font-family: "myriad-pro-condensed-1","myriad-pro-condensed-2", Helvetica, Arial; 
+	font-weight: 600;
+	border-bottom: 2px solid darkred;
+	padding: 6px;
+	margin: 0 auto;
+	margin-top: 15px;
+	}
+	.box-lines {
+	width: 300px;
+	border-bottom: 1px solid darkred;
+	padding: 6px;
+	}
+	.b-menu {
+	width: 300px;
+	min-height: 150px;
+	font-family: "myriad-pro-condensed-1","myriad-pro-condensed-2", Helvetica, Arial; 
+	font-size: 14px;
+	white-space: pre-line;
+	list-style-type: none;
+	margin: 0 auto;
+	}
+	.b-menu  a { color: black; }
+	.b-menu  a:hover{ color: #E1A400; }
+
+#affiliates-wrapper {
+	width: 300px;
+	min-height: 30px;
+	padding-top: 50px;
+	margin: 0 auto;
+	}
+		.a-menu {
+		width: 250px;
+		min-height: 60px;
+		float: right;
+		list-style-type: none;
+		margin: 0 auto;
+		}
+	#advertisement-wrapper{
+	width: 300px;
+	min-height: 30px;
+	padding-top: 150px;
+	margin: 0 auto;
+	}
+		#advertisement {
+		width: 250px;
+		height: 90px;
+		margin: 0 auto;
+		padding-top: 10px;
+		}
+/*//////////*/
+/*AFFILIATES*/
+/*//////////*/
+.aff {
+	width: 250px;
+	height: 50px;
+}
+
+/*=======================*/
+/*Footer
+*/
+footer 
+{
+    width: 100%;
+    height: 150px;
+    border-top: 5px solid darkred;
+}
+/*
+footer {
+	width: 100%;
+	height: 63px;
+	background: #303030 url(/assets/header-image/footer-bg.png);
+	margin-top: 200px;
+}
+.f-nav {width: 100%; height: 63px; }
+.f-nav ul {list-style-type: none; margin: 0; padding: 0; overflow: hidden;}
+.f-nav li{float: left; width: 25%;}
+.f-nav a {height: 63px; color: #E1A400; font-size: 25px; font-weight: bold; display: block; text-align: center; vertical-align: middle; line-height: 63px;}
+.f-nav a:hover {color: #111111; font-weight: bold; font-size: 25px; background: #E1A400; }
+*/
+.artikel-box {
+    width: 400px;
+    min-height: 100px;
+    float: right;
+    border-right: dotted 1px grey;
+    border-bottom: dotted 1px grey;
+    margin-right: 5px;
+}
+
+#artikel-box-wrapper {
+    width: 820px;
+    height: auto;
+    min-height: 500px;
+    margin: 0 auto;
+}
+
+.artikel-foto {
+    float: left;
+}
+
+.artikel-header {
+    float: right;
+}
+
+/* login
+----------------------------------------------------------*/
+#login {
+    display: block;
+    font-size: .85em;
+    margin: 0 0 10px;
+    text-align: right;
+}
+
+    #login a {
+        background-color: #d3dce0;
+        margin-left: 10px;
+        margin-right: 3px;
+        padding: 2px 3px;
+        text-decoration: none;
+    }
+
+    #login a.email {
+        background: none;
+        margin: 0;
+        padding: 0;
+        text-decoration: underline;
+    }
+
+    #login ul {
+        margin: 0;
+    }
+
+    #login li {
+        display: inline;
+        list-style: none;
+    }
+
+body {
+    background-color: #fff;
+    border-top: solid 10px #000;
+    color: #333;
+    font-size: .85em;
+    font-family: "Segoe UI", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer, hgroup,
+nav, section {
+    display: block;
+}
+
+mark {
+    background-color: #a6dbed;
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.float-left {
+    float: left;
+}
+
+.float-left-image {
+    background: url("http://i.imgur.com/B7JQHWt.png") no-repeat;
+    display: block;
+    width: 190px;
+    height: 70px;
+}   
+.float-right {
+    float: right;
+}
+
+.clear-fix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    height: 0;
+    visibility: hidden;
+}
+
+h1, h2, h3,
+h4, h5, h6 {
+    color: #000;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+h1 {
+    font-size: 2em;
+}
+
+h2 {
+    font-size: 1.75em;
+}
+
+h3 {
+    font-size: 1.2em;
+}
+
+h4 {
+    font-size: 1.1em;
+}
+
+h5, h6 {
+    font-size: 1em;
+}
+
+    h5 a:link, h5 a:visited, h5 a:active {
+        padding: 0;
+        text-decoration: none;
+    }
+
+
+/* main layout
+----------------------------------------------------------*/
+.content-wrapper {
+    margin: 0 auto;
+    min-height: 80px;
+    margin-top: 25px;
+    max-width: 960px;
+}
+
+
+/* site title
+----------------------------------------------------------*/
+.site-title {
+    color: #c8c8c8;
+    font-family: Rockwell, Consolas, "Courier New", Courier, monospace;
+    font-size: 2.3em;
+    margin: 0;
+}
+
+.site-title a, .site-title a:hover, .site-title a:active {
+    background: none;
+    color: #00CC00;
+    outline: none;
+    text-decoration: none;
+}
+
+/* menu
+----------------------------------------------------------*/
+ul#menu {
+    font-size: 1.3em;
+    font-weight: 600;
+    margin: 0 0 5px;
+    padding: 0;
+    text-align: right;
+}
+
+    ul#menu li {
+        display: inline;
+        list-style: none;
+        padding-left: 15px;
+    }
+
+        ul#menu li a {
+            background: none;
+            color: #00CC00;
+            text-decoration: none;
+        }
+
+        ul#menu li a:hover {
+            color: #333;
+            text-decoration: none;
+        }
+
+/* Login Pagina
+------------------------------------------*/
+.myNameIsBoxxy {
+		margin: 0 auto;
+		padding-top: 10px;
+		padding-bottom: 10px;
+	}
+	.fieldName {
+		width: 120px;
+		height: 30px;
+		margin-left: 10px;
+		float: left;
+		font-size: 12px;
+		position: relative;
+		text-transform: uppercase;
+		line-height: 30px;
+		border: 1px solid rgba(57, 36, 17, 0.5);
+		border-right: 0 none;
+		padding-left: 5px;
+		background: url('/assets/background-image/fieldName.png');
+	}
+	#loginAccount {
+		width: 155px;
+		height: 28px;
+		margin-right: 10px;
+		padding-left: 4px;
+		border: 1px solid rgba(57, 36, 17, 0.5);
+		border-left: 0 none;
+	}
+	.boxButtonWrapper {
+		width: 40px;
+		height: 25px;
+		margin: 0 auto;
+		margin-top: 25px;
+		padding-bottom: 25px;
+	}
+	.boxButtonWrapper tr {
+		width: 220px;
+		min-height: 25px;
+	}
+	.boxButton {
+		width: 100px;
+		height: 25px;
+		display: block;
+		cursor: pointer;
+		text-align: center;
+		line-height: 25px;
+		font-size: 12px;
+		opacity: 1;
+		background: url('/assets/background-image/fieldName.png'); 
+	}
+	.boxButton:hover { 
+		opacity: 0.5; 
+		background: url('/assets/background-image/fieldName.png'); 
+	}
+	#logIn {
+		width: 220px;
+		min-height: 25px;
+		display: block;
+		cursor: pointer;
+		text-align: center;
+		line-height: 25px;
+		font-size: 12px;
+		opacity: 1;
+		margin: 0 auto;
+		margin-top: 15px;
+		background: url('/assets/background-image/fieldName.png');
+	} #logIn:hover {opacity: 0.5; background: url('/assets/background-image/fieldName.png');}
+
+
+/********************
+*   Mobile Styles   *
+********************/
+@media only screen and (max-width: 850px) {
+
+    /* header
+    ----------------------------------------------------------*/
+    header .float-left,
+    header .float-right {
+        float: none;
+    }
+
+    /* logo */
+    header .site-title {
+        margin: 10px;
+        text-align: center;
+    }
+
+    /* login */
+    #login {
+        font-size: .85em;
+        margin: 0 0 12px;
+        text-align: center;
+    }
+
+        #login ul {
+            margin: 5px 0;
+            padding: 0;
+        }
+
+        #login li {
+            display: inline;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        #login a {
+            background: none;
+            color: #999;
+            font-weight: 600;
+            margin: 2px;
+            padding: 0;
+        }
+
+        #login a:hover {
+            color: #333;
+        }

@@ -1,0 +1,6 @@
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\bin\Debug\Hallo World.exe.config
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\bin\Debug\Hallo World.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\bin\Debug\Hallo World.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\obj\Debug\Hallo World.csprojResolveAssemblyReference.cache
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\obj\Debug\Hallo World.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 1\Hallo World\Hallo World\obj\Debug\Hallo World.pdb

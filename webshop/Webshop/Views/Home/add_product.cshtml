@@ -1,0 +1,73 @@
+﻿@model Webshop.ViewModels.ProductViewModel
+
+@{
+    ViewBag.Title = "NewProduct";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("New_Product", "Home"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div style="padding: 15px;">
+            <legend>Product Toevoegen</legend>
+            <br />
+            <div class="editor-label">Product naam</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Product.ProductName)
+                @Html.ValidationMessageFor(model => model.Product.ProductName)
+            </div>
+            <br />
+
+            <div class="editor-label">Productbeschrijving</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Product.ProductDescription)
+                @Html.ValidationMessageFor(model => model.Product.ProductDescription)
+            </div>
+            <br />
+
+            <div class="editor-label">Prijs</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Product.Price)
+                @Html.ValidationMessageFor(model => model.Product.Price)
+            </div>
+            <br />
+
+            <div class="editor-label">Inkooprijs</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Product.BuyPrice)
+                @Html.ValidationMessageFor(model => model.Product.BuyPrice)
+            </div>
+            <br />
+            <div class="editor-label">Productvoorraad</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Product.Stock)
+                @Html.ValidationMessageFor(model => model.Product.Stock)
+            </div>
+            <br />
+
+            <div class="editor-label">Categorie</div>
+
+            <div class="editor-field">
+                @Html.DropDownListFor(model => model.SelectedCategoryId, Model.Categories)
+                @Html.ValidationMessageFor(model => model.SelectedCategoryId)
+            </div>
+            <br />
+            <!--
+            <div class="editor-label">Afbeelding</div>
+
+            <div class="editor-field">
+                <input type="file" name="ImageFile" id="ImageFile" /><br />
+            </div>
+            <br />-->
+            <p>
+                <td><input type="submit" value="Create" /></td>
+            </p>
+        </div>
+    </fieldset>
+}

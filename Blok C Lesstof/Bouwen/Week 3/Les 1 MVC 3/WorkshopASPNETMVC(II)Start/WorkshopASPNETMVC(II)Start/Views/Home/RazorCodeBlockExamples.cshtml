@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewBag.Title = "RazorCodeBlockExamples";
+}
+
+<h2>RazorCodeBlockExamples</h2>
+
+@{int leeftijd = 18;}
+
+@{
+    if(leeftijd >=18){
+        <h2>Meerderjarig!</h2>
+    
+    }else{
+        @:Minderjarig!
+    }
+
+    for (int i = 0; i < 10; i++)
+    {
+        <h4>Print @i</h4>
+    }
+}
+
+
+

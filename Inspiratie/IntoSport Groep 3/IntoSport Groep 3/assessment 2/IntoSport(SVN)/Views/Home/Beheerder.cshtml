@@ -1,0 +1,264 @@
+﻿@model IntoSport.Models.BeheerderViewModel
+@{
+    ViewBag.Title = "Beheerder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!-- 
+
+ALLEEN beheerders mogen op deze pagina terecht komen.
+1. Gebruikers die niet ingelogt zijn mogen hier nooit komen.
+2. Mensen die ingelogt zijn mogen hier nooit komen, tenzij ze type "Beheerder" zijn.
+3. Als men iets wilt verwijderen moeten ze een confirmatie maken dat ze het willen verwijderen
+-->
+<h2>Beheerder</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+@if (@ViewBag.Wijziging != null)
+{
+    <span style="color: Green">@ViewBag.Wijziging</span>
+}
+<div class="tabs">
+    
+       <div class="tab">
+           <input type="radio" id="tab-1" name="tab-group-1" checked>
+           <label for="tab-1">Klanten overzicht</label>
+
+           <div class="content">
+            @if (Model != null)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Naam</th>
+                            <th>Adres</th>
+                            <th>Woonplaats</th>
+                            <th>Telefoonnummer</th>
+                            <th>Email</th>
+                            <th>Rechten</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.klantOverzicht.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.klantOverzicht[i].Naam</td>
+                                <td>@Model.klantOverzicht[i].Adres</td>
+                                <td>@Model.klantOverzicht[i].Woonplaats</td>
+                                <td>@Model.klantOverzicht[i].Telefoonnummer</td>
+                                <td>@Model.klantOverzicht[i].Email</td>
+                                <td>@Model.klantOverzicht[i].Rechten</td>
+                                <td>@Html.ActionLink("wijzig", "WijzigKlant", new { klantId = @Model.klantOverzicht[i].Id }, new { onclick = "return confirm('Weet u zeker dat u dit wilt wijzigen?')" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+           </div>
+       </div>
+    
+       <div class="tab">
+           <input type="radio" id="tab-2" name="tab-group-1">
+           <label for="tab-2">Klanten bestellingen</label>
+            
+           <div class="content">
+           @if (Model != null)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Klant Naam</th>
+                            <th>Status</th>
+                            <th>Totaal bedrag</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.bestellingOverzicht.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.bestellingOverzicht[i].klantnaam</td>
+                                <td>@Model.bestellingOverzicht[i].Status</td>
+                                <td>@Model.bestellingOverzicht[i].Totaal</td>
+                                <td>@Html.ActionLink("Wijzigen", "WijzigenBestelling", new { bestellings_code = @Model.bestellingOverzicht[i].Factuur_code })</td>
+                                @if (!@Model.bestellingOverzicht[i].Status.Equals("Geannulleerd"))
+                                {
+                                    <td>@Html.ActionLink("Annuleren", "AnnulerenBestelling", new { bestellingscode = @Model.bestellingOverzicht[i].Factuur_code }, new { onclick = "return confirm('Weet u zeker dat u dit wilt annuleren?')" })</td>
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+           </div> 
+       </div>
+
+       <div class="tab">
+           <input type="radio" id="tab-3" name="tab-group-1">
+           <label for="tab-3">Producten</label>
+            
+           <div class="content">
+           @if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Productnaam</th>
+                <th>Merk</th>
+                <th>Inkoopprijs</th>
+                <th>Verkoopprijs</th>
+                <th>Voorraad</th>
+                <th>Aanbieding</th>
+                <th>Maat</th>
+                <th>Type</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.productenOverzicht.Count; i++)
+            {
+                <tr> 
+                    <td>@Model.productenOverzicht[i].productNaam</td>
+                    <td>@Model.productenOverzicht[i].productMerk</td>
+                    <td>@Model.productenOverzicht[i].productInkoopprijs</td>
+                    <td>@Model.productenOverzicht[i].productVerkoopprijs</td>
+                    <td>@Model.productenOverzicht[i].productVoorraad</td>
+                    <td>@Model.productenOverzicht[i].productAanbiedingsnaam</td>
+                    <td>Alle</td>
+                    <td>@Model.productenOverzicht[i].productType</td>
+                    <td>@Html.ActionLink("Wijzigen", "WijzigenProduct", new { productcode = @Model.productenOverzicht[i].productCode })</td>
+                    <td>@Html.ActionLink("Verwijderen", "VerwijderProduct", new { productcode = @Model.productenOverzicht[i].productCode }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    
+    
+   <h2>Links naar andere pagina's</h2>
+<table>
+    <tr> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("Nieuw product toevoegen", "NieuwProduct", "Home")</td>  
+    </tr>
+</table>
+    
+}
+           </div> 
+       </div>
+
+       <div class="tab">
+           <input type="radio" id="tab-4" name="tab-group-1">
+           <label for="tab-4">Aanbiedingen</label>
+            
+           <div class="content">
+           @if (Model != null)
+            {
+                <table id="hor-minimalist-b">
+                    <thead>
+    	                <tr>
+							<th>Naam</th>
+        	                <th>Kortingspercentage</th>
+                            <th>Geldig tot</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.aanbiedingOverzicht.Count; i++)
+                        {
+                            <tr> 
+								<td>@Model.aanbiedingOverzicht[i].naam </td>
+                                <td>@Model.aanbiedingOverzicht[i].kortingspercentage %</td>
+                                <td>@Model.aanbiedingOverzicht[i].geldig_tot</td>
+                                <td>@Html.ActionLink("wijzig", "WijzigAanbieding", new { aanbiedingscode = @Model.aanbiedingOverzicht[i].aanbiedingscode })</td>
+                                <td>@Html.ActionLink("verwijder", "VerwijderAanbieding", new { aanbiedingscode = @Model.aanbiedingOverzicht[i].aanbiedingscode }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+
+                <h2>Nieuwe aanbieding toevoegen</h2>
+                <p>@Html.ActionLink("Nieuwe Aanbieding", "NewAanbieding", "Home")</p>
+           </div> 
+       </div>
+
+	   <div class="tab">
+           <input type="radio" id="tab-5" name="tab-group-1">
+           <label for="tab-5">Categorieën</label>
+            
+           <div class="content">
+		   
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Sport</th>
+                <th>Product</th>
+                <th>Type</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.categorieOverzicht.Count; i++)
+            {
+                <tr> 
+                    <td>@Model.categorieOverzicht[i].sportnaam</td>
+                    <td>@Model.categorieOverzicht[i].productnaam</td>
+                    <td>@Model.categorieOverzicht[i].type</td>
+                    <td>@Html.ActionLink("wijzig", "WijzigCategorie", new { categorie_id = @Model.categorieOverzicht[i].id })</td>
+                    <td>@Html.ActionLink("verwijder", "VerwijderCategorie", new { categorie_id = @Model.categorieOverzicht[i].id }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>Nieuwe categorie toevoegen</h2>
+<p>@Html.ActionLink("Nieuwe Categorie", "NewCategorie", "Home")</p>
+ 
+           </div> 
+       </div>
+       <div class="tab">
+           <input type="radio" id="tab-6" name="tab-group-1">
+           <label for="tab-6">Sporten</label>
+            
+           <div class="content">
+           @if (Model != null)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Sportnaam</th>
+                            <th>Type sport</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.sportoverzicht.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.sportoverzicht[i].naam</td>
+                                <td>@Model.sportoverzicht[i].type</td>
+                                <td>@Html.ActionLink("Wijzigen", "WijzigenSport", new { sportcode = @Model.sportoverzicht[i].sportcode })</td>
+                                <td>@Html.ActionLink("Verwijderen", "VerwijderSport", new { sportcode = Model.sportoverzicht[i].sportcode }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+               <h2>Links naar andere pagina's</h2>
+                <table>
+                    <tr> 
+                        <!--referentie(link) aanmaken met een Razor helper-->
+                        <td>@Html.ActionLink("Nieuwe Sport toevoegen", "NieuwSport", "Home")</td>  
+                    </tr>
+                </table>
+            }
+           </div> 
+</div>

@@ -1,0 +1,106 @@
+﻿@model List<IntoSport.Models.Producten>
+@{
+    ViewBag.Title = "Zoekresultaten";
+}
+<h2>Zoekresultaten</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <div id="artikel-box-wrapper">
+        @for (int i = 0; i < Model.Count; i++)
+        {
+<div class="artikel-foto">
+                <img class="boxModelFoto" src="http://avantisport.nl/image/product/none/Brunotti-Jethros-Women's-Jacket-112222520-000.jpg" />
+            </div>
+            <div class="artikel-header">
+                <table>
+                    <tbody>
+                        <tr>
+							<td>
+								Naam:
+							</td>
+                            <td>
+                                @Model[i].productNaam
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								Voorraad:
+							</td>
+                            <td>
+                                @Model[i].productVoorraad
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								Merk:
+							</td>
+                            <td>
+                                @Model[i].productMerk
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								Type:
+							</td>
+                            <td>
+                                @Model[i].productType
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								Maat:
+							</td>
+                            <td>
+							<!-- ATTENTIE: Placeholder -->
+                                <select name="Maten">
+									<option value="XS">XS</option>
+									<option value="S">S</option>
+									<option value="M">M</option>
+									<option value="L">L</option>
+									<option value="XL">XL</option>
+									<option value="2XL">2XL</option>
+									<option value="3XL">3XL</option>
+								</select>
+                                @*@Html.DropDownListFor(model => Model.SelectedMaat, Model.Maten)*@
+                            </td>
+                        </tr>
+                        <tr>
+							<td>
+								Omschrijving:
+							</td>
+                            <td>
+                                @Model[i].productOmschrijving
+                            </td>
+                            <td>
+                                @Model[i].productVerkoopprijs,-
+                            </td>
+                        </tr>
+						<tr>
+							<td>
+								<p>
+                                    @Html.ActionLink("Bestellen", "AddToCart", new { id = Model[i].productCode }, new { @class = "bestellen" })
+                                </p>
+							</td>
+						</tr>
+                    </tbody>
+                </table>
+            </div>
+        }
+    </div>
+}
+else
+{
+    <h3> Er Zijn geen producten gevonden</h3>
+    
+    <table>
+    <tr> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("Terug naar Zoeken", "ZoekProduct", "Home")</td>  
+    </tr>
+</table>
+    
+    
+}

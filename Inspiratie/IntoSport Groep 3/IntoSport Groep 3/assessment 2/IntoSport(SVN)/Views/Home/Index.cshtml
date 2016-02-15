@@ -1,0 +1,146 @@
+﻿@model IntoSport.Models.ProductSportViewModel
+@{
+    ViewBag.Title = "Home";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<img src="http://i.imgur.com/dJw0q6A.png" />
+<header id="art-content-header">
+                </header>
+<!-- ATTENTIE: Dropdown nodig, maar niet mogelijk.
+				<ul class="dropdown">
+				  <li>
+					Producten
+					<ul>
+					@if (Model != null)
+     {
+         for (int i = 0; i < Model.sporten.Count; i++)
+         {
+							<li>@Html.ActionLink(@Model.sporten[i].naam, "ZoekCategorie", new { sport = @Model.sporten[i].sportcode }, "Home")</li>
+         }
+     }
+					</ul>
+				  </li>
+				</ul>-->
+</br></br>
+<form method="post" action="/Home/Zoekresultaten/">
+<div class="myNameIsBoxxy">
+    <div class="fieldName">
+        Zoeken
+    </div>
+    <input type="text" id="loginAccount" maxlength="40" placeholder="Zoek naar een product"
+        name="Zoekresultaten" />
+</div>
+<div class="myNameIsBoxxy">
+    <div class="fieldName">
+        Categorie
+    </div>
+    <select name="Categorie" id="selectWrapper">
+        <option value="naam">Productnaam</option>
+        <option value="merk">Merk Product</option>
+        <option value="producttype">Type Product</option>
+        <option value="omschrijving">Omschijving Product</option>
+        <option value="verkoopprijs">Prijs Product</option>
+        <option value="voorraad">Voorraad Product</option>
+    </select>
+</div>
+<div class="boxButton">
+    <input type="submit" value="Zoeken" />
+</div>
+</form>
+</br></br>
+<div id="manager-left-content">
+</div>
+<div id="manager-right-content">
+</div>
+<div id="artikel-box-wrapper">
+    <!-- TODO: MAKE THIS A FEATURE, ONLY TO CALL 4 TIMES.-->
+    @if (Model != null)
+    {
+        for (int i = 0; i < Model.producten.Count; i++)
+        {
+            using (Html.BeginForm("AddToCart", "Home", new { id = Model.producten[i].productCode }))
+            {
+        <div class="artikel-foto">
+            <img class="boxModelFoto" src="http://avantisport.nl/image/product/none/Brunotti-Jethros-Women's-Jacket-112222520-000.jpg" />
+        </div>
+        <div class="artikel-header">
+            <table width="600px">
+                <tbody>
+                    <tr>
+                        <td>
+                            Naam:
+                        </td>
+                        <td>
+                            @Model.producten[i].productNaam
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Voorraad:
+                        </td>
+                        <td>
+                            @Model.producten[i].productVoorraad
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Merk:
+                        </td>
+                        <td>
+                            @Model.producten[i].productMerk
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Type:
+                        </td>
+                        <td>
+                            @Model.producten[i].productType
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Maat:
+                        </td>
+                        <td>
+                            @Html.DropDownListFor(model => model.selectedMaatID, Model.maat)
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Kleur:
+                        </td>
+                        <td>
+                            <select name="Kleur">
+                                <option selected="selected" value="Zwart">Zwart</option>
+                                <option value="Wit">Wit</option>
+                                <option value="Rood">Rood</option>
+                                <option value="Groen">Groen</option>
+                                <option value="Blauw">Blauw</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            Omschrijving:
+                        </td>
+                        <td>
+                            @Model.producten[i].productOmschrijving
+                        </td>
+                        <td>
+                            @Model.producten[i].productVerkoopprijs,-
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <input type="submit" class="bestellen" name="submit" value="Bestellen" />
+                            <!--@Html.ActionLink("Bestellen", "AddToCart", new { id = Model.producten[i].productCode }, new { @class = "bestellen" })-->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+            }
+        }
+    }
+</div>

@@ -1,0 +1,32 @@
+﻿@model IntoSport.Models.Sport
+           
+@{
+    ViewBag.Title = "Nieuwe Sport toevoegen";
+}
+<h2> Nieuwe sport toevoegen</h2>
+           @using (Html.BeginForm("NieuwSport", "Home"))
+           {
+               @Html.ValidationSummary(true)
+               <fieldset>
+                <legend>Sport Toevoegen</legend>
+
+                <div class = "editor-label">Sport Naam</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.naam)
+                @Html.ValidationMessageFor(model => model.naam)</div>
+
+
+                <div class = "editor-label">Type (Binnen, Buiten of iets anders)</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.type)
+                @Html.ValidationMessageFor(model => model.type)</div>
+
+                <p>
+                    <input type="submit" value = "Toevoegen Sport" />
+                </p>
+
+               </fieldset>
+               
+           }

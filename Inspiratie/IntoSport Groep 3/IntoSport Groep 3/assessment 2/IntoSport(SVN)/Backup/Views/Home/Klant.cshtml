@@ -1,0 +1,85 @@
+﻿@model IntoSport.Models.KlantViewModel
+
+@{
+    ViewBag.Title = "Klant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Klant</h2>
+<header id="art-content-header">
+</header>
+
+Hi, @User.Identity.Name;
+@if (@ViewBag.FoutMelding != null)
+{
+<span style="color:Red">@ViewBag.FoutMelding</span>
+}
+@if (@ViewBag.Wijziging != null)
+{
+    <span style="color: Green">@ViewBag.Wijziging</span>
+}
+<div class="tabs">
+    
+       <div class="tab">
+           <input type="radio" id="tab-1" name="tab-group-1" checked>
+           <label for="tab-1">Uw gegevens</label>
+
+           <div class="content">
+           @if (Model != null)
+            {
+                <table>
+                    <tbody>
+                        @for (int i = 0; i < Model.klantOverzicht.Count; i++)
+                        {
+                            <tr>
+                                <td><b>Naam</b></td><td>@Model.klantOverzicht[i].Naam</td>
+                            <tr>
+                                <td><b>Adres</b></td><td>@Model.klantOverzicht[i].Adres</td>
+                            </tr>
+                            <tr><td><b>Woonplaats</b></td><td>@Model.klantOverzicht[i].Woonplaats</td></tr>
+                            <tr><td><b>Telefoonnummer</b></td><td>@Model.klantOverzicht[i].Telefoonnummer</td></tr>
+                            <tr><td><b>Email</b></td><td>@Model.klantOverzicht[i].Email</td></tr>
+                                <td>@Html.ActionLink("Gegevens Wijzigen", "WijzigKlant", new { klantId = Model.klantOverzicht[i].Id })</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+           </div>
+       </div>
+    
+       <div class="tab">
+           <input type="radio" id="tab-2" name="tab-group-1">
+           <label for="tab-2">Uw bestellingen</label>
+            
+           <div class="content">
+            @if (Model != null)
+            {
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Product Naam</th>
+                            <th>Totaal Bedrag</th>
+                            <th>Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @for (int i = 0; i < Model.bestellingOverzicht.Count; i++)
+                        {
+                            <tr>
+                                <td>@Model.bestellingOverzicht[i].Naam</td>
+                                <td>@Model.bestellingOverzicht[i].Totaal</td>
+                                <td>@Model.bestellingOverzicht[i].Status</td>
+                                @if (!@Model.bestellingOverzicht[i].Status.Equals("Geannulleerd"))
+                                {
+                                    <td>@Html.ActionLink("Annuleren", "AnnulerenBestelling", new { bestellingscode = @Model.bestellingOverzicht[i].FactuurCode }, new { onclick = "return confirm('Weet u zeker dat u dit wilt annuleren?')" })</td>
+                                }
+                                
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+           </div> 
+       </div>
+</div>

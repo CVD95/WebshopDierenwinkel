@@ -1,0 +1,60 @@
+﻿@model List<Webshop.Models.Product>
+@{
+    ViewBag.Title = "Beheerder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="main">
+    <div class="content">
+        @if (@ViewBag.Error != null)
+        {
+            <span style="color:red">@ViewBag.Error</span>
+        }
+        @if (Model != null)
+        {
+            <table id="hor-minimalist-b" style="border-collapse: separate; border-spacing: 5px;">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Productnaam</th>
+                        <th>Productbeschrijving</th>
+                        <th>Prijs</th>
+                        <th>Inkoopprijs</th>
+                        <th>Voorraad</th>
+                        <th>Categorie</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Webshop.Models.Product product in Model)
+                {
+                        <tr>
+                            <td>@product.Id</td>
+                            <td>@product.ProductName</td>
+                            <td>@product.ProductDescription</td>
+                            <td>@product.Price</td>
+                            <td>@product.BuyPrice</td>
+                            <td>@product.Stock</td>
+                            <td>@product.Category.Name</td>
+
+
+                            <td>@Html.ActionLink("Wijzigen", "Change_Product", new { productId = product.Id })</td>
+                            <td>@Html.ActionLink("Verwijderen", "DeleteProduct", new { productId = product.Id }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+
+
+            <h2>Product aanmaken.</h2>
+            <table>
+                <tr>
+                    <!--referentie(link) aanmaken met een Razor helper-->
+                    <td>@Html.ActionLink("Nieuw product toevoegen", "add_product", "Home")</td>
+                </tr>
+            </table>
+
+        }
+    </div>
+</div>

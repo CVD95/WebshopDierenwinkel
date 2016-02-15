@@ -1,0 +1,37 @@
+﻿@model WorkshopASPNETMVC_III_Start.Models.Evenement
+
+@{
+    ViewBag.Title = "Wijzig Evenement";
+}
+<h2>Nieuw evenement</h2>
+<form method="post" action="/Evenement/WijzigEvenement/">   
+    <fieldset>
+        <legend>Evenement</legend>
+
+        <input type="hidden" value="@Model.ID" name="id" />
+        <div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+            <input type="text" value="@Model.Naam" name="naam" />
+        </div>
+
+        <div class="editor-label">
+           Lokatie(Bredewater, InnovatieFabriek of DenHaag)
+        </div>
+        <div class="editor-field">
+           <input type="text" value="@Model.Lokatie" name="lokatie" />
+        </div>
+
+         <div class="editor-label">
+            Datum (dd-mm-yyyy hh-mm-ss)
+        </div>
+        <div class="editor-field">
+           <input type="text" value="@Model.Datum"name="datum" />
+        </div>
+
+        <p>
+            <input type="submit" value="Wijzig" />
+        </p>
+    </fieldset>
+</form>

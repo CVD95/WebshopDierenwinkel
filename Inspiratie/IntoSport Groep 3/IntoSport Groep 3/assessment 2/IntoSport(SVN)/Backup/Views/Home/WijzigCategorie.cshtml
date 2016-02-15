@@ -1,0 +1,57 @@
+﻿@model IntoSport.Models.BeheerderViewModel
+
+@{
+    ViewBag.Title = "WijzigCategorie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WijzigCategorie</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+
+@using (Html.BeginForm("WijzigCategorie", "Home"))
+           {
+	<form method="post" action="/Home/WijzigCategorie">   
+		<fieldset>
+			<legend>Categorie</legend>
+
+
+
+			<div class="editor-field">
+				@Html.HiddenFor(model => model.categorie.id)
+			</div>
+
+			<div class="editor-label">
+			   Sport
+			</div>
+			<div class="editor-field">
+            @Html.DropDownListFor(model => model.SelectedSportID, Model.sport)
+            @Html.ValidationMessageFor(model => model.SelectedSportID)
+			</div>
+
+			<div class="editor-label">
+			   Product
+			</div>
+			<div class="editor-field">
+            @Html.DropDownListFor(model => model.SelectedproductID, Model.product)
+            @Html.ValidationMessageFor(model => model.SelectedproductID)
+			</div>
+
+			 <div class="editor-label">
+			   Type
+			</div>
+			<div class="editor-field">
+				@Html.TextBoxFor(model => Model.categorie.type)
+				@Html.ValidationMessageFor(model => Model.categorie.type)
+			</div>
+
+			<p>
+				<input type="submit" value="Wijzig" />
+			</p>
+		</fieldset>
+	</form>
+}

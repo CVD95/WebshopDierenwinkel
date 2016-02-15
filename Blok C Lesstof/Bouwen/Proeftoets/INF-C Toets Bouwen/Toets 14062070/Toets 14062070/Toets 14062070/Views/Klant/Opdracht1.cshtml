@@ -1,0 +1,39 @@
+﻿<h2>Evenementen</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>beschrijving</th>
+                <th>Woonplaats</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr> 
+                    <td</td>
+                    <td>@Model[i].Naam</td>
+                    <td>@Model[i].Woonplaats</td>
+                    <td>@Model[i].Geboortedatum</td>
+
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <h2>Nieuwe genre toevoegen</h2>
+<table>
+    <tr> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("New Klant", "KlantInvullen", "Klant")</td>  
+    </tr>
+</table>
+    
+    
+}

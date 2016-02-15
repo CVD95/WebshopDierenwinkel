@@ -1,0 +1,101 @@
+﻿@model Webshop.Models.User
+
+@{
+    Layout = "~/Views/Shared/_SmallViewStart.cshtml";
+}
+
+@{
+    ViewBag.Title = "Registreren";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h1>Registreren</h1>
+<header id="art-content-header"></header>
+
+@using (Html.BeginForm("Register", "Home"))
+{
+    <span style="color:red">@Html.ValidationMessage("registratiefout")</span>
+
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Gebruikersnaam:
+        </div>
+        @Html.TextBoxFor(Model => Model.Username, new { placeholder = "Uw gebruikersnaam", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Username)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Wachtwoord:
+        </div>
+        @Html.TextBoxFor(Model => Model.Password, new { type = "password", placeholder = "●●●●●●●●●●●", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Password)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="myNameIsBoxxy">
+            <div class="fieldName">
+                Naam:
+            </div>
+            @Html.TextBoxFor(Model => Model.FirstName, new { placeholder = "Voornaam", id = "loginAccount" })
+            @Html.ValidationMessageFor(Model => Model.FirstName)
+
+            @Html.TextBoxFor(Model => Model.LastName, new { placeholder = "Achternaam", id = "loginAccount" })
+            @Html.ValidationMessageFor(Model => Model.LastName)
+        </div>
+
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Geboortedatum:
+        </div>
+        @Html.TextBoxFor(model => model.dateTimeString, new { placeholder = "MM-DD-YYYY", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.DateOfBirth)
+    </div>
+    <div class="myNameIsBoxxy">
+
+        <div class="fieldName">
+            email:
+        </div>
+        @Html.TextBoxFor(Model => Model.Email, new { placeholder = "email@example.com", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Email)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Woonplaats:
+        </div>
+        @Html.TextBoxFor(Model => Model.Address.City, new { placeholder = "Utrecht", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Address.City)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Straat:
+        </div>
+        @Html.TextBoxFor(Model => Model.Address.Street, new { placeholder = "Wilhelminaplein", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Address.Street)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Huisnummer + toevoeging:
+        </div>
+        @Html.TextBoxFor(model => Model.Address.HouseNumber, new { placeholder = "10", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Address.HouseNumber)
+
+        @Html.TextBoxFor(model => model.Address.Suffix, new { placeholder = "b", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Address.Suffix)
+    </div>
+    <div class="myNameIsBoxxy">
+        <div class="fieldName">
+            Postcode:
+        </div>
+        @Html.TextBoxFor(model => model.Address.PostalCode, new { placeholder = "1111AA", id = "loginAccount" })
+        @Html.ValidationMessageFor(Model => Model.Address.PostalCode)
+    </div>
+    
+    <table class="boxButtonWrapper">
+        <tr>
+            <td>
+                <div class="boxButton">
+                    <input type="submit" value="Registreer" />
+                </div>
+            </td>
+        </tr>
+    </table>
+}

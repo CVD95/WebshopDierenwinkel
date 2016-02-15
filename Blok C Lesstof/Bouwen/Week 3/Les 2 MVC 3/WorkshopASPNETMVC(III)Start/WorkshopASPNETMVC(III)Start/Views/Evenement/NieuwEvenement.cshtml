@@ -1,0 +1,37 @@
+﻿@{
+    ViewBag.Title = "Nieuw Evenement";
+    Layout = "";
+}
+
+
+<h2>Nieuw evenement</h2>
+<form method="post" action="/Evenement/NieuwEvenement/">   
+    <fieldset>
+        <legend>Evenement</legend>
+
+        <div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+            <input type="text" name="naam" />
+        </div>
+
+        <div class="editor-label">
+           Lokatie(Bredewater, InnovatieFabriek of DenHaag)
+        </div>
+        <div class="editor-field">
+           <input type="text" name="lokatie" />
+        </div>
+
+         <div class="editor-label">
+           Datum (dd-mm-yyyy hh:mm:ss)
+        </div>
+        <div class="editor-field">
+           <input type="text" name="datum" />
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+</form>

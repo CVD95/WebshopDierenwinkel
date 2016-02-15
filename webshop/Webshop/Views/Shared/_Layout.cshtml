@@ -1,0 +1,269 @@
+﻿@using Webshop;
+@using Webshop.Models;
+@using Webshop.Enums;
+@{Session s = (Session)HttpContext.Current.Session["__MySessionObject"]; }
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Webshop Mijn Dieren Winkel</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link href="@Url.Content("~/Content/style.css")" rel="stylesheet" type="text/css" media="all" />
+    <link href="@Url.Content("~/Content/slider.css")" rel="stylesheet" type="text/css" media="all" />
+    <script type="text/javascript" src="@Url.Content("~/Scripts/jquery-1.7.2.min.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/move-top.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/easing.js")"></script>
+    <script type="text/javascript" src="@Url.Content("~/Scripts/startstop-slider.js")"></script>
+</head>
+<body>
+    <div class="wrap">
+        <div class="header">
+            <div class="headertop_desc">
+                <div class="call">
+                    <p>
+                        <span>Hulp nodig?</span> Bel ons <span class="number">06-245684732</span></span>
+                    </p>
+                </div>
+                <div class="account_desc">
+                    <ul>
+                        @if (s != null && s.LoggedIn == true)
+                        {
+                            if (s.User.Role == Webshop.Enums.UserRole.ADMIN)
+                            {
+                                <li>
+                                    Producten
+                                    <ul class="dropdown">
+                                        <li>@Html.ActionLink("Producten overzicht", "Product", "Home")</li>
+                                        <li>@Html.ActionLink("Producten Toevoegen", "Add_Product", "Home")</li>
+                                    </ul>
+                                </li>
+                                
+                            }
+                            <li>@Html.ActionLink("Uitloggen", "Logout", "Home")</li>
+
+                           <li>@Html.ActionLink("Mijn account", "Account", "Home")</li>
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Registreren", "Register", "Home")</li>
+                            <li>@Html.ActionLink("Inloggen", "Login", "Home")</li>
+                        }
+                    </ul>
+                </div>
+                <div class="clear">
+                </div>
+            </div>
+            <div class="header_top">
+                <div class="logo">
+                    <a href="@Url.Content("~/Home/index")">
+                        <img src="@Url.Content("~/Content/images/logo.png")" alt="logo" />
+                    </a>
+                    <h2> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp <b>MijnDierenWinkel.nl</b></h2>
+                </div>
+                <div class="cart">
+                    @{
+                        int? Count = null;
+                        decimal? Total = null;
+                    }
+                    @if (s != null)
+                    {
+                        Total = s.CartModel.TotalCost;
+                        Count = s.CartModel.Items.Count;
+                    }
+                    <p> 
+                        Welkom bij Mijn Dieren Winkel!  <span>@Html.ActionLink("Winkelwagen", "Shoppingbag", "Home"):</span><div id="dd" class="wrapper-dropdown-2">
+
+                            @if (Count != null)
+                            {
+                                ((int)Count).ToString();
+                            }
+                            else
+                            {
+                                @Html.Raw("0");
+                            } voorwerp(en) - €
+                            @if (Count != null)
+                            {
+                                ((decimal)Count).ToString("#.##");
+                            }
+                            else {
+                                @Html.Raw("0,00");
+                            }
+
+                            <ul class="dropdown">
+                                @if (s != null && s.CartModel != null && s.CartModel.TotalDifferentItems > 0)
+                                {
+                                    CartModel cartmodel = s.CartModel;
+                                    for (int i = 0; i < cartmodel.TotalDifferentItems; i++)
+                                    {
+                                        <li>
+<p>Html.ActionLink(cartmodel.Items.ElementAt(i).Product.productName, "Preview", cartmodel.Items.ElementAt(i).Product) cartmodel.Items.ElemetAt(i).Count</p>
+                                        </li>
+
+                                    }
+                                }
+                                else
+                                {
+                                    <li>U heeft geen voorwerpen in uw winkelwagen</li>
+                                }
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <script type="text/javascript">
+                            function DropDown(el) {
+                                this.dd = el;
+                                this.initEvents();
+                            }
+                            DropDown.prototype = {
+                                initEvents: function () {
+                                    var obj = this;
+
+                                    obj.dd.on('click', function (event) {
+                                        $(this).toggleClass('active');
+                                        event.stopPropagation();
+                                    });
+                                }
+                            }
+
+                            $(function () {
+
+                                var dd = new DropDown($('#dd'));
+
+                                $(document).click(function () {
+                                    // all dropdowns
+                                    $('.wrapper-dropdown-2').removeClass('active');
+                                });
+
+                            });
+
+                        </script>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="header_bottom"> 
+                        <div class="menu">
+                            <ul>
+                                @if (ViewBag.Active == "index")
+                                {
+                                    <li class="active">@Html.ActionLink("Home", "Index", "Home")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                                }
+                                @if (@ViewBag.Active == "about")
+                                {
+                                    <li class="active">@Html.ActionLink("Over ons", "About", "Home")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Over ons", "About", "Home")</li>
+                                }
+                                @if (@ViewBag.Active == "news")
+                                {
+                                    <li class="active">@Html.ActionLink("Nieuws", "News", "Home")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Nieuws", "News", "Home")</li>
+                                }
+                                @if (@ViewBag.Active == "contact")
+                                {
+                                    <li class="active">@Html.ActionLink("Klantenservice", "Contact", "Home")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Klantenservice", "Contact", "Home")</li>
+                                }
+                                <div class="clear">
+                                </div>
+                            </ul>
+                        </div>
+                        <div class="search_box">
+                            <form method="get" action="/Home/Search_Result/">
+                                <input type="text" value="Search" name="Search" onfocus="this.value = '';" onblur="if (this.value == '') {this.value = 'Search';}"><input type="submit">
+                            </form>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+                @RenderBody()
+                <div class="footer">
+                    <div class="wrap">
+                        <div class="section group">
+                            <div class="col_1_of_4 span_1_of_4">
+                                <h4>Informatie</h4>
+                                <ul>
+                                    <li>@Html.ActionLink("Over ons", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Klantenservice", "Contact", "Home")</li>
+                                    <li>@Html.ActionLink("Producten", "Products", "Home")</li>
+                                    <li>@Html.ActionLink("FAQ", "FAQ", "Home")</li>
+                                </ul>
+                            </div>
+                            <div class="col_1_of_4 span_1_of_4">
+                                <h4>Waarom zou u een product van ons kopen?</h4>
+                                <ul>
+                                    <li>@Html.ActionLink("Over ons", "About", "Home")</li>
+                                    <li>@Html.ActionLink("Klantenservice", "Contact", "Home")</li>
+                                    <li>@Html.ActionLink("Aanbiedingen", "Deals", "Home")</li>
+                                    <li>@Html.ActionLink("Nieuws", "News", "Home")</li>
+                                </ul>
+                            </div>
+                            <div class="col_1_of_4 span_1_of_4">
+                                <h4>Mijn Account</h4>
+                                <ul>
+                                    @if (s != null && s.LoggedIn == true)
+                                    {
+                                        if (s.User.Role == Webshop.Enums.UserRole.MANAGER)
+                                        {
+                                        <li>@Html.ActionLink("Product Toevoegen", "Add_Product", "Home")</li>
+                                        }
+                                        <li>@Html.ActionLink("Bekijk winkelmand", "Shoppingbag", "Home")</li>
+                                        <li>@Html.ActionLink("Bestllingen", "Orders", "Home")</li>
+                                        <li>@Html.ActionLink("Help", "Help", "Home")</li>
+                                        <li>@Html.ActionLink("Uitloggen", "Logout", "Home")</li>
+                                    }
+                                    else
+                                    {
+                                        <li>@Html.ActionLink("Registreren", "Register", "Home")</li>
+                                        <li>@Html.ActionLink("Inloggen", "Login", "Home")</li>
+                                    }
+                                </ul>
+                            </div>
+                            <div class="col_1_of_4 span_1_of_4">
+                                <h4>Telefoonnummer:</h4>
+                                <ul>
+                                    <li><span>+31-847-246-66</span></li>
+                                    <li><span>+31-246-248-33</span></li>
+                                </ul>
+                                <div class="social-icons">
+                                    <h4>Mijn dierenwinkel volgen</h4>
+                                    <ul>
+                                        <li><a href="#" target="_blank"><img src="@Url.Content("~/Content/images/facebook.png")" alt="Naar Facebook!" /></a></li>
+                                        <li><a href="#" target="_blank"><img src="@Url.Content("~/Content/images/twitter.png")" alt="Naar  Twittter!" /></a></li>
+                                        <li><a href="#" target="_blank"><img src="@Url.Content("~/Content/images/dribble.png")" alt="Naar Dribble!" /></a></li>
+                                        <li><a href="#" target="_blank"><img src="@Url.Content("~/Content/images/linkedin.png")" alt="Naar Linkedin!" /></a></li>
+                                        <li><a href="#" target="_blank"><img src="@Url.Content("~/Content/images/facebook.png")" alt="Naar Facebook!" /></a></li>>
+                                        <div class="clear"></div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="copy_right">
+                        <p>
+                            Mijn Dierenwinkel 2015-2016©
+                        </p>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $().UItoTop({ easingType: 'easeOutQuart' });
+
+                    });
+                </script>
+                <a href="#" id="toTop"><span id="toTopHover"></span></a>
+            </body>
+        </html>

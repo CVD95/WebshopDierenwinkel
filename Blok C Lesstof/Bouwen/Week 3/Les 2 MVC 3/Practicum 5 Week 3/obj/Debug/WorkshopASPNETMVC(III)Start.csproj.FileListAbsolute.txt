@@ -1,0 +1,20 @@
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\bin\WorkshopASPNETMVC(II)Start.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\bin\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\bin\EntityFramework.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\bin\EntityFramework.xml
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\obj\Debug\WorkshopASPNETMVC(II)Start.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(III)Start\obj\Debug\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\obj\Debug\WorkshopASPNETMVC(III)Start.csprojResolveAssemblyReference.cache
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\obj\Debug\WorkshopASPNETMVC(II)Start.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\obj\Debug\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\bin\WorkshopASPNETMVC(II)Start.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\bin\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\bin\MySql.Data.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\WorkshopASPNETMVC(III)Start\WorkshopASPNETMVC(III)Start\bin\EntityFramework.xml
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\bin\WorkshopASPNETMVC(II)Start.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\bin\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\bin\EntityFramework.xml
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\obj\Debug\WorkshopASPNETMVC(III)Start.csprojResolveAssemblyReference.cache
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\obj\Debug\WorkshopASPNETMVC(II)Start.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 3\Les 2 MVC 3\Practicum 5 Week 3\obj\Debug\WorkshopASPNETMVC(II)Start.pdb

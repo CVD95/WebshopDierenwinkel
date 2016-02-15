@@ -1,0 +1,42 @@
+﻿@model List<WorkshopASPNETMVC_III_Start.Models.Student>
+@{
+    ViewBag.Title = "Studenten";
+}
+<h2>Studenten</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>Geboortedatum</th>
+                <th>Studiepunten</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr> 
+                    <td>@Model[i].Naam</td>
+                    <td>@Model[i].StudiePunten</td>
+                    <td>@Model[i].GeboorteDatum</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <h2>Nieuwe Student toevoegen</h2>
+<table>
+    <tr> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("Nieuwe student toevoegen", "Toevoegen", "Student")</td>  
+    </tr>
+</table>
+    
+    
+}

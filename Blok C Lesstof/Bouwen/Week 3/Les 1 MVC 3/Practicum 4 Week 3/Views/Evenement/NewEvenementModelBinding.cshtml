@@ -1,0 +1,35 @@
+﻿@{
+    ViewBag.Title = "New Evenement (Model binding)";
+}
+<h2>New Evenement (Model binding)</h2>
+<form method="post" action="/Evenement/CreateEvenementModelBinding/">   
+    <fieldset>
+        <legend>Evenement</legend>
+
+        <div class="editor-label">
+           Naam Evenement
+        </div>
+        <div class="editor-field">
+            <input type="text" name="naam" />
+        </div>
+
+              <div class="editor-label">
+           Lokatie ('Innovatiefabriek','Bredewater','DenHaag')
+        </div>
+        <div class="editor-field">
+            <input type="text" name="lokatie" />
+        </div>
+
+              <div class="editor-label">
+           datum( Jaar-MM-DD HH:MM:DD )
+        </div>
+        <div class="editor-field">
+            <input type="text" name="datum" />
+        </div>
+
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+</form>
+

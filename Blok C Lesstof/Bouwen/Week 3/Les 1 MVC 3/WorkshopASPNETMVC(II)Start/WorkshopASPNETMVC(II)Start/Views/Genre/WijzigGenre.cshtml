@@ -1,0 +1,36 @@
+﻿@model WorkshopASPNETMVC_II_Start.Models.Genre
+
+@{
+    ViewBag.Title = "WijzigGenre";
+}
+
+<form method="post" action="/Genre/WijzigGenre/">   
+    <fieldset>
+        <legend>Genre</legend>
+
+        <input type="hidden" value="@Model.ID" name="id" />
+        <div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+            <input type="text" value="@Model.Naam" name="naam" />
+        </div>
+        <div class="editor-label">
+           Verslavend
+        </div>
+        <div class="editor-field">
+            @if (@Model.Verslavend)
+            {
+                <input checked="checked" type="checkbox"  name="Verslavend"  value="true" />
+            }
+            else
+            {
+                <input type="checkbox" name="Verslavend" value="true" />
+            }
+            <input type="hidden" value="false" name="Verslavend"/>
+         </div>
+        <p>
+            <input type="submit" value="Wijzig" />
+        </p>
+    </fieldset>
+</form>

@@ -1,0 +1,56 @@
+
+#slider { 
+	border:1px solid #EEE;
+ }								  
+.slide { 
+	    padding:4%; 
+	    width:92%; 
+	    text-align:center;
+ }
+ .slider-img{
+ 	text-align:center;
+ }
+.slide h1{ 
+	   font-size:1em; 
+	   font-weight:bold;
+	   color:#CD1F25; 
+	   text-transform:uppercase;
+ }
+ .slide h1 span{
+ 	font-size:3em;
+ }
+ .slide h2{ 
+ 	font-size:1.2em;
+ 	color:#999;
+ }
+  .slide h2 span{ 
+  	color:#CD1F25;
+  	font-size:1.5em; 
+ }
+ .slide h3{ 
+	   font-size:1em; 
+	   color: #999;  
+	   text-transform:uppercase;
+	   padding-top:10px; 
+ }
+ .features_list{
+	padding-top:5px;
+}
+.features_list h4{	  
+	   font-size:0.8em; 
+	   color:#222;
+	   line-height:1.8em;
+}
+.button {
+	font-size:0.8em;
+	padding:8px 15px;
+	margin-top:10px;
+	display: inline-block;
+	background:#CD1F25;
+	color: #FFF;
+	text-decoration: none;
+	outline: 0;
+}
+.button:hover {
+	background:#222;
+}

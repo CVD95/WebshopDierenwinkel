@@ -1,0 +1,7 @@
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\bin\WorkshopASPNETMVC(II)Start.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\bin\WorkshopASPNETMVC(II)Start.pdb
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\bin\EntityFramework.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\bin\EntityFramework.xml
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\obj\Debug\ResolveAssemblyReference.cache
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\obj\Debug\WorkshopASPNETMVC(II)Start.dll
+C:\Users\rplruijs\Documents\Visual Studio 2010\Projects\Cblok\WorkshopASPNETMVC(II)Start\obj\Debug\WorkshopASPNETMVC(II)Start.pdb

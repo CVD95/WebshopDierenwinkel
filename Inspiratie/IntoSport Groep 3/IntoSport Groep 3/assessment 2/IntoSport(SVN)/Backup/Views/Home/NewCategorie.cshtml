@@ -1,0 +1,59 @@
+﻿@model IntoSport.Models.BeheerderViewModel
+
+@{
+    ViewBag.Title = "NewCategorie";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>NewCategorie</h2>
+<header id="art-content-header">
+</header>
+
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+
+
+
+@using (Html.BeginForm("NewCategorie", "Home"))
+{
+
+@Html.ValidationSummary(true)
+          
+    <fieldset>
+        <legend>Categorie toevoegen</legend>
+
+        <div class="editor-label">
+           Sport
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.SelectedSportID, Model.sport)
+            @Html.ValidationMessageFor(model => model.SelectedSportID)
+        </div>
+
+        <div class="editor-label">
+           Product
+        </div>
+
+               <div class="editor-field">
+           
+            @Html.DropDownListFor(model => model.SelectedproductID, Model.product)
+            @Html.ValidationMessageFor(model => model.SelectedproductID)
+        </div>           
+
+         <div class="editor-label">
+           Type (Binnen, Buiten of iets anders)
+        </div>
+        <div class="editor-field">
+           
+            @Html.TextBoxFor(model => Model.categorie.type)
+            @Html.ValidationMessageFor(model => Model.categorie.type)
+        </div>
+
+        <p>
+            <input type="submit" value="Voeg Categorie toe" />
+        </p>
+    </fieldset>
+            
+}

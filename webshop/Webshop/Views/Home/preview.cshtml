@@ -1,0 +1,161 @@
+﻿@model Webshop.Models.Product
+
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="back-links">
+                <p><a href="index.html">Home</a> >>>> <a href="#">Homepagina MijnDierenWinkel</a></p>
+            </div>
+            <div class="clear"></div>
+        </div>
+        <div class="section group">
+            <div class="cont-desc span_1_of_2">
+                <div class="product-details">
+                    <div class="grid images_3_of_2">
+                        <div id="container">
+                            <div id="products_example">
+                                <div id="products">
+                                    <div class="slides_container">
+                                        <a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/rodetas.jpg")" alt="De Easy Hondenkooi" /></a>
+                                        <a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/buitenhok.jpg")" alt="De Easy Hondenkooi" /></a>
+                                        <a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/kattenbak.jpg")" alt="De Easy Hondenkooi" /></a>
+                                        <a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/kattenspeelgoed.jpg")" alt="De Easy Hondenkooi" /></a>
+                                        <a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/knipper.jpg")" alt="De Easy Hondenkooi" /></a>
+                                    </div>
+                                    <ul class="pagination">
+                                        <li><a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/kussen.jpg")" alt="De kussen shampoo" /></a></li>
+                                        <li><a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/shampoo.jpg")" alt="De Easy Hondenkooi" /></a></li>
+                                        <li><a href="@Url.Content("~/Home/index")"><img src="@Url.Content("~/Content/images/trein.jpg")" alt="Houten trein" /></a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="desc span_3_of_2">
+                        <h2>@Model.ProductName</h2>
+                        <p>@Model.ProductDescription</p>
+                        <div class="price">
+                            <p>Price: <span>€@(Model.Price.ToString("#.##"))</span></p>
+                        </div>
+                        <div class="available">
+                            <!--
+                            <p>mogelijke kleuren.:</p>
+                            <ul>
+                                <li>
+                                    Color:
+                                    <select>
+                                        <option>zilver</option>
+                                        <option>zwart</option>
+                                        <option>wit</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    snoerlengte:<select>
+                                        <option>150 cm</option>
+                                        <option>175 cm</option>
+                                        <option>200 cm</option>
+                                    </select>
+                                </li>
+                                <li>
+                                    Hoeveelheid extra hulpstukken:<select>
+                                        <option>1</option>
+                                        <option>2</option>
+                                        <option>3</option>
+                                        <option>4</option>
+                                        <option>5</option>
+                                    </select>
+                                </li>
+                            </ul>
+                                -->
+                        </div>
+                        <div class="share-desc">
+                            
+                          <div class="button"><span>@Html.ActionLink("Direct bestellen", "Make_Order", "Home", new { Id = Model.Id }, null)</span></div>         
+                                        <div class="clear"></div>
+                                    </div>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                        <div class="product_desc">
+                            <div id="horizontalTab">
+                                <div class="your-review">
+                                    <h3>Wat vindt je van dit product?</h3>
+                                    <p>Schrijf een review!</p>
+                                    <form>
+                                        <div>
+                                            <span><label>Naam<span class="red">*</span></label></span>
+                                            <span><input type="text" value=""></span>
+                                        </div>
+                                        <div>
+                                            <span><label>Samenvatting van het product<span class="red">*</span></label></span>
+                                            <span><input type="text" value=""></span>
+                                        </div>
+                                        <div>
+                                            <span><label>Review<span class="red">*</span></label></span>
+                                            <span><textarea> </textarea></span>
+                                        </div>
+                                        <div>
+                                            <span><input type="submit" value="verstuur review"></span>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    $(document).ready(function () {
+                        $('#horizontalTab').easyResponsiveTabs({
+                            type: 'default', //Types: default, vertical, accordion
+                            width: 'auto', //auto or any width like 600px
+                            fit: true   // 100% fit in a container
+                        });
+                    });
+                </script>
+                <div class="content_bottom">
+                    <div class="heading">
+                        <h3>Producten die u mogelijk interesseren.</h3>
+                    </div>
+                </div>
+                <div class="clear"></div>
+            </div>
+            <div class="section group">
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="#"><img src="@Url.Content("~/Content/images/buitenhok.jpg")" alt="Nieuwe buitenkooi" /></a>
+                    <div class="price" style="border:none">
+                        <div class="add-cart" style="float:none">
+                            <h4><a href="#">Toevoegen aan winkelwagen</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="#"><img src="@Url.Content("~/Content/images/draagtas.jpg")" alt="Nieuwe draagtas" /></a>
+                    <div class="price" style="border:none">
+                        <div class="add-cart" style="float:none">
+                            <h4><a href="#">Toevoegen aan winkelwagen</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="#"><img src="@Url.Content("~/Content/images/vissenvoer.jpg")" alt="Het beste vissenvoer" /></a>
+                    <div class="price" style="border:none">
+                        <div class="add-cart" style="float:none">
+                            <h4><a href="#">Toevoegen aan winkelwagen</a></h4>
+                        </div>
+                        <div class="clear"></div>
+                    </div>
+                </div>
+                <div class="grid_1_of_4 images_1_of_4">
+                    <a href="#">
+                        <img src="@Url.Content("~/Content/images/terrariumbak.jpg")" alt="De terrariumbak" />
+                        <div class="price" style="border:none">
+                            <div class="add-cart" style="float:none">
+                                <h4><a href="#">toevoegen aan winkelwagen</a></h4>
+                            </div>
+                            <div class="clear"></div>
+                        </div>
+                </div>
+            </div>
+        </div>

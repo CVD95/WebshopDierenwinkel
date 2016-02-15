@@ -1,0 +1,54 @@
+﻿@model IntoSport.Models.Klant
+
+@{
+    ViewBag.Title = "WijzigKlant";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WijzigKlant</h2>
+<header id="art-content-header">
+</header>
+
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color:Red">@ViewBag.FoutMelding</span>
+}
+
+@using (Html.BeginForm("WijzigKlant", "Home"))
+{
+    <form method="post" action="Home/WijzigKlant/">
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Wijzigen Klant</legend>
+        <input type="hidden" value="@Model.Id" name="id" />
+        <div class="editor-label">
+            Naam</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Naam)
+            @Html.ValidationMessageFor(model => model.Naam)</div>
+        <div class="editor-label">
+            Adres</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Adres)
+            @Html.ValidationMessageFor(model => model.Adres)</div>
+        <div class="editor-label">
+            Woonplaats</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Woonplaats)
+            @Html.ValidationMessageFor(model => model.Woonplaats)</div>
+        <div class="editor-label">
+            Telefoonnummer</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Telefoonnummer)
+            @Html.ValidationMessageFor(model => model.Telefoonnummer)</div>
+        <div class="editor-label">
+            Email</div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Email)
+            @Html.ValidationMessageFor(model => model.Email)</div>
+        <p>
+            <input type="submit" value="Wijzig Klant" />
+        </p>
+    </fieldset>
+    </form>
+}

@@ -1,0 +1,82 @@
+MoSCoW analyse MijnDierenWinkel
+
+[M] Must have / deze eisen moeten in het eindresultaat terugkomen, zonder deze eisen is het product niet bruikbaar.
+(Prioriteit 1) 
+
+1. Als opdrachtgever wil ik een webshop om zo een groter klanten bereik te hebben. (getest + werkt)
+2. Als gebruiker wil ik zoeken met een zoekbalk om zo direct de producten te vinden die ik nodig heb. (Gestest + Werkt)
+3. Als gebruiker wil ik producten kunnen filteren/zoeken zodat het makkelijker is om een product uit te zoeken.(Gestest + Werkt)
+4. Als beheerder wil ik een beheerderspagina hebben.
+5. Als beheerder wil ik klantgegevens kunnen zien.
+6. Als beheerder wil ik klantgegevens bewerken.
+7. Als beheerder wil ik alle bestellingen gemaakt door de klanten zien. 
+8. Als beheerder wil ik de status van een bestelling kunnen veranderen naar betaald als het geld van de bestelling is ontvangen om zo duidelijk te maken dat de overdracht is gelukt.
+9. Als beheerder wil ik de status van een bestelling kunnen veranderen naar "Vervallen" als de klant de bestelling annuleert om zo duidelijk te maken dat de bestelling is afgesloten.
+10. Als beheerder wil ik de status van een bestelling kunnen veranderen naar "In behandeling" om zo de klant duidelijk te maken dat het bedrijf bezig is om de bestelling klaar te zetten.
+11. Als beheerder wil ik de status van een bestelling kunnen veranderen naar "Verstuurd" om zo de klant duidelijk te maken dat de bestelling verstuurd is.
+12. Als beheerder wil ik producten toe kunnen voegen. (getest WIP)
+13. Als beheerder wil ik producten kunnen bewerken. 
+14. Als beheerder wil ik producten kunnen verwijderen zodat de niet meer leverbare / niet goed lopende producten niet meer besteld kunnen worden.
+15. Als beheerder wil ik categorieen kunnen toevoegen zodat de producten beter vindbaar zijn.
+16. Als beheerder wil ik categorieen kunnen bewerken zodat de gegevens ervan kloppen.
+17. Als beheerder wil ik categorieen kunnen verwijderen zodat niet meer gebruikte categorieen niet meer in de weg staan.
+18. Als bezoeker wil ik alle producten kunnen zien om zo deze producten te kunnen bestellen. (Getest + Werkt)
+19. Als bezoeker wil ik producten aan mijn winkelmand toevoegen om zo producten te kunnen bestellen. (???)
+20. Als bezoeker wil ik dat ik een account kan aanmaken om zo bestellingen te kunnen plaatsen. (Getest + Werkt)
+21. Als klant wil ik snappen hoever ik in het proces ben bij het bestellen van producten.
+22. Als bezoeker wil ik de site kunnen bezoeken zonder inloggen. (Getest + Werkt)
+23. Als beheerder wil ik kortingsacties toevoegen voor klanten. 
+24. Als manager wil ik zien welke producten goed lopen en welke niet zodat ik aanpassingen kan maken in het assortiment. (Getest + Werkt)
+25. Als slechtziende gebruiker wil ik plaatjes op de website kunnen bekijkenzonder te hoeven kijken. (Getest + Werkt)
+26. Als gebruiker wil ik zoekopdrachten filteren op categorie zodat het makkelijker is om een product uit te kiezen. (Getest + Werkt)
+27. Als manager wil ik zien hoeveel omzet er per maand wordt behaald om zo een idee te krijgen van hoe het bedrijf loopt.
+28. Als gebruiker wil ik een sitemap zodat ik makkelijk kan vinden wat ik zoek.
+29. Als manager wil ik een managementpagina hebben. (Getest + Werkt)
+
+
+[S] Should have / deze eisen zijn zeer gewenst, maar zonder is het product wel bruikbaar; 
+
+1. Als bezoeker wil ik kunnen inloggen met mijn Facebook account zodat ik geen account hoef aan te maken.
+2. Als klant wil ik een bestelling kunnen maken die ik later kan afrekenen bijvoorbeeld een dag later.
+3. Als klant wil ik dat als ik na twee weken niet betaal dat mijn bestelling vervalt zoadat ik geen oude bestellingen heb die ik niet meer wil.
+4. Als klant wil ik als ik 500 euro heb besteed binnen 1 jaar goldmembership status ontvangen. Om zo toegang te krijgen tot 4% korting voor de rest van het jaar. VERVALT
+5. Als gebruiker wil ik de website kunnen gebruiken in de populairste browsers.
+6. Als gebruiker wil ik meteen weten waar ik naartoe moet om een bepaald product te vinden.
+7. Als klant wil ik een apart afleveradres kunnen selecteren zodat mijn pakket goed afgeleverd wordt.
+8. Als klant mijn bestelling kunnen annuleren tot maximaal een week na aankoop.
+9. Als klant wil ik oude bestellingen kunnen bekijken.
+
+[C] Could have / deze eisen zullen alleen aan bod komen als er tijd genoeg is.
+
+1. Als gebruiker wil ik dat  het aanmaken van een account minder duurt dan 5 minuten.
+2. Als gebruiker wil ik dat de website laad binnen 3 seconden.
+3. Als gebruiker wil ik dat de zoekmachine binnen 1,5 seconde mijn zoekresultaten laat zien.
+4. Als gebruiker wil ik dat het aantal stappen wat ik moet nemen om een product te bestellen minder is dan 6.
+5. Als gebruiker wil ik dat de website laadt binnen 3 seconden.
+6. Als opdrachtgever wil ik, inden er een afspraak is gemaakt met een bedrijf, reclame op de webshop om zo meer inkomsten te hebben. 
+
+[W] Would have / deze eisen zullen in dit project niet aan bod komen maar kunnen in de toekomst, bij een vervolgproject, interessant zijn. 
+
+1. Als klant wil ik als ik mij hiervoor inschrijf emails krijgen over aanbiedingen.
+2. Als klant wil ik kadobonnen kunnen aanschaffen.
+3. Als klant wil ik via de webpagina naar Facebook, Twitter, pinterest of Instagram gaan
+4. Als gebruiker wil ik een app waardoor de website ook op tablets en smartphones werkt
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

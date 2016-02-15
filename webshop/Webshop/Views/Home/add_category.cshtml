@@ -1,0 +1,28 @@
+﻿@model Webshop.Models.Category
+
+@{
+    ViewBag.Title = "Add category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("New_Category", "Home"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <div style="padding: 15px;">
+            <legend>Categorie Toevoegen</legend>
+            <br />
+            <div class="editor-label">Categorie naam</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <br />
+            <p>
+                <td><input type="submit" value="Create" /></td>
+            </p>
+        </div>
+    </fieldset>
+
+}

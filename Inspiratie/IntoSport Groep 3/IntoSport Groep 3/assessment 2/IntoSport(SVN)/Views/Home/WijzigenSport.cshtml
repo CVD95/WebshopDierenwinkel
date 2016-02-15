@@ -1,0 +1,41 @@
+﻿@model IntoSport.Models.Sport
+
+           
+@{
+    ViewBag.Title = "Wijzigen Sport";
+}
+<h2> Wijzigen Sport</h2>
+           @using (Html.BeginForm("WijzigenSport", "Home"))
+           {
+                <form method="post" action="Home/WijzigenSport/">
+               @Html.ValidationSummary(true)
+               <fieldset>
+                <legend>Wijzigen Product</legend>
+
+                <!--  <div class="editor-label">
+                            Product Code
+                      </div> -->
+                <input type="hidden" value="@Model.sportcode" name="sportcode" />
+
+                <div class = "editor-label">Sport naam</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.naam)
+                @Html.ValidationMessageFor(model => model.naam)</div>
+
+
+                <div class = "editor-label">Sport Type</div>
+
+                <div class = "editor-field">
+                @Html.TextBoxFor(model => model.type)
+                @Html.ValidationMessageFor(model => model.type)</div>
+
+                
+                <p>
+                    <input type="submit" value = "Wijzig Sport" />
+                </p>
+
+               </fieldset>
+               </form>
+           }
+

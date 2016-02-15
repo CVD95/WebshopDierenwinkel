@@ -1,0 +1,26 @@
+﻿@{
+    ViewBag.Title = "New genre (parameter binding)";
+}
+<h2>New genre (parameter binding)</h2>
+<form method="post" action="/Genre/CreateGenreParameterBinding/">   
+    <fieldset>
+        <legend>genre</legend>
+
+        <div class="editor-label">
+            Name   
+        </div>
+        <div class="editor-field">
+            <input type="text" name="name" />
+        </div>
+        <div class="editor-label">
+            Verslavend
+        </div>
+        <div class="editor-field">
+            <input type="checkbox" name="verslavend" />
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+ </form>
+

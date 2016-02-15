@@ -1,0 +1,34 @@
+﻿@model WorkshopASPNETMVC_III_Start.ViewModels.GameViewModel
+           
+@{
+    ViewBag.Title = "Wijzig game";
+}
+<h2>Nieuw game</h2>
+@using (Html.BeginForm("WijzigGame", "Game")) {
+
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Game</legend>
+
+        @Html.HiddenFor(model=>model.Game.ID)
+        <div class="editor-label">
+           Name
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Game.Naam)
+            @Html.ValidationMessageFor(model => model.Game.Naam)
+        </div>
+        <div class="editor-label">
+            Genre
+        </div>
+        <div class="editor-field">
+            @Html.DropDownListFor(model => model.SelectedGenreID, Model.Genres)
+            @Html.ValidationMessageFor(model => model.SelectedGenreID)       
+        </div>
+        <p>
+            <input type="submit" value="Wijzig" />
+        </p>
+    </fieldset>
+}
+
+

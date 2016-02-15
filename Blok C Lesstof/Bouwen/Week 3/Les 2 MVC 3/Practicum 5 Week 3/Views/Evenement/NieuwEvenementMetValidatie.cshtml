@@ -1,0 +1,35 @@
+﻿@model WorkshopASPNETMVC_III_Start.Models.Evenement
+@{ ViewBag.Title = "Nieuw Evenement met validatie";}
+<h2>Nieuw evenement met validatie</h2>
+@using (Html.BeginForm("NieuwEvenementMetValidatie", "Evenement"))
+{
+    @Html.ValidationSummary(true)
+    <fieldset>
+        <legend>Evenement</legend>
+        <div class="editor-label">
+           Naam
+        </div>
+        <div class="editor-field">
+            @Html.TextBoxFor(model => model.Naam)
+            @Html.ValidationMessageFor(model => model.Naam)
+        </div>
+        <div class="editor-label">
+           Lokatie(Bredewater, InnovatieFabriek of DenHaag)
+        </div>
+        <div class="editor-field">
+           @Html.TextBoxFor(model => model.Lokatie)
+           @Html.ValidationMessageFor(model => model.Lokatie)
+        </div>
+        <div class="editor-label">
+           Datum (dd-mm-yyyy hh:mm:ss)
+        </div>
+        <div class="editor-field">
+           @Html.TextBoxFor(model => model.Datum)
+           @Html.ValidationMessageFor(model => model.Datum)
+        </div>
+        <p>
+            <input type="submit" value="Create" />
+        </p>
+    </fieldset>
+}
+

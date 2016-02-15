@@ -1,0 +1,181 @@
+﻿@model IntoSport.Models.WinkelwagenViewModel
+           
+@{
+    ViewBag.Title = "Winkelwagen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Winkelwagen</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+@*
+@if (Model != null)
+{
+    using (Html.BeginForm("WinkelwagenBestelling", "Home"))
+    {
+        <div id="artikel-box">
+            <div class="artikel-header">
+                <table class="winkelwagen-table">
+                    <thead>
+                        <tr>
+                        <td>
+                        </td>
+                        <td>
+                        <b>Product</b></td>
+                        <td>
+                        <b>Kwanteit</b></td>
+                        <td>
+                        <b>Prijs</b></td>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    @for (int i = 0; i < Model.Count; i++)
+                    {
+                        <tr>
+                            <td>
+                        <div class="artikel-foto">
+                                <img class="boxModelFotoWinkelwagen" src="http://avantisport.nl/image/product/none/Brunotti-Jethros-Women's-Jacket-112222520-000.jpg" />
+                            </div>
+                        </td>
+                            <td>
+                                @Model[i].product.productNaam
+                            </td>
+                            <td>
+                                @Model[i].kwantiteit
+                            </td>
+                            <td>
+                                @Model[i].product.productVerkoopprijs
+                            </td>
+                            <td>
+                                @Html.ActionLink("Verwijder", "Winkelwagen", "home")
+                            </td>
+                        </tr>
+                    }
+                    </tbody>
+                </table>
+            </div>
+           </div>
+           <table>
+				<tr>
+					<td>
+						<p>
+							<b>Totaal:</b> @ViewBag.Totaal
+						</p>
+					</td>
+				</tr>
+                <tr>
+                    <td>
+                        <p>
+                            <input  type="submit" class="bestellen" value = "Bestellen" />
+                        </p>
+                    </td>
+                </tr>
+            </table>
+    }
+}
+*@
+@if (Model != null)
+{
+    using (Html.BeginForm("WinkelwagenBestelling", "Home"))
+    {
+    <div id="artikel-box-wrapper">
+       
+        <div class="artikel-box">
+            <div class="artikel-header">
+
+                <table class="winkelwagen-table">
+                    <thead>
+                        <tr>
+                            <td>
+                            </td>
+                            <td>
+                                <b>Product</b>
+                            </td>
+                            <td>
+                                <b>Kwantiteit</b>
+                            </td>
+                            <td>
+                                <b>Maat</b>
+                            </td>
+                            <td>
+                                <b>Kleur</b>
+                            </td>
+                            <td>
+                                <b>Prijs</b>
+                            </td>
+                        </tr>
+                    </thead> 
+                    @for (int i = 0; i < Model.winkelwagenItem.Count; i++)
+                    {
+                    <tbody>
+                        <tr>
+                            <td>
+                        <div class="artikel-foto">
+                                <img class="boxModelFotoWinkelwagen" src="http://avantisport.nl/image/product/none/Brunotti-Jethros-Women's-Jacket-112222520-000.jpg" />
+                            </div>
+                        </td>
+                            <td>
+                                @Model.winkelwagenItem[i].product.productNaam
+                            </td>
+                            <td>
+                                @Model.winkelwagenItem[i].kwantiteit
+								@Html.ActionLink("+", "UpdateWinkelwagenItemKwantiteitPlus", new { productcode = Model.winkelwagenItem[i].product.productCode, maat = Model.winkelwagenItem[i].maat, kleur = Model.winkelwagenItem[i].kleur })
+								@Html.ActionLink("–", "UpdateWinkelwagenItemKwantiteit", new { productcode = Model.winkelwagenItem[i].product.productCode, maat = Model.winkelwagenItem[i].maat, kleur = Model.winkelwagenItem[i].kleur })
+                            </td>
+                            <td>
+                                @Model.winkelwagenItem[i].maat
+                            </td>
+                            <td>
+                                @Model.winkelwagenItem[i].kleur
+                            </td>
+                            <td>
+                                @Model.winkelwagenItem[i].product.productVerkoopprijs
+                            </td>
+                            <td>
+								@Html.ActionLink("Verwijder", "VerwijderWinkelwagenItem", new { productcode = Model.winkelwagenItem[i].product.productCode, maat = Model.winkelwagenItem[i].maat, kleur = Model.winkelwagenItem[i].kleur })
+                            </td>
+                        </tr>
+                    </tbody>
+                    }
+					<tr>
+						<td><b>Ophalen Bestelling</b></td>
+						<td><input type="radio" name="bestelling" value="ophalen" checked="checked" /></td>
+					</tr>
+					<tr>
+						<td><b>Verzenden Bestelling</b></td>
+						<td><input type="radio" name="bestelling" value="verzenden" /></td>
+					</tr>
+                    <tr>
+                        <td>
+                            <b>Totaal:@Model.totaal </b>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+        
+        <table>
+        <tr>
+            <td>
+                <p>
+					@if (User.Identity.IsAuthenticated)
+					{
+						<input  type="submit" class="bestellen" value = "Bestellen" />
+					} else {
+						<input  type="submit" class="bestellen" value = "Bestellen" onclick="if (confirm('U moet eerst inloggen')) { window.location.href = '@Url.Action("Login", "Account")'}"/>
+					}
+                    
+                </p>
+            </td>
+        </tr>
+        </table>
+    </div>
+    }
+} else {
+	<p><b>Uw winkelwagen is leeg!<b></p>
+	<br><p><b>@Html.ActionLink(">> Verder Winkelen << ", "Index", "Home")</b></p></br>
+}

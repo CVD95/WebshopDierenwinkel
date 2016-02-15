@@ -1,0 +1,53 @@
+﻿@model WorkshopASPNETMVC_III_Start.Models.Student
+           @{ ViewBag.Title = "Toevoegen";}
+           <h2> nieuwe student toevoegen met validatie</h2>
+      @using (Html.BeginForm("Toevoegen", "Student"))
+      {
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Student toevoegen</legend>
+
+            <div class = "editor-label">
+            Studentnaam
+            </div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(Model => Model.Naam)
+                @Html.ValidationMessageFor( model => Model.Naam)
+                </div>
+
+                <div class = "editor-label">
+                Geboortedatum
+                </div>
+
+                <div class="editor-field">
+                @Html.TextBoxFor(Model => Model.GeboorteDatum)
+                @Html.ValidationMessageFor( model => Model.GeboorteDatum)
+                </div>
+
+                 <div class = "editor-label">
+                Studiepunten
+                </div>
+
+                <div class="editor-field">
+                @Html.TextBoxFor(Model => Model.StudiePunten)
+                @Html.ValidationMessageFor(model => Model.StudiePunten)
+                </div>
+
+                 <div class = "editor-label">
+                Favoriete Spel
+                </div>
+
+                <div class="editor-field">
+                @Html.TextBoxFor(Model => Model.FavorieteSpel)
+                @Html.ValidationMessageFor(model => Model.FavorieteSpel)
+                </div>
+
+                <p>
+                <input type=submit value ="Toevoegen" />
+                </p>
+
+
+            </fieldset>   
+      }
+          

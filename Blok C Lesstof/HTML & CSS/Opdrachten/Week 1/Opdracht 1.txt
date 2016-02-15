@@ -1,0 +1,17 @@
+<html>
+		<head>
+		
+		</head>
+		
+		<body>
+			<p>
+			Wat een geweldige ervaring
+			</p>
+				<br> Om een html pagina te maken <br>
+				</p>
+				
+				<h1> En wat is het mooi geworden </h1>
+		
+		</body>
+
+</html>

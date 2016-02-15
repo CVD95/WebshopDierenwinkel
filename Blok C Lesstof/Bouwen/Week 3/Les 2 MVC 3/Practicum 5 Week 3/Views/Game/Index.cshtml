@@ -1,0 +1,38 @@
+﻿@using WorkshopASPNETMVC_III_Start.Models;
+
+@model List<WorkshopASPNETMVC_III_Start.Models.Game>
+@{
+    ViewBag.Title = "Games";
+}
+<h2>Games</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>Genre</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Game game in Model)
+            {
+                <tr> 
+                    <td>@game.Naam</td>
+                    <td>@game.Genre</td>
+                    <td>@Html.ActionLink("wijzig", "WijzigGame",  new { gameId = game.ID})</td>
+                    <td> </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>Nieuwe game toevoegen</h2>
+<p>@Html.ActionLink("Nieuw game", "NieuwGame", "Game")</p>
+  

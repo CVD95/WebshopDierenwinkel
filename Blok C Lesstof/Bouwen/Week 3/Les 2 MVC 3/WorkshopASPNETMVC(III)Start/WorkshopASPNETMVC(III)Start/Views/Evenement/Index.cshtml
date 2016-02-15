@@ -1,0 +1,39 @@
+﻿@model List<WorkshopASPNETMVC_III_Start.Models.Evenement>
+@{
+    ViewBag.Title = "Evenementen";
+}
+<h2>Genres</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>Lokatie</th>
+                <th>Datum</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr> 
+                    <td>@Model[i].Naam</td>
+                    <td>@Model[i].Lokatie</td>
+                    <td>@Model[i].Datum</td>
+                    <td>@Html.ActionLink("wijzig", "WijzigEvenement", new { evenementId = @Model[i].ID})</td>
+                    <td>@Html.ActionLink("wijzig met validatie", "WijzigEvenementMetValidatie", new { evenementId = @Model[i].ID})</td>
+                    <td>@Html.ActionLink("verwijder", "VerwijderEvenement",  new { evenementId = @Model[i].ID})</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<h2>Nieuwe evenement toevoegen</h2>
+<p>@Html.ActionLink("Nieuw evenement", "NieuwEvenement", "Evenement")</p>
+<p>@Html.ActionLink("Nieuw evenement met validatie", "NieuwEvenementMetValidatie", "Evenement")</p>    

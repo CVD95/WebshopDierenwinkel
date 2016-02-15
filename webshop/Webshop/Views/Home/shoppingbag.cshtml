@@ -1,0 +1,25 @@
+﻿@model Webshop.Models.CartModel
+<div class="content">
+    <ul>
+        @if (Model.TotalDifferentItems > 0)
+            {
+            for (int i = 0; i < Model.TotalDifferentItems; i++)
+                {
+                <li>
+                    <div class="product-list" ; style="width: 700px; float: left; min-height: 16px">
+                            @Html.ActionLink((string)@Model.Items.ElementAt(i).Product.ProductName, "Product", "Home", new { Id = Model.Items.ElementAt(i).Product.Id }, null)
+                            <p align="right">prijs € @Model.Items.ElementAt(i).Product.Price.ToString("#.##") X @Model.Items.ElementAt(i).ItemCount  = € @Model.Items.ElementAt(i).Cost.ToString("#.##")</p>
+                        <hr>
+                    </div>
+                </li>
+            }
+        }
+        else
+        {
+            <br />
+            <p>Uw winkelwagen is leeg</p>
+            <br />
+        }
+    </ul>
+</div>
+</div>

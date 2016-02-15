@@ -1,0 +1,34 @@
+/webshop/PasswordTest/.vs/Password/v14/*.suo
+/webshop/PasswordTest/bin/Release
+/webshop/PasswordTest/bin/Debug
+/webshop/PasswordTest/obj/Debug
+/webshop/*.suo
+/*.suo
+/webshop/Webshop/*.user
+/webshop/Backend/bin/Debug
+/webshop/Webshop/bin
+/webshop/Webshop/obj/Debug/*
+/webshop/Backend/obj/Debug/*
+/webshop/Webshop/obj/Debug/
+/webshop/Backend/obj/Debug/
+/Inspiratie/IntoSport Groep 3/IntoSport Groep 3/assessment 2/IntoSport(SVN)/Content/themes/base/images/ui-bg_highlight-soft_75_cccccc_1x100.png
+/documenten/Layouts/Link naar website voorbeeld.txt
+/documenten/Klassendiagram/*.bak
+/documenten/Klassendiagram/*.vpp~3
+/documenten/Klassendiagram/*.vpp~4
+/webshop/.vs/config/applicationhost.config
+/webshop/Backup/Webshop/Webshop.csproj.user
+*.suo
+/webshop/Database/Connecter.cs
+
+# NuGet Packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+# except build/, which is used as an MSBuild target.
+!**/packages/build/
+# Uncomment if necessary however generally it will be regenerated when needed
+#!**/packages/repositories.config
+# NuGet v3's project.json files produces more ignoreable files
+*.nuget.props
+*.nuget.targets

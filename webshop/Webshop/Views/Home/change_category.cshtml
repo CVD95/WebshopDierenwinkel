@@ -1,0 +1,30 @@
+﻿@model Webshop.Models.Category
+
+@{
+    ViewBag.Title = "Change category";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>WijzigenProduct</h2>
+@using (Html.BeginForm("UpdateCategory", "Home"))
+{
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <legend>Wijzigen categorie</legend>
+
+            <div class="editor-field">
+                @Html.HiddenFor(model => model.Id)
+            </div>
+
+            <div class="editor-label">Categorie naam</div>
+
+            <div class="editor-field">
+                @Html.TextBoxFor(model => model.Name)
+                @Html.ValidationMessageFor(model => model.Name)
+            </div>
+            <p>
+                <input type="submit" value="Update categorie" />
+            </p>
+
+        </fieldset>
+}

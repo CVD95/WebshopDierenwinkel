@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <!-- INTERNAL CSS -->
+    <link href="@Url.Content("~/Content/Site.css")" rel="stylesheet" type="text/css" />
+
+    <!-- EXTERNAL CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+
+    <!-- INTERNAL SCRIPTS -->
+    <script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/modernizr-1.7.min.js")" type="text/javascript"></script>
+    <script src="@Url.Content("~/Scripts/jquery-ui-1.8.11.js")" type="text/javascript"></script>
+
+    <script>
+        $(function () {
+            $("#datepicker").datepicker({ dateFormat: 'yy/mm/dd' });
+        });
+    </script>
+
+</head>
+
+<body>
+<div class=" content-wrapper">
+            <div class="float-left">
+                <!--<img src="~/Images/IntoSportDefRgb.png" title="IntoSport" alt="IntoSport" width="180px" height="70px"/>-->
+				<a href='@Url.Action("Index", "Home")'>
+					<img src='@Url.Content("http://i.imgur.com/B7JQHWt.png")' height="70px" width="190px" />
+				</a>
+            </div>
+            <div class="float-right">
+                <section id="login">
+                        <ul>
+                            @if (User.IsInRole("klant")){
+                                <li>@Html.ActionLink("Winkelwagen", "Winkelwagen", "Home")</li>
+                                <li>@Html.ActionLink("Profiel", "Klant", "Home")</li>
+                                <li>@Html.ActionLink("Uitloggen", "Login", "Account")</li>
+                            }
+                            else if (User.IsInRole("manager"))
+                            {
+                                <li>@Html.ActionLink("Manager", "Manager", "Home")</li>
+                                <li>@Html.ActionLink("Uitloggen", "Login", "Account")</li>
+                            }
+                            else if (User.IsInRole("beheerder"))
+                            {
+                                <li>@Html.ActionLink("Beheerder", "Beheerder", "Home")</li>
+                                <li>@Html.ActionLink("Uitloggen", "Login", "Account")</li>
+                            }
+                            else
+                            {
+                                <li>@Html.ActionLink("Winkelwagen", "Winkelwagen", "Home")</li>
+                                <li>@Html.ActionLink("Registreren", "Registreren", "Account")</li>
+                                <li>@Html.ActionLink("Inloggen", "Login", "Account")</li> 
+                            }
+                            
+                        </ul>
+                </section>
+                <nav>
+                    <ul id="menu">
+                        <li>@Html.ActionLink("Aanbiedingen", "Aanbieding", "Home")</li>
+                        <li>@Html.ActionLink("Producten", "Index", "Home")</li>
+                        <li>@Html.ActionLink("Over Ons", "OverOns", "Home")</li>
+                    </ul>
+                </nav>
+            </div>
+            </div>
+<header id="header-wrapper">
+        <!----<div id="header">
+            
+            <div id="header-content">
+                <div id="header-c-logo">
+                    <a href="http://www.team-trick.com" id="logo" alt="Your source of entertainment" title="Your source of entertainment"></a>
+                </div>
+                <div class="navigation">
+                    <ul class="navi">
+                        <li><a href="#">Home</a></li>
+                        <li>
+                            <a href="#">News</a>
+                            <ul>
+                                <li><a href="#">Featured</a></li>
+                                <li><a href="#">Latest News</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Forum</a></li>
+                        <li>
+                            <a href="#">Account</a>
+                            <ul>
+                                <li><a href="#">Log In</a></li>
+                                <li><a href="#">Register</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+               
+            </div>
+        </div>
+        <div id="mid-content">
+            <div id="mid-content-wrapper">
+                
+            </div>
+        </div> -->
+    </header>
+            <!-- GBL -->
+    <section id="body-wrapper">
+       <a href="http://www.facebook.com" id="isFacebook"></a>
+       <a href="http://www.twitter.com" id="isTwitter"></a>
+        <div id="main-content"> 
+            <div class="art-content">
+@RenderSection("featured", required: false)
+                @RenderBody()
+
+                
+            </div><!---
+            <div class="art-content">
+                <header id="art-content-header">
+                    <div class="a-c-title">World of Warcraft loses 1.3 million over three months</div>
+                    <div class="a-c-about">
+                        <ul>
+                            <li><b>Released on</b> 10:54 AM May 09, 2013, </li>
+                            <li><b>Author:</b> Psychopomp</li>
+                            <ul>
+                    </div>
+                </header>
+                <article id="art-content-inner">
+                    <p>
+                        <a href="http://www.team-trick.com"><img class="a-c-img" src="http://static.sevvlor.com/images/articles/Andrew-Scott-Reisse-e6.jpg" /></a>
+                        <b>The pedestrian who was struck and killed during a police chase in Santa Ana was identified as the 33-year-old Andrew Scott Reisse on Friday.</b>
+                    </p>
+
+                    <p>Reisse was walking in a crosswalk when he was struck and killed at the end of a mile-long police chase on Thursday. He was killed about 4 miles from the offices of Oculus VR. The mile-long police chase ended in a crash about 100 feet down the road where Reisse was hit. The suspects made an attempt to escape from the police but were soon captured.</p>
+                    <p>"Andrew was a brilliant computer graphics engineer, an avid photographer and hiker who loved nature, a true loyal friend, and a founding member of our close-knit Oculus family," the company said in a statement.</p>
+                    <p>Coworkers of Reisse were soon notified of his death. Some of his coworkers have known him since college and worked with him at multiple companies.</p>
+                    <p>"Andrew's contributions span far and wide in the video game industry. His code is embedded in thousands of games played by millions of people around the world," according to a statement to the TV station. "Words can not express how sorely he will be missed or how deeply our sympathy runs for his family."</p>
+                    <p>The 21-year-old driver of the dodge charger now faces murder charges.</p>
+                    <p>Oculus issued the following statement to Polygon:</p>
+                    <p>"Andrew was a brilliant computer graphics engineer, an avid photographer and hiker who loved nature, a true loyal friend and a founding member of our close-knit Oculus family.</p>
+                    <p>Some of us have known Andrew since college, and have worked with him at multiple companies beginning with Scaleform in Maryland which he helped start at age 19, then at Gaikai in Aliso Viejo, which brought him out to California, and finally at Oculus where he was a co-founder and lead engineer.</p>
+                    <p>Andrew's contributions span far and wide in the video game industry. His code is embedded in thousands of games played by millions of people around the world.</p>
+                    <p>Words can not express how sorely he will be missed or how deeply our sympathy runs for his family.</p>
+                    <p>Andrew will always be in our thoughts and will never be forgotten. We love you, Reisse."</p>
+                </article>
+            </div>-->
+        </div>
+            
+        <aside id="right-content">
+            <div id="side-content">
+                <div id="box-forum-wrapper">
+                    <div class="box">
+                        <span style="font-size: 12px; color: rgb(223, 101, 33);">IntoSport</span> Producten
+                    </div>
+                    <ul class="b-menu">
+                        <li class="box-lines">@Html.ActionLink("Categorieën", "ZoekCategorieIndex", "Home")</li>
+                    </ul>
+                </div>
+                <div class="box">
+                    <span style="font-size: 12px; color: rgb(223, 101, 33);">IntoSport</span> Overig
+                </div>
+                <ul class="b-menu">
+                    <li class="box-lines">@Html.ActionLink("Aanbiedingen", "Aanbieding", "Home") </li>
+                    <li class="box-lines">@Html.ActionLink("Wie zijn wij?", "OverOns", "Home")</li>
+                    <li class="box-lines">@Html.ActionLink("Contact", "Contact", "Home")</li>
+                </ul>
+            </div>
+        </aside>
+    </section>
+    <footer>
+		<table id="footer-sitemap">
+			<tr>
+				<td>
+					IntoSport Informatie
+				</td>
+			</tr>
+			<tr>
+				<td>
+					<ul>
+						<li>@Html.ActionLink("Over Ons", "OverOns", "Home")</li>
+						<li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+						<li>@Html.ActionLink("Goldmembership", "Contact", "Home")</li>
+						<li>@Html.ActionLink("Verzenden Informatie", "Contact", "Home")</li>
+					</ul>
+				</td>
+			</tr>
+		</table>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,44 @@
+﻿@model IntoSport.Models.BestellingOverzicht
+           
+@{
+    ViewBag.Title = "Bestelling Wijzigen";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Bestelling Wijzigen</h2>
+<header id="art-content-header">
+</header>
+@if (@ViewBag.FoutMelding != null)
+{
+    <span style="color: Red">@ViewBag.FoutMelding</span>
+}
+
+@using (Html.BeginForm("WijzigenBestelling", "Home"))
+           {
+	<form method="post" action="/Home/WijzigenBestelling">
+	@Html.ValidationSummary(true)
+		<fieldset>
+			<legend>Bestelling</legend>
+			<input type="hidden"  value="@Model.Factuur_code" name="Factuur_Code" />
+			<input type="hidden" value="@Model.Klant_code" name="Klant_code" />
+			<div class="editor-label">
+			   Status van bestelling
+			</div>
+			@*
+			<div class="editor-field">
+				@Html.TextBoxFor(model => Model.Status)
+				@Html.ValidationMessageFor(model => Model.Status)
+			</div>
+			*@
+			<select name="Status">
+                        <option value="in behandeling">In behandeling</option>
+                        <option value="gereed">Gereed</option>
+                        <option value="klaar">Klaar</option>
+                        <option value="annuleren">Annuleren</option>
+            </select>
+			<p>
+				<input type="submit" value="Wijzig" />
+			</p>
+		</fieldset>
+	</form>
+}

@@ -1,0 +1,44 @@
+﻿@model List<WorkshopASPNETMVC_II_Start.Models.Evenement>
+@{
+    ViewBag.Title = "Evenementen";
+}
+<h2>Evenementen</h2>
+@if (@ViewBag.FoutMelding != null){
+    <span style="color:Red"> @ViewBag.FoutMelding </span>
+}
+@if (Model != null)
+{
+    <table id="hor-minimalist-b">
+        <thead>
+    	    <tr>
+        	    <th>Naam</th>
+                <th>Verslavend</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (int i = 0; i < Model.Count; i++)
+            {
+                <tr> 
+                    <td>@Model[i].ID</td>
+                    <td>@Model[i].Naam</td>
+                    <td>@Model[i].Datum</td>
+                    <td>@Model[i].Lokatie</td>
+                   <!-- <td>@Html.ActionLink("wijzig", "WijzigGenre",  new { genreId = @Model[i].ID})</td>
+                    <td>@Html.ActionLink("verwijder", "VerwijderGenre",  new { genreId = @Model[i].ID})</td> -->
+                </tr>
+            }
+        </tbody>
+    </table>
+    
+    <h2>Nieuwe genre toevoegen</h2>
+<table>
+    <tr> 
+        <!--referentie(link) aanmaken met een Razor helper-->
+        <td>@Html.ActionLink("New Evenement (model binding)", "NewEvenementModelBinding", "Evenement")</td>  
+    </tr>
+</table>
+    
+    
+}

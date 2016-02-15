@@ -1,0 +1,5 @@
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\bin\Release\WorkshopCSharp(II)Start.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\bin\Release\WorkshopCSharp(II)Start.pdb
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\bin\Release\MySql.Data.dll
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\obj\x86\Release\WorkshopCSharp(II)Start.exe
+C:\Users\Draakeragon\Documents\HHS\Blok-C\Bouwen\Week 2\C# Les 2\Practicum week 2 Les 2\obj\x86\Release\WorkshopCSharp(II)Start.pdb

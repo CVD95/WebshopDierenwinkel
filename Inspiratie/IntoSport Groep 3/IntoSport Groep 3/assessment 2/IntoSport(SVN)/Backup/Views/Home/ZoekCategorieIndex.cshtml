@@ -1,0 +1,14 @@
+﻿@model List<IntoSport.Models.Sport>
+@{
+    ViewBag.Title = "ZoekCategorieIndex";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2> Alle Sport categoriën</h2>
+
+@if (Model != null)
+                 {
+                     for(int i = 0; i < Model.Count; i++)  {
+                       <li class="box-lines">@Html.ActionLink(@Model[i].naam, "ZoekCategorie", new { sport = @Model[i].sportcode }, "Home") </li>
+	}
+}

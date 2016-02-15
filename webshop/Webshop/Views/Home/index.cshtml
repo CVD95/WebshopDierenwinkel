@@ -1,0 +1,277 @@
+﻿@model Webshop.ViewModels.IndexModel
+@using Webshop.Models;
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <h3>Categoriën</h3>
+                @foreach (var category in Model.Categories)
+                {
+                    <li>@Html.ActionLink(@category.Name, "Products", new ProductPageModel { PageNumber = 0, Category = category })</li>
+                }
+            </ul>
+        </div>
+    </div>
+    <div class="header_bottom_right">
+        <div class="slider">
+            <div id="slider">
+                <div id="mover">
+                    <div id="slide-1" class="slide">
+                        <div class="slider-img">
+                            <a href="@Url.Content("~/Home/about")">
+                            <img src="@Url.Content("~/Content/images/facebook.jpg")" alt="Leer meer over ons, Wie zijn wij?" title="Over ons" />
+
+                        </div>
+                        <div class="slider-text">
+                            <h1>
+                                Korting<br>
+                                <span>Sale
+                                </span></h1>
+                            <h2>
+                                Nieuwjaarsactie</h2>
+                            <div class="features_list">
+                                <h4>
+                                    Like ons op facebook en krijg de eerste bestelling zonder verzondkosten</h4>
+                            </div>
+                            <a href="preview.html" class="button">Naar de winkel</a>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slider-text">
+                            <h1>
+                                Wij zijn wij?<br>
+                                </h1>
+                            <h2>
+                                </h2>
+                            <div class="features_list">
+                                <h4>
+                                    Kom alles over mijn dieren winkel te weten.</h4>
+                            </div>
+                            <a href="@Url.Content("~/Home/about")" class="button">Wie zijn wij?</a>
+                        </div>
+                        <div class="slider-img">
+                            <a href="preview.html">
+                                <img src="~/Content/images/buitenhok.jpg" alt="Leer meer over ons." /></a>
+                            <img src="@Url.Content("~/Content/images/wiezijnwij.jpg")" alt="Leer meer over ons, Wie zijn wij?" title="Over ons" />
+
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                    <div class="slide">
+                        <div class="slider-img">
+                            <a href="preview.html">
+                                <img src="@Url.Content("~/Content/images/faq.jpg")" alt="Veelgestelde vragen." title="Veelgestelde vragen" />
+                        </div>
+                        <div class="slider-text">
+                            <h1>
+                                Veel gevraagde vragen<br>
+                                <span>FAQ</span></h1>
+                            <div class="features_list">
+                                <h4>
+                                    Bekijk de meest gestelde vragen van mijn dieren winkel</h4>
+                            </div>
+                            <a href="@Url.Content("~/Home/Faq")" class="button">FAQ</a>
+                        </div>
+                        <div class="clear">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+    </div>
+    <div class="clear">
+    </div>
+</div>
+<div class="main">
+    <div class="content">
+        <div class="content_top">
+            <div class="heading">
+                <h3>
+                    </h3>
+            </div>
+            <div class="see">
+                <p>
+                    <a href="@Url.Content("~/Home/Products/")">Bekijk al onze producten</a></p>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="section group">
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/kattenbak.jpg")" alt="Dit is een van onze meest populiare producten. de super kattenbak" title="Beste Kattenbak 2015" />
+                <h2>
+                    De beste kattenbak van 2015
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€149,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">Voeg aan winkelwagen toe.</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/rodetas.jpg")" alt="De Easy Hondenkooi" title="Easy Hondenkooi" />
+                <h2>
+                    Onze nieuwste hondenkooi
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€79,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">toevoegen aan winkelwagen</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/riem.gif")" alt="Uitlaten wordt makkelijk met de Petmaster" title="Petmaster riem"/>
+
+                <h2>
+                    Uitlaten wordt makkelijk met de Petmaster
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€ 19,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">toevoegen aan winkelwagen</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/hamsterkooi.jpg")" alt="De mooiste hamsterkooi die overal past" title="Hamsterkooi"/>
+
+                <h2>
+                    Dit is de hamsterkooi die in elk huis past!
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€29,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">toevoegen aan winkelwagen</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="content_bottom">
+            <div class="heading">
+                <h3>
+                    Onze favoriete producenten.</h3>
+            </div>
+            <div class="see">
+                <p>
+                    <a href="#">Bekijk al onze producten.</a></p>
+            </div>
+            <div class="clear">
+            </div>
+        </div>
+        <div class="section group">
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/voerbak.jpg")" alt="De universele etensbak voor alle huisdieren" title="Voerbak voor alle huisdieren." />
+                <h2>
+                    De universele etensbak voor alle huisdieren
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€9,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">Toevoegen aan winkelwagen</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/shampoo.jpg")" alt="Onze nieuwe DierenShampoo" title="Dierenshampoo"/>
+                <h2>
+                    Onze nieuwe DierenShampoo
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€6,75</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">Toevoegen aan winkelwagen</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                <img src="@Url.Content("~/Content/images/kussen.png")" alt="het  meest comfortabele dierenkussen." title="Dierenkussen" />
+
+                <h2>
+                    het  meest comfortabele dierenkussen.
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€5,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">Toevoegen aan winkelwagen/a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+            <div class="grid_1_of_4 images_1_of_4">
+                <a href="preview.html">
+                    <img src="@Url.Content("~/Content/images/schildpadvoer.jpg")" alt="Schildpadvoer Turtlepower" title="Schildpadvoer Turtlepower" />
+                </a>
+                <h2>
+                    Turtlepower schildpadvoer
+                </h2>
+                <div class="price-details">
+                    <div class="price-number">
+                        <p>
+                            <span class="rupees">€3,99</span></p>
+                    </div>
+                    <div class="add-cart">
+                        <h4>
+                            <a href="preview.html">Toevoegen aan winkelwagen.</a></h4>
+                    </div>
+                    <div class="clear">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

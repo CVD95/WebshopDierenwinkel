@@ -13,7 +13,7 @@
                 <h3>Categoriën</h3>
                 @foreach (var category in Model.Categories)
                 {
-                    <li><a href="@Url.Action("Products", "Home", new { p = new ProductPageModel { PageNumber = 0, Category = category })"> @category.Name</a></li>
+                    <li><a href="@Url.Action("Products", "Home", new { p = new ProductPageModel { PageNumber = 0, Category = category } })"> @category.Name</a></li>
                 }
                 @if (Model.ProductPageModel.Category != null)
                 {
@@ -44,7 +44,7 @@
                                     </div>
                                     <div class="add-cart">
                                         <h4>
-                                            <a href="preview.html">Voeg aan winkelwagen toe.</a>
+                                            @Html.ActionLink("Voeg aan winkelwagen toe", "AddProductToShoppingbag", new { productId = product.Id })
                                         </h4>
                                     </div>
                                     <div class="clear">

@@ -61,44 +61,30 @@
                     <h2> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp <b>MijnDierenWinkel.nl</b></h2>
                 </div>
                 <div class="cart">
-                    @{
-                        int? Count = null;
-                        decimal? Total = null;
-                    }
-                    @if (s != null)
-                    {
-                        Total = s.CartModel.TotalCost;
-                        Count = s.CartModel.Items.Count;
-                    }
                     <p> 
                         Welkom bij Mijn Dieren Winkel!  <span>@Html.ActionLink("Winkelwagen", "Shoppingbag", "Home"):</span><div id="dd" class="wrapper-dropdown-2">
 
-                            @if (Count != null)
-                            {
-                                ((int)Count).ToString();
-                            }
-                            else
-                            {
-                                @Html.Raw("0");
-                            } voorwerp(en) - €
-                            @if (Count != null)
-                            {
-                                ((decimal)Count).ToString("#.##");
-                            }
-                            else {
-                                @Html.Raw("0,00");
-                            }
+
+                            @s.ShoppingBag.OrderLines.Count
+                             voorwerp(en) - €
+                            @s.ShoppingBag.TotalCost
+
 
                             <ul class="dropdown">
-                                @if (s != null && s.CartModel != null && s.CartModel.TotalDifferentItems > 0)
+                                @if (s != null && s.ShoppingBag != null && s.ShoppingBag.OrderLines != null && s.ShoppingBag.OrderLines.Count > 0)
                                 {
-                                    CartModel cartmodel = s.CartModel;
-                                    for (int i = 0; i < cartmodel.TotalDifferentItems; i++)
+                                    <li class="dropdown-header">
+                                            <p>Naam</p>
+                                            <p style="float: right;">Aantal</p>
+                                    </li>
+
+                                    ShoppingBag ShoppingBag = s.ShoppingBag;
+                                    foreach(OrderLine ol in ShoppingBag.OrderLines)
                                     {
                                         <li>
-<p>Html.ActionLink(cartmodel.Items.ElementAt(i).Product.productName, "Preview", cartmodel.Items.ElementAt(i).Product) cartmodel.Items.ElemetAt(i).Count</p>
+                                            <p>@ol.Product.ProductName</p>
+                                            <p style="float: right">@ol.Amount</p>
                                         </li>
-
                                     }
                                 }
                                 else

@@ -6,7 +6,7 @@ using Webshop.Models;
 
 namespace Webshop.ViewModels
 {
-    public class IndexModel : CartModel
+    public class IndexModel
     {
         public List<Category> Categories { get; set; }
 

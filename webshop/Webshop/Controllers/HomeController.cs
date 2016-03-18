@@ -23,10 +23,26 @@ namespace Webshop.Controllers
         // GET: /Home/
         public ActionResult Shoppingbag()
         {
-            CartModel model;
-            Session session = (Session)this.Session["__MySessionObject"]; //Maak een sessie
+            ShoppingBag model;
+            model = ((Session)this.Session["__MySessionObject"])?.ShoppingBag ?? new ShoppingBag();
+            /*
+            bovenstaande lijn is een korte notatie voor het volgende.
+            if (session != null && session.CartModel != null)
+            {
+                model = session.CartModel;
+            }
+            else
+            {
+                model = new CartModel();
+            }
+            */
+            return View(model);
+        }
 
-            model = session?.CartModel ?? new CartModel();
+        [HttpPost]
+        public ActionResult Shoppingbag(ShoppingBag model)
+        {
+            ((Session)this.Session["__MySessionObject"]).ShoppingBag = model;
 
             /*
             bovenstaande lijn is een korte notatie voor het volgende.
@@ -39,8 +55,113 @@ namespace Webshop.Controllers
                 model = new CartModel();
             }
             */
-
             return View(model);
+        }
+
+        public ActionResult Orders()
+        {
+            Session session = ((Session)this.Session["__MySessionObject"]);
+            if (session.User.Role == UserRole.MANAGER)
+            {
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    List<Order> orders = query.GetOrders();
+                    return View(orders);
+                }
+            }
+            else
+            {
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    List<Order> orders = query.GetOrdersByUser(session.User);
+                    return View(orders);
+                }
+            }
+        }
+
+        public ActionResult CreateOrder()
+        {
+            Session session = ((Session)this.Session["__MySessionObject"]);
+            if (session.User != null)
+            {
+                Order order = new Order();
+                order.DTime = DateTime.Now;
+                order.OrderLines = session.ShoppingBag.OrderLines;
+                order.User = session.User;
+                order.Status = OrderStatus.TOBEPAID;
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    query.CreateOrder(order);
+                }
+                session.ShoppingBag = new ShoppingBag();
+                return RedirectToAction("Account", "Home");
+            }
+            else
+            {
+                return RedirectToAction("Login", "Home");
+            }
+        }
+
+        public ActionResult PayOrder(Order order)
+        {
+            PayOrderViewModel model = new PayOrderViewModel();
+            model.Order = order;
+            using (DatabaseQuery query = new DatabaseQuery())
+            {
+                List<PaymentOption> paymentOptions = query.GetPaymentOptions();
+                model.PaymentOptions = new SelectList(paymentOptions, "id", "name");
+            }
+            return View(model);
+        }
+
+        public ActionResult OrderPaid(Order order)
+        {
+            order.Status = OrderStatus.PAID;
+            UpdateOrderStatus(order);
+            return View(order);
+        }
+
+        public ActionResult OrderProcessing(Order order)
+        {
+            order.Status = OrderStatus.PROCESSING;
+            UpdateOrderStatus(order);
+            return View(order);
+        }
+
+        public ActionResult OrderExpired(Order order)
+        {
+            order.Status = OrderStatus.EXPIRED;
+            UpdateOrderStatus(order);
+            return View(order);
+        }
+
+        public ActionResult OrderSent(Order order)
+        {
+            order.Status = OrderStatus.SENT;
+            UpdateOrderStatus(order);
+            return View(order);
+        }
+
+        public ActionResult OrderReturned(Order order)
+        {
+            order.Status = OrderStatus.RETURNED;
+            UpdateOrderStatus(order);
+            return View(order);
+        }
+
+        private void UpdateOrderStatus(Order order)
+        {
+            try
+            {
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    query.UpdateOrderStatus(order);
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = "Er is iets fout gegaan met het ophalen van het product: " + e;
+            }
         }
 
         public ActionResult Login(LoginDataModel model)
@@ -78,35 +199,31 @@ namespace Webshop.Controllers
                         {
                             try
                             {//Probeer een Sessie te maken
-                                Session session = (Session)this.Session["__MySessionObject"]; //Maak een sessie
-                                if (session != null)
-                                {
-                                    this.Session.Remove("__MySessionObject");
-                                }
-                                Session newSession = new Session();
-
-
+                                Session session = (Session)this.Session["__MySessionObject"];
                                 using (DatabaseQuery userQuery = new DatabaseQuery())
                                 {
-                                    newSession.User = userQuery.GetUser(user); //Klant krijgt een sessie
-                                    newSession.LoggedIn = true;
-                                    this.Session.Add("__MySessionObject", newSession);
+                                    session.User = userQuery.GetUser(user); //Klant krijgt een sessie
+                                    session.LoggedIn = true;
+                                    this.Session["__MySessionObject"] = session;
                                 }
+                                if (((Session)this.Session["__MySessionObject"]).User.Role == UserRole.MANAGER)
+                                {
+                                    return RedirectToAction("manage"); //Ga naar manager pagina
+                                }
+                                else if (((Session)this.Session["__MySessionObject"]).User.Role == UserRole.ADMIN)
+                                {
+                                    return RedirectToAction("admin"); //Ga naar manager pagina
+                                }
+                                else if(((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines.Count > 0)
+                                {
+                                    return RedirectToAction("CreateOrder");
+                                }
+                                return RedirectToAction("Index"); //Ga terug naar de index
                             }
-                            catch
+                            catch(Exception e)
                             {
-                                this.Session.Remove("__MySessionObject"); //Anders catch je de sessie
-                                this.Session.Add("__MySessionObject", new Session());
+                                TempData["ErrorMessage"] = "Er is iets fout gegaan met het inloggen: " + e;
                             }
-                            if (((Session)this.Session["__MySessionObject"]).User.Role == UserRole.MANAGER)
-                            {
-                                return RedirectToAction("manage"); //Ga naar manager pagina
-                            }
-                            else if (((Session)this.Session["__MySessionObject"]).User.Role == UserRole.ADMIN)
-                            {
-                                return RedirectToAction("admin"); //Ga naar manager pagina
-                            }
-                            return RedirectToAction("Index"); //Ga terug naar de index
                         }
                     }
                     return RedirectToAction("login", user); //redirect to faillure
@@ -140,6 +257,40 @@ namespace Webshop.Controllers
             return View(model);
         }
 
+        
+        public ActionResult AddProductToShoppingbag(ulong productId)
+        {
+            bool productAdded = false;
+            using (DatabaseQuery query = new DatabaseQuery())
+            {
+                if (TempData["ErrorMessage"] != null)
+                {
+                    ViewBag.Error = TempData["ErrorMessage"].ToString();
+                }
+                Session ses = ((Session)this.Session["__MySessionObject"]);
+                if (ses.ShoppingBag.OrderLines != null)
+                {
+                    foreach (OrderLine ol in ses.ShoppingBag.OrderLines)
+                    {
+                        if (ol.Product.Id == productId)
+                        {
+                            ol.Amount++;
+                            productAdded = true;
+                        }
+                    }
+                }
+                if (!productAdded)
+                {
+                    Product product = query.GetProduct(productId);
+                    OrderLine ol = new OrderLine();
+                    ol.Product = product;
+                    ol.Amount = 1;
+                    ses.ShoppingBag.OrderLines.Add(ol);
+                }
+                this.Session["__MySessionObject"] = ses;
+            }
+            return RedirectToAction("Products", "Home");
+        }
 
 
         public ActionResult Product() //Nullable ulong
@@ -222,6 +373,12 @@ namespace Webshop.Controllers
         public ActionResult Index()
         {  //Index returned een ViewModel
             ViewBag.Active = "index";
+            Session session = (Session)this.Session["__MySessionObject"]; //Check of sessie object al bestaat
+            if (session == null)
+            {
+                Session newSession = new Session();
+                this.Session["__MySessionObject"] = newSession;
+            }
             return View(fillIndexModel());
         }
 

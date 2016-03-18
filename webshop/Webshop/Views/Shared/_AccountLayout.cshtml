@@ -1,0 +1,15 @@
+﻿
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="categories">
+    <ul>
+        <li><a href="@Url.Content("~/Home/Orders/")">Bestellingen</a></li>
+        <li><a href="@Url.Content("~/Home/Details/")"> Details</a></li>
+    </ul>
+</div>
+<div class="main">
+    @RenderBody()
+</div>
+

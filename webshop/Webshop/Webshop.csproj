@@ -182,9 +182,10 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs" />
-    <Compile Include="Models\CartModel.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\PaymentOption.cs" />
     <Compile Include="Models\ProductPageModel.cs" />
+    <Compile Include="Models\ShoppingBag.cs" />
     <Compile Include="ViewModels\IndexModel.cs" />
     <Compile Include="Models\LoginDataModel.cs" />
     <Compile Include="Models\Order.cs" />
@@ -198,6 +199,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Session.cs" />
     <Compile Include="ViewModels\ManagerViewModel.cs" />
+    <Compile Include="ViewModels\PayOrderViewModel.cs" />
     <Compile Include="ViewModels\ProductViewModel.cs" />
     <Content Include="Content\PagedList.css" />
     <Content Include="Content\themes\base\accordion.css" />
@@ -264,6 +266,10 @@
     <Content Include="Views\Home\ProductPartial.cshtml" />
     <Content Include="Views\Home\customer.cshtml" />
     <Content Include="Views\Home\CategoryOverview.cshtml" />
+    <Content Include="Views\Home\PayOrder.cshtml" />
+    <Content Include="Views\Home\Orders.cshtml" />
+    <Content Include="Views\Home\Order.cshtml" />
+    <Content Include="Views\Shared\_AccountLayout.cshtml" />
     <None Include="Views\Shared\_SmallVieuwStart.cshtml" />
   </ItemGroup>
   <ItemGroup>

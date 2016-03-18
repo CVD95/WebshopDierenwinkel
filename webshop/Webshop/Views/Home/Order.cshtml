@@ -1,0 +1,22 @@
+﻿@model Webshop.Models.Order
+
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<h2>Bestelnummer: @Model.Id</h2>
+besteld op @Model.DTime
+
+<div class="content">
+    <div class="section group">
+        <div>
+            <ul>
+                @foreach (var orderline in Model.OrderLines)
+                {
+                <li>Naam: @orderline.Product.ProductName, Aantal: @orderline.Amount</li>
+                }
+            </ul>
+
+        </div>
+    </div>
+</div>

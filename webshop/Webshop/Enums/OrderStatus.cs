@@ -7,7 +7,7 @@ namespace Webshop.Enums
 {
     public enum OrderStatus
     {
-        PROCESSING, PAYED, SHIPPING, FINISHED, RETURNING, RETURNED
-        //Een order kan de volgende statussen hebben, Betaald, Verlopen, Lopend, en Verzonden
+        TOBEPAID, PAID, PROCESSING, EXPIRED, SENT, RETURNED
+        //Een order kan de volgende statussen hebben: Nog niet betaald, Betaald, Vervallen, in behandeling, verstuurd
     }
 }

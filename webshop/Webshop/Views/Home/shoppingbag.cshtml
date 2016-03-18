@@ -1,25 +1,56 @@
-﻿@model Webshop.Models.CartModel
+﻿@model Webshop.Models.ShoppingBag
 <div class="content">
     <ul>
-        @if (Model.TotalDifferentItems > 0)
+        <div class="section group">
+            @if (Model.OrderLines != null)
             {
-            for (int i = 0; i < Model.TotalDifferentItems; i++)
+                <div class="col_1_of_3 span_1_of_3">
+                    <h3>Naam</h3>
+                </div>
+                <div class="col_1_of_3 span_1_of_3">
+                    <h3>Aantal</h3>
+                </div>
+                <div class="col_1_of_3 span_1_of_3">
+                    <h3>Prijs</h3>
+                </div>
+
+                foreach (var ol in Model.OrderLines)
                 {
+                    <li>
+                        <div class="col_1_of_3 span_1_of_3">
+                            @Html.ActionLink(ol.Product.ProductName, "Product", "Home", new { Id = ol.Product.Id }, null)
+                        </div>
+                        <div class="col_1_of_3 span_1_of_3">
+                               @ol.Amount
+                            </div>
+                        <div class="col_1_of_3 span_1_of_3">
+                            <p>@(ol.Product.Price * ol.Amount)</p>
+                        </div>
+                    </li>
+                }
+                <hr />
                 <li>
-                    <div class="product-list" ; style="width: 700px; float: left; min-height: 16px">
-                            @Html.ActionLink((string)@Model.Items.ElementAt(i).Product.ProductName, "Product", "Home", new { Id = Model.Items.ElementAt(i).Product.Id }, null)
-                            <p align="right">prijs € @Model.Items.ElementAt(i).Product.Price.ToString("#.##") X @Model.Items.ElementAt(i).ItemCount  = € @Model.Items.ElementAt(i).Cost.ToString("#.##")</p>
-                        <hr>
+                    <div class="col_1_of_3 span_1_of_3">
+                    </div>
+                    <div class="col_1_of_3 span_1_of_3">
+                    </div>
+                    <div class="col_1_of_3 span_1_of_3">
+                        <h1>Totaal</h1>
+                        <p>@Model.TotalCost</p>
                     </div>
                 </li>
+
             }
-        }
-        else
-        {
-            <br />
-            <p>Uw winkelwagen is leeg</p>
-            <br />
-        }
+
+            else
+            {
+                <br />
+                <p>Uw winkelwagen is leeg</p>
+                <br />
+            }
+        </div>
     </ul>
-</div>
+    <p>
+        <input type="submit" value="Bestellen" onclick="location.href='@Url.Action("CreateOrder", "Home")'" />
+    </p>
 </div>

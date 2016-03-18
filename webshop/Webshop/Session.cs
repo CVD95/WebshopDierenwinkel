@@ -11,11 +11,12 @@ namespace Webshop
         public bool LoggedIn { get; set; } //default is false
         public User User { get; set; }
 
-        public CartModel CartModel {get; set;}
+        public ShoppingBag ShoppingBag {get; set;}
 
         public Session()
         {
-            CartModel = new CartModel();
+            ShoppingBag = new ShoppingBag();
+            ShoppingBag.OrderLines = new List<OrderLine>();
         }
     }
 }

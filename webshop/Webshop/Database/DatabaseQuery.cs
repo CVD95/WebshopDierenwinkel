@@ -271,7 +271,29 @@ namespace Webshop.Database
             }
         }
 
+        internal List<Order> GetOrdersByUser(User user)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = this._connection;
+                cmd.CommandText = "SELECT * FROM \"order\" o join orderline ol on ol.order_id = o.id where \"order\".user_id=@user_id";
+                cmd.Parameters.AddWithValue("user_id", (long)user.Id);
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                List<Order> orders = new List<Order>();
 
+                while (reader.Read())
+                {
+                    Order order = new Order();
+                    order.Id = (ulong)reader.GetInt64(reader.GetOrdinal("id"));
+                    order.DTime = (DateTime)reader.GetDateTime(reader.GetOrdinal("date_time"));
+                    order.User = this.GetUser((ulong)reader.GetInt64(reader.GetOrdinal("user_id")));
+                    order.OrderLines = this.getOrderlines(reader.GetOrdinal("id"));
+                    orders.Add(order);
+                }
+                reader.Close();
+                return orders;
+            }
+        }
 
         internal PBKDF2Password GetPassword(LoginDataModel customer)
 
@@ -301,52 +323,84 @@ namespace Webshop.Database
         }
 
         //Orders kunen maar een paar statussen hebben
-        internal bool CreateOrder(Product product, string customerName)
+        internal bool CreateOrder(Order order)
         {
-
-            _transaction = this._connection.BeginTransaction(); //voor een order is er transactie nodig
-            User customer = this.GetUser(new LoginDataModel { Username = customerName });
-            //user moet een order maken
-            using (NpgsqlCommand orderCmd = new NpgsqlCommand())
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
-                orderCmd.Connection = _connection;
-                orderCmd.Transaction = _transaction;
+                cmd.Connection = _connection;
+                _transaction = cmd.Connection.BeginTransaction();
+                cmd.CommandText = "INSERT INTO \"order\"(date_time, user_id, order_status)"
+                    + "VALUES(@date_time, @user_id, @order_status);";
 
-                orderCmd.CommandText = "INSERT INTO \"order\"(id, date_time, \"user_id\", status) VALUES ((SELECT COUNT(id) FROM \"order\"), NOW(), @user_id, 0);";
-                //Maak een order
-                orderCmd.Parameters.AddWithValue("user_id", (int)customer.Id);
+                cmd.Parameters.AddWithValue("date_time", order.DTime);
+                cmd.Parameters.AddWithValue("user_id", (long)order.User.Id);
+                cmd.Parameters.AddWithValue("order_status", (int)order.Status);
 
-                if (parseNonqueryResult((int)orderCmd.ExecuteNonQuery()))
+                bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
+                if (success)
                 {
-
-
-                    using (NpgsqlCommand orderLineCmd = new NpgsqlCommand())
+                    _transaction.Commit();
+                    _transaction.Dispose();
+                    foreach (OrderLine ol in order.OrderLines)
                     {
-                        orderLineCmd.Connection = _connection;
-                        orderLineCmd.Transaction = _transaction;
-
-                        orderLineCmd.CommandText = "INSERT INTO \"orderline\" (product_id, order_id, amount) VALUES(@product_id, ((SELECT MAX(id) FROM \"order\")) , 1);";
-
-                        orderLineCmd.Parameters.AddWithValue("product_id", (long)product.Id);
-                        //Check of de Query kan worden uitgevoerd
-                        bool sucess = parseNonqueryResult(orderLineCmd.ExecuteNonQuery());
-                        if (sucess)
-                        {
-                            _transaction.Commit();
-                            //als sucess dan mag de commit worden gedaan
-                        }
-                        else
-                        {
-                            _transaction.Rollback();
-                            //anders verkom de Order
-                        }
-                        return true;
-                        //Geef true om te bevestigen dat de order sucessvol is
+                        CreateOrderline(ol, GetOrderId(order));
                     }
+                    return success; //Commit als het sucessvol is
                 }
+                _transaction.Rollback();
+                _transaction.Dispose();
+                return success;
             }
-            return false;
-            //Anders is de order niet sucessvol
+        }
+
+        internal bool CreateOrderline(OrderLine ol, ulong orderId)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = _connection;
+                _transaction = cmd.Connection.BeginTransaction();
+                cmd.CommandText = "INSERT INTO orderline(product_id, order_id, amount)"
+                    + "VALUES(@product_id, @order_id, @amount);";
+
+                cmd.Parameters.AddWithValue("product_id", (long)ol.Product.Id);
+                cmd.Parameters.AddWithValue("order_id", (long)orderId);
+                cmd.Parameters.AddWithValue("amount", (long)ol.Amount);
+
+                bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
+                if (success)
+                {
+                    _transaction.Commit();
+                    _transaction.Dispose();
+                    return success; //Commit als het sucessvol is
+                }
+                _transaction.Rollback();
+                _transaction.Dispose();
+                return success;
+            }
+        }
+
+        internal bool UpdateOrderStatus(Order order)
+        { //Maken van een product
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = _connection;
+                _transaction = cmd.Connection.BeginTransaction();
+                cmd.CommandText = "UPDATE order SET date_time=@date_time, user_id=@user_id, order_status=@order_status where id = @id;";
+
+                cmd.Parameters.AddWithValue("id", order.Id);
+                cmd.Parameters.AddWithValue("order_status", (int)order.Status);
+
+                bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
+                if (success)
+                {
+                    _transaction.Commit();
+                    _transaction.Dispose();
+                    return success; //Commit als het sucessvol is
+                }
+                _transaction.Rollback();
+                _transaction.Dispose();
+                return success;
+            }
         }
 
         internal List<Product> GetProducts(string pattern = null)
@@ -417,6 +471,30 @@ namespace Webshop.Database
 
                 reader.Close();
                 return categories; //return alle categorien
+            }
+        }
+
+        internal List<PaymentOption> GetPaymentOptions()
+        { //Krijg een lijst met categorien
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = this._connection;
+
+                cmd.CommandText = "SELECT * FROM pay_options;";
+
+                NpgsqlDataReader reader = cmd.ExecuteReader(); //intialiseren
+                List<PaymentOption> paymentOptions = new List<PaymentOption>();
+
+                while (reader.Read())
+                {
+                    PaymentOption paymentOption = new PaymentOption();
+                    paymentOption.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
+                    paymentOption.Name = reader.GetString(reader.GetOrdinal("name"));
+                    paymentOptions.Add(paymentOption); //Blijf categorien toeveogen
+                }
+
+                reader.Close();
+                return paymentOptions; //return alle categorien
             }
         }
 
@@ -536,12 +614,35 @@ namespace Webshop.Database
             }
         }
 
+        internal ulong GetOrderId(Order order)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = this._connection;
+                cmd.CommandText = "SELECT * FROM \"order\" where date_time=@date_time and user_id=@user_id and order_status=@order_status";
+
+                cmd.Parameters.AddWithValue("date_time", order.DTime);
+                cmd.Parameters.AddWithValue("user_id", (long)order.User.Id);
+                cmd.Parameters.AddWithValue("order_status", (int)order.Status);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+
+                if(reader.Read())
+                {
+                    order.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
+                }
+                reader.Close();
+                return order.Id;
+                //voeg alle parameters toe an de query en Execute
+            }
+        }
+
         internal List<Order> GetOrders()
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
-                cmd.CommandText = "SELECT * FROM \"order\" join orderlines";
+                cmd.CommandText = "SELECT * FROM \"order\" o join orderline ol on ol.order_id = o.id";
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 List<Order> orders = new List<Order>();

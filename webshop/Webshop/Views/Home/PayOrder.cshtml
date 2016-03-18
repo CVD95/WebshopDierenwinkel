@@ -1,0 +1,21 @@
+﻿@using Webshop;
+@model Webshop.ViewModels.PayOrderViewModel
+@{Session s = (Session)HttpContext.Current.Session["__MySessionObject"]; }
+
+@if (s.LoggedIn)
+{
+    <div class="editor-label">Categorie</div>
+
+    <div class="editor-field">
+        @Html.DropDownListFor(model => model.SelectedPaymentId, Model.PaymentOptions)
+        @Html.ValidationMessageFor(model => model.SelectedPaymentId)
+    </div>
+    <p>
+        <td><input type="submit" value="Betalen" /></td>
+    </p>
+}
+else
+{
+    <button onclick="location.href='@Url.Action("Login", "Home")'">Login</button>
+    <button onclick="location.href='@Url.Action("Register", "Home")'">Register</button>
+}

@@ -51,6 +51,11 @@ body {
 	border-bottom:1px solid #EEE;
 }
 
+li.dropdown-header{
+    font-weight: bold; 
+    background-color:slategrey;
+}
+
 .call{
 	float:left;
 }
@@ -110,6 +115,7 @@ body {
 	font-size:1.5em;
 	color:#E4292F;
 }
+
 .wrapper-dropdown-2 {
     display:inline-block;
     margin: 0 auto;

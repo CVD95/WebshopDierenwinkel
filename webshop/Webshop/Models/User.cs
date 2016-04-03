@@ -35,9 +35,19 @@ namespace Webshop.Models
 
         [Required(ErrorMessage = "Adres is verplicht")]
         public Address Address { get; set; }
-       
+
         [Required(ErrorMessage = "geboortedatum is verplicht")]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime DateOfBirth;
+
+        public DateTime GetDateOfBirth()
+        {
+            return DateOfBirth.Date;
+        }
+
+        public void SetDateOfBirth(DateTime DateOfBirth)
+        {
+            this.DateOfBirth = DateOfBirth;
+        }
 
         public string dateTimeString { get; set; }
 

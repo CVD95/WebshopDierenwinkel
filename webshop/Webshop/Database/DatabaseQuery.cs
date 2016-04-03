@@ -158,7 +158,7 @@ namespace Webshop.Database
                     cmd.Transaction = _transaction;
                 }
                 cmd.CommandText = "SELECT * FROM \"user\" where id= @userId";
-                cmd.Parameters.AddWithValue("userId", userId);
+                cmd.Parameters.AddWithValue("userId", (long)userId);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 if (reader.Read())
                 {
@@ -173,7 +173,7 @@ namespace Webshop.Database
                         Role = (UserRole)Enum.ToObject(typeof(UserRole), (int)reader.GetInt32(reader.GetOrdinal("role")))
                     };
                     reader.Close();
-                    user.Address = GetAddress((ulong)reader.GetInt64(reader.GetOrdinal("id")));
+                    user.Address = GetAddress((ulong)reader.GetInt32(reader.GetOrdinal("id")));
                     return user;
                 }
                 reader.Close();
@@ -187,7 +187,7 @@ namespace Webshop.Database
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
-                cmd.CommandText = "SELECT * FROM user_address c join address a on a.postalcode=c.postalcode and a.number=c.number and a.suffix=c.suffix where user_id= @userId";
+                cmd.CommandText = "SELECT * FROM user_address c join address a on a.postalcode=c.postalcode and a.\"number\"=c.\"number\" and a.suffix=c.suffix where user_id= @userId";
                 cmd.Parameters.AddWithValue("userId", (long)userId);
 
 
@@ -216,7 +216,7 @@ namespace Webshop.Database
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
-                cmd.CommandText = "SELECT product.name AS product_name, category.name AS category_name, category.id AS category_id, * FROM product AS product LEFT JOIN category AS category ON product.category_id = category.id WHERE product.id = @productId";
+                cmd.CommandText = "SELECT * FROM product WHERE product.id=@productId;";            
                 cmd.Parameters.AddWithValue("productId", (long)productId);
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
@@ -224,18 +224,13 @@ namespace Webshop.Database
                 if (reader.Read()) //lees een product
                 {
                     Product product = new Product();
-                    product.Id = productId;
-                    product.ProductName = reader.GetString(reader.GetOrdinal("product_name"));
-                    product.ProductDescription = reader.GetString(reader.GetOrdinal("description"));
-                    product.Price = reader.GetDecimal(reader.GetOrdinal("price"));
-                    product.Stock = (ulong)reader.GetInt64(reader.GetOrdinal("stock"));
+                    product.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
                     product.BuyPrice = reader.GetDecimal(reader.GetOrdinal("buy_price"));
-
-                    product.Category = new Category
-                        {
-                            Name = reader.GetString(reader.GetOrdinal("category_name")),
-                            Id = (ulong)reader.GetInt32(reader.GetOrdinal("category_id"))
-                        };
+                    product.Price = reader.GetDecimal(reader.GetOrdinal("price"));
+                    product.ProductName = reader.GetString(reader.GetOrdinal("name"));
+                    product.ProductDescription = reader.GetString(reader.GetOrdinal("description"));
+                    product.Category = this.GetCategory((ulong)reader.GetInt64(reader.GetOrdinal("category_id")));
+                    product.Stock = (ulong)reader.GetInt64(reader.GetOrdinal("stock"));
                     reader.Close();
                     return product;
                 }
@@ -276,7 +271,8 @@ namespace Webshop.Database
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
-                cmd.CommandText = "SELECT * FROM \"order\" o join orderline ol on ol.order_id = o.id where \"order\".user_id=@user_id";
+                //kan ook join gebruiken o join orderline ol on ol.order_id = o.id 
+                cmd.CommandText = "SELECT * FROM \"order\" where user_id=@user_id";
                 cmd.Parameters.AddWithValue("user_id", (long)user.Id);
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 List<Order> orders = new List<Order>();
@@ -284,10 +280,11 @@ namespace Webshop.Database
                 while (reader.Read())
                 {
                     Order order = new Order();
-                    order.Id = (ulong)reader.GetInt64(reader.GetOrdinal("id"));
+                    order.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
                     order.DTime = (DateTime)reader.GetDateTime(reader.GetOrdinal("date_time"));
                     order.User = this.GetUser((ulong)reader.GetInt64(reader.GetOrdinal("user_id")));
-                    order.OrderLines = this.getOrderlines(reader.GetOrdinal("id"));
+                    order.OrderLines = this.getOrderlines(order.Id);
+                    order.Status = (OrderStatus)Enum.ToObject(typeof(OrderStatus), reader.GetInt64(reader.GetOrdinal("order_status")));
                     orders.Add(order);
                 }
                 reader.Close();
@@ -383,12 +380,12 @@ namespace Webshop.Database
         { //Maken van een product
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
-                cmd.Connection = _connection;
+                cmd.Connection = this._connection;
                 _transaction = cmd.Connection.BeginTransaction();
-                cmd.CommandText = "UPDATE order SET date_time=@date_time, user_id=@user_id, order_status=@order_status where id = @id;";
+                cmd.CommandText = "UPDATE \"order\" SET order_status=@order_status where id = @id;";
 
-                cmd.Parameters.AddWithValue("id", order.Id);
                 cmd.Parameters.AddWithValue("order_status", (int)order.Status);
+                cmd.Parameters.AddWithValue("id", (long)order.Id);
 
                 bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
                 if (success)
@@ -498,31 +495,44 @@ namespace Webshop.Database
             }
         }
 
-        internal List<User> GetUserDetails(string pattern = null)
+        internal List<User> GetUsers()
         { //Krijg een lijst met categorien
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
 
-                cmd.CommandText = "SELECT * FROM user;";
+                cmd.CommandText = "select distinct * from \"user\" u join user_address ua on ua.user_id = u.id join address a on ua.postalcode = a.postalcode and ua.\"number\" = a.\"number\" and ua.suffix = a.suffix";
 
                 NpgsqlDataReader reader = cmd.ExecuteReader(); //intialiseren
-                List<User> userDetails = new List<User>();
+                List<User> users = new List<User>();
 
                 while (reader.Read())
                 { //Kan de ID code niet vinden  System.IndexOutOfRangeException: Field not found
                     User user = new User();
-                    user.Id = (ulong)reader.GetInt64(reader.GetOrdinal("id"));
+                    user.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
                     user.FirstName = reader.GetString(reader.GetOrdinal("first_name"));
-                    user.FirstName = reader.GetString(reader.GetOrdinal("last_name"));
-                    user.Email = reader.GetString(reader.GetOrdinal("email_adress"));
+                    user.LastName = reader.GetString(reader.GetOrdinal("last_name"));
+                    user.Username = reader.GetString(reader.GetOrdinal("username"));
+                    user.Email = reader.GetString(reader.GetOrdinal("email_address"));
                     user.DateOfBirth = reader.GetDateTime(reader.GetOrdinal("date_of_birth"));
-
-                    userDetails.Add(user); //Blijf userdetails toeveogen
+                    user.Role = (UserRole)Enum.ToObject(typeof(UserRole), reader.GetInt32(reader.GetOrdinal("role")));
+                    /*
+                    user.Address.PostalCode = (string)reader.GetString(reader.GetOrdinal("postalcode"));
+                    user.Address.HouseNumber = (int)reader.GetInt64(reader.GetOrdinal("number"));
+                    user.Address.Suffix = (string)reader.GetString(reader.GetOrdinal("suffix"));
+                    user.Address.Street = (string)reader.GetString(reader.GetOrdinal("street"));
+                    user.Address.City = (string)reader.GetString(reader.GetOrdinal("city"));
+                    user.Address.Type = (AddressType)Enum.ToObject(typeof(AddressType), (int)reader.GetInt32(reader.GetOrdinal("type")));
+                    */
+                    users.Add(user); //Blijf users toeveogen
                 }
 
                 reader.Close();
-                return userDetails; //return alle userdetails
+                foreach(User u in users)
+                {
+                    u.Address = GetAddress(u.Id);
+                }
+                return users; //return alle users
             }
         }
 
@@ -637,6 +647,32 @@ namespace Webshop.Database
             }
         }
 
+        internal Order GetOrder(ulong orderId)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = this._connection;
+                cmd.CommandText = "SELECT * FROM \"order\" where id=@id";
+
+                cmd.Parameters.AddWithValue("id", (long)orderId);
+
+                NpgsqlDataReader reader = cmd.ExecuteReader();
+                Order order = new Order();
+
+                if (reader.Read())
+                {
+                    order.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
+                    order.DTime = (DateTime)reader.GetDateTime(reader.GetOrdinal("date_time"));
+                    order.User = this.GetUser((ulong)reader.GetInt64(reader.GetOrdinal("user_id")));
+                    order.Status = (OrderStatus)Enum.ToObject(typeof(OrderStatus), reader.GetInt64(reader.GetOrdinal("order_status")));
+                    order.OrderLines = this.getOrderlines(order.Id);
+                }
+                reader.Close();
+                return order;
+                //voeg alle parameters toe an de query en Execute
+            }
+        }
+
         internal List<Order> GetOrders()
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand())
@@ -650,10 +686,11 @@ namespace Webshop.Database
                 while (reader.Read())
                 {
                     Order order = new Order();
-                    order.Id = (ulong)reader.GetInt64(reader.GetOrdinal("id"));
+                    order.Id = (ulong)reader.GetInt32(reader.GetOrdinal("id"));
                     order.DTime = (DateTime)reader.GetDateTime(reader.GetOrdinal("date_time"));
                     order.User = this.GetUser((ulong)reader.GetInt64(reader.GetOrdinal("user_id")));
-                    order.OrderLines = this.getOrderlines(reader.GetOrdinal("id"));
+                    order.Status = (OrderStatus)Enum.ToObject(typeof(OrderStatus), reader.GetInt64(reader.GetOrdinal("order_status")));
+                    order.OrderLines = this.getOrderlines(order.Id);
                     orders.Add(order);
                 }
                 reader.Close();
@@ -685,24 +722,21 @@ namespace Webshop.Database
         }
 
 
-        internal List<OrderLine> getOrderlines(int orderId)
+        internal List<OrderLine> getOrderlines(ulong orderId)
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = this._connection;
-                cmd.CommandText = String.Format(@"SELECT * FROM orderline where order_id={0};", orderId);
+                cmd.CommandText = String.Format(@"SELECT * FROM orderline where order_id={0};", (long)orderId);
 
                 NpgsqlDataReader reader = cmd.ExecuteReader();
                 List<OrderLine> orderlines = new List<OrderLine>();
 
                 while (reader.Read())
                 {
-                    OrderLine orderline = new OrderLine
-                    {
-
-                        Product = this.GetProduct((ulong)reader.GetOrdinal("product_id")),
-                        Amount = (ulong)reader.GetInt64(reader.GetOrdinal("amount"))
-                    };
+                    OrderLine orderline = new OrderLine();
+                    orderline.Product = this.GetProduct((ulong)reader.GetInt64(reader.GetOrdinal("product_id")));
+                    orderline.Amount = (ulong)reader.GetInt64(reader.GetOrdinal("amount"));
                     orderlines.Add(orderline);
                 }
                 reader.Close();
@@ -747,6 +781,61 @@ namespace Webshop.Database
                     _transaction.Dispose();
                 }
                 return success;
+            }
+        }
+
+        internal bool UpdateUser(User user)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = this._connection;
+                _transaction = cmd.Connection.BeginTransaction();
+
+                cmd.CommandText = "UPDATE \"user\" SET first_name=@first_name, last_name=@last_name, email_address=@email_address, date_of_birth=@date_of_birth where id = @id;";
+
+                cmd.Parameters.AddWithValue("id", user.Id);
+                cmd.Parameters.AddWithValue("first_name", user.FirstName);
+                cmd.Parameters.AddWithValue("last_name", user.LastName);
+                cmd.Parameters.AddWithValue("email_address", user.Email);
+                cmd.Parameters.AddWithValue("date_of_birth", user.DateOfBirth);
+
+                //Parameters
+                bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
+                if (success)
+                {
+                    _transaction.Commit();
+                    _transaction.Dispose();
+                    UpdateUserAddress(user);
+                }
+                return success;
+            }
+        }
+
+        internal bool UpdateUserAddress(User user)
+        {
+            using (NpgsqlCommand cmd = new NpgsqlCommand())
+            {
+                cmd.Connection = _connection;
+                _transaction = cmd.Connection.BeginTransaction();
+
+                cmd.CommandText = "UPDATE user_address set postalcode=@postalcode, number=@number, suffix=@suffix where user_id=@user_id";
+
+                cmd.Parameters.AddWithValue("user_id", (long)user.Id);
+                cmd.Parameters.AddWithValue("postalcode", user.Address.PostalCode);
+                cmd.Parameters.AddWithValue("number", user.Address.HouseNumber);
+                cmd.Parameters.AddWithValue("suffix", user.Address.Suffix);
+
+                //Parameters
+                bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
+                if (success)
+                {
+                    _transaction.Commit();
+                    _transaction.Dispose();
+                    return success; //Commit als het sucessvol is
+                }
+                _transaction.Rollback();
+                _transaction.Dispose();
+                return success; //Rollback en dispose als het niet lukt
             }
         }
 

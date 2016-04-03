@@ -7,7 +7,7 @@
                 <h3>Categoriën</h3>
                 @foreach (var category in Model.Categories)
                 {
-                    <li>@Html.ActionLink(@category.Name, "Products", new ProductPageModel { PageNumber = 0, Category = category })</li>
+                    <li>@Html.ActionLink(@category.Name, "Products", new { PageNumber = 0, CategoryId = category.Id})</li>
                 }
             </ul>
         </div>
@@ -96,7 +96,7 @@
             </div>
             <div class="see">
                 <p>
-                    <a href="@Url.Content("~/Home/Products/")">Bekijk al onze producten</a></p>
+                    <a href="@Url.Action("Products", "Home")">Bekijk al onze producten</a></p>
             </div>
             <div class="clear">
             </div>

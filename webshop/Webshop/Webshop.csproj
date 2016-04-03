@@ -178,13 +178,13 @@
     <Compile Include="Enums\AddressType.cs" />
     <Compile Include="Enums\OrderStatus.cs" />
     <Compile Include="Enums\UserRole.cs" />
+    <Compile Include="Functions\TotalCostCalculator.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Address.cs" />
     <Compile Include="Models\Category.cs" />
     <Compile Include="Models\PaymentOption.cs" />
-    <Compile Include="Models\ProductPageModel.cs" />
     <Compile Include="Models\ShoppingBag.cs" />
     <Compile Include="ViewModels\IndexModel.cs" />
     <Compile Include="Models\LoginDataModel.cs" />
@@ -246,30 +246,30 @@
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
-    <Content Include="Views\Home\product.cshtml" />
-    <Content Include="Views\Home\add_product.cshtml" />
-    <Content Include="Views\Home\change_product.cshtml" />
-    <Content Include="Views\Home\new_product.cshtml" />
+    <Content Include="Views\Home\Product.cshtml" />
+    <Content Include="Views\Home\AddProduct.cshtml" />
+    <Content Include="Views\Home\ChangeProduct.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\ProductAdded.cshtml" />
     <Content Include="ClassDiagram1.cd" />
     <Content Include="Scripts\jquery-2.2.0.min.map" />
-    <Content Include="Views\Home\deals.cshtml" />
-    <Content Include="Views\Home\help.cshtml" />
-    <Content Include="Views\Home\manage.cshtml" />
+    <Content Include="Views\Home\Deals.cshtml" />
+    <Content Include="Views\Home\Manage.cshtml" />
     <Content Include="Views\Home\Search_Result.cshtml" />
     <Content Include="Views\Home\Shoppingbag.cshtml" />
     <Content Include="Views\Home\Account.cshtml" />
     <Content Include="Views\Home\Products.cshtml" />
-    <Content Include="Views\Home\add_category.cshtml" />
-    <Content Include="Views\Home\change_category.cshtml" />
+    <Content Include="Views\Home\AddCategory.cshtml" />
+    <Content Include="Views\Home\ChangeCategory.cshtml" />
     <Content Include="Views\Home\ProductPartial.cshtml" />
-    <Content Include="Views\Home\customer.cshtml" />
     <Content Include="Views\Home\CategoryOverview.cshtml" />
     <Content Include="Views\Home\PayOrder.cshtml" />
     <Content Include="Views\Home\Orders.cshtml" />
     <Content Include="Views\Home\Order.cshtml" />
     <Content Include="Views\Shared\_AccountLayout.cshtml" />
+    <Content Include="Views\Home\UserDetails.cshtml" />
+    <Content Include="Views\Home\ChangeUser.cshtml" />
+    <Content Include="Views\Home\CustomerOverview.cshtml" />
     <None Include="Views\Shared\_SmallVieuwStart.cshtml" />
   </ItemGroup>
   <ItemGroup>
@@ -279,9 +279,9 @@
     <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
-    <None Include="Views\Home\about.cshtml" />
-    <Content Include="Views\Home\admin.cshtml" />
-    <None Include="Views\Home\contact.cshtml" />
+    <None Include="Views\Home\About.cshtml" />
+    <Content Include="Views\Home\Admin.cshtml" />
+    <None Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\Shared\css\easy-responsive-tabs.css" />
     <Content Include="Views\Shared\css\global.css" />
     <Content Include="Views\Shared\css\slider.css" />
@@ -337,7 +337,7 @@
     <Content Include="Content\images\twitter.png" />
     <Content Include="Content\images\value-rating.png" />
     <Content Include="Content\images\wishlist.png" />
-    <None Include="Views\Home\index.cshtml" />
+    <None Include="Views\Home\Index.cshtml" />
     <Content Include="Scripts\easing.js" />
     <Content Include="Scripts\easyResponsiveTabs.js" />
     <Content Include="Scripts\jquery-1.7.2.min.js" />
@@ -347,9 +347,8 @@
     <Content Include="Scripts\script.js" />
     <Content Include="Scripts\slides.min.jquery.js" />
     <Content Include="Scripts\startstop-slider.js" />
-    <Content Include="Views\Home\manager.cshtml" />
-    <None Include="Views\Home\news.cshtml" />
-    <None Include="Views\Home\preview.cshtml" />
+    <None Include="Views\Home\News.cshtml" />
+    <None Include="Views\Home\Preview.cshtml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -381,7 +380,7 @@
     <Folder Include="Views\Shared\js\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Views\Home\register.cshtml" />
+    <Content Include="Views\Home\Register.cshtml" />
     <None Include="Views\Shared\font\Amble-Regular-webfont.ttf" />
     <None Include="Content\images\Thumbs.db" />
   </ItemGroup>

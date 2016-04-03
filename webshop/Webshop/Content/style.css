@@ -250,18 +250,29 @@ li.dropdown-header{
 .header_bottom_left{
 	float:left;
 	width:25%;
+    clear:both;
+    height:auto;
 }
 .categories{
 	border:1px solid #EEE;
 }
+
+.categories_multiple{
+    float:left;
+    width:33%;
+    margin: 0 0 1% 1%;
+}
+
+
 .categories h3{
 	font-size:1.2em;
 	color:#FFF;
 	padding:10px;
 	background:#B81D22;
 	text-transform:uppercase;
-	font-family: 'ambleregular';	
+	font-family: 'ambleregular';
 }
+
 .categories li a{
 	display:block;
 	font-size:0.8em;
@@ -338,7 +349,7 @@ li.dropdown-header{
 .grid_1_of_4 {
 	display: block;
 	float: left;
-	margin: 1% 0 1% 1.6%;
+	margin: 0 0 1% 1%;
 	box-shadow: 0px 0px 3px rgb(150, 150, 150);
 	-webkit-box-shadow: 0px 0px 3px rgb(150, 150, 150);
 	-moz-box-shadow: 0px 0px 3px rgb(150, 150, 150);

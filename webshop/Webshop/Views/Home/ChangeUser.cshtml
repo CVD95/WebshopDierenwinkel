@@ -1,0 +1,92 @@
+﻿@model Webshop.Models.User
+@{
+    ViewBag.Title = "UpdateUser";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateUser", "Home"))
+{
+    
+        @Html.ValidationSummary(true)
+        <fieldset>
+            <div style="padding: 15px;">
+                <legend>Gegevens aanpassen</legend>
+                <br />
+                @if (Model != null)
+                {
+                    <div class="editor-field">
+                        @Html.HiddenFor(model => model.Id)
+                    </div>
+                    <div class="editor-field">
+                        @Html.HiddenFor(model => model.Username)
+                    </div>
+                    <div class="editor-field">
+                        @Html.HiddenFor(model => model.Password)
+                    </div>
+
+                    <div class="editor-label">Voornaam</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.FirstName, new { @Value = Model.FirstName })
+                        @Html.ValidationMessageFor(model => model.FirstName)
+                    </div>
+
+                    <div class="editor-label">Achternaam</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.LastName, new { @Value = Model.LastName })
+                        @Html.ValidationMessageFor(model => model.LastName)
+                    </div>
+
+                    <div class="editor-label">Geboortedatum</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.dateTimeString, new { @Value = Model.GetDateOfBirth() })
+                        @Html.ValidationMessageFor(model => model.DateOfBirth)
+                    </div>
+
+                    <div class="editor-label">E-mail</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Email, new { @Value = Model.Email })
+                        @Html.ValidationMessageFor(model => model.Email)
+                    </div>
+
+                    <div class="editor-label">Postcode</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Address.PostalCode, new { @Value = Model.Address.PostalCode })
+                        @Html.ValidationMessageFor(model => model.Address.PostalCode)
+                    </div>
+
+                    <div class="editor-label">Woonplaats</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Address.City, new { @Value = Model.Address.City })
+                        @Html.ValidationMessageFor(model => model.Address.City)
+                    </div>
+
+                    <div class="editor-label">Straat</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Address.Street, new { @Value = Model.Address.Street })
+                        @Html.ValidationMessageFor(model => model.Address.Street)
+                    </div>
+
+                    <div class="editor-label">Huisnummer + toevoeging</div>
+
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.Address.HouseNumber, new { @Value = Model.Address.HouseNumber })
+                        @Html.ValidationMessageFor(model => model.Address.HouseNumber)
+
+                        @Html.TextBoxFor(model => model.Address.Suffix, new { @Value = Model.Address.Suffix })
+                        @Html.ValidationMessageFor(model => model.Address.Suffix)
+                    </div>
+                    <br />
+                    <p>
+                        <td><input type="submit" value="Wijzig" /></td>
+                    </p>
+                    }
+            </div>
+        </fieldset>
+    }

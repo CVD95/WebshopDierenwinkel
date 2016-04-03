@@ -1,0 +1,41 @@
+﻿@model Webshop.Models.User
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+
+<div class="content">
+    @if (Model != null)
+    {
+        <table id="hor-minimalist-b">
+            <thead>
+                <tr>
+                    <th>Username</th>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>Email-adres</th>
+                    <th>Geboortedatum</th>
+                    <th>Postcode</th>
+                    <th>Straatnaam</th>
+                    <th>Huisnummer</th>
+                    <th>Huisnummer toevoeging</th>
+                    <th>Plaatsnaam</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>@Model.Username</td>
+                    <td>@Model.FirstName</td>
+                    <td>@Model.LastName</td>
+                    <td>@Model.Email</td>
+                    <td>@Model.GetDateOfBirth()</td>
+                    <td>@Model.Address.PostalCode</td>
+                    <td>@Model.Address.Street</td>
+                    <td>@Model.Address.HouseNumber</td>
+                    <td>@Model.Address.Suffix</td>
+                    <td>@Model.Address.City</td>
+                    <td>@Html.ActionLink("Wijzigen", "ChangeUser", new { id = Model.Id })</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+</div>

@@ -1,3 +1,19 @@
 ﻿@model List<Webshop.Models.Order>
-
-
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
+<div class="header_slide">
+        @foreach (var order in Model)
+        {    
+            <div class="categories categories_multiple">
+                <h3>Bestelnummer:  @order.Id</h3>
+                <ul>
+                    <li>
+                        <p>Besteld op: @order.DTime</p>
+                        <p>Status: @order.Status.ToString()</p>
+                    </li>
+                </ul>
+                <input type="submit" value="Bekijk bestelling" onclick="location.href='@Url.Action("Order", "Home", new {orderId = order.Id})'" />
+            </div>
+        }
+</div>

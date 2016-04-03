@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using Webshop;
+@{Session s = (Session)HttpContext.Current.Session["__MySessionObject"]; }
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <title>Webshop Mijn Dieren Winkel</title>
@@ -17,17 +19,28 @@
             <div class="headertop_desc">
                 <div class="call">
                     <p>
-                        <span>Need help?</span> call us <span class="number">1-22-3456789</span></span>
+                        <span>Need help?</span> call us <span class="number">1-22-3456789</span>
                     </p>
                 </div>
                 <div class="account_desc">
                     <ul>
-                        <li><a href="@Url.Content("~/Home/register")">Register</a></li>
-                        <li><a href="@Url.Content("~/Home/login")">Login</a></li>
-                        @if (User.Identity.IsAuthenticated) { 
-                        <li><a href="@Url.Content("~/Home/delivery")">Delivery</a></li>
-                        <li><a href="@Url.Content("~/Home/logout")">logout</a></li>
-                        <li><a href="@Url.Content("~/Home/delivery")">My Account</a></li>
+                        @if (s != null && s.LoggedIn == true)
+                        {
+                            <li>@Html.ActionLink("Uitloggen", "Logout", "Home")</li>
+                            <li>@Html.ActionLink("Mijn account", "Account", "Home")</li>
+                            if (s.User.Role == Webshop.Enums.UserRole.ADMIN)
+                            {
+                                <li>@Html.ActionLink("Administratie", "Admin", "Home")</li>
+                            }
+                            if (s.User.Role == Webshop.Enums.UserRole.MANAGER)
+                            {
+                                <li>@Html.ActionLink("Management", "Manage", "Home")</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Registreren", "Register", "Home")</li>
+                            <li>@Html.ActionLink("Inloggen", "Login", "Home")</li>
                         }
                     </ul>
                 </div>

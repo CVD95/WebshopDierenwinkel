@@ -2,14 +2,15 @@
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<div class="categories">
-    <ul>
-        <li><a href="@Url.Content("~/Home/Orders/")">Bestellingen</a></li>
-        <li><a href="@Url.Content("~/Home/Details/")"> Details</a></li>
-    </ul>
+<div class="header_slide">
+    <div class="header_bottom_left">
+        <div class="categories">
+            <ul>
+                <li><a href="@Url.Content("~/Home/Orders/")">Mijn bestellingen</a></li>
+                <li><a href="@Url.Content("~/Home/UserDetails/")">Mijn gegevens</a></li>
+            </ul>
+        </div>
+    </div>
 </div>
-<div class="main">
     @RenderBody()
-</div>
 

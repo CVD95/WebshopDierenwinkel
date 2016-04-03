@@ -4,7 +4,7 @@
 }
 <div class="main">
     <div class="content">
-        @if (@ViewBag.Error != null)
+        @if (ViewBag.Error != null)
         {
             <span style="color:red"> @ViewBag.Error</span>
         }
@@ -63,7 +63,7 @@
                 @if (Model != null)
                 {
                     <h1>Profit:</h1>
-                    <p>@Model.Profit()</p>
+                    <p>@Model.ProfitThisMonth()</p>
                 }
             </div>
         </div>

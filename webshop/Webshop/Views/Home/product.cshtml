@@ -5,7 +5,7 @@
 }
 <div class="main">
     <div class="content">
-        @if (@ViewBag.Error != null)
+        @if (ViewBag.Error != null)
         {
             <span style="color:red">@ViewBag.Error</span>
         }
@@ -38,7 +38,7 @@
                             <td>@product.Category.Name</td>
 
 
-                            <td>@Html.ActionLink("Wijzigen", "Change_Product", new { productId = product.Id })</td>
+                            <td>@Html.ActionLink("Wijzigen", "ChangeProduct", new { productId = product.Id })</td>
                             <td>@Html.ActionLink("Verwijderen", "DeleteProduct", new { productId = product.Id }, new { onclick = "return confirm('Weet u zeker dat u dit wilt verwijderen?')" })</td>
                         </tr>
                     }
@@ -51,7 +51,7 @@
             <table>
                 <tr>
                     <!--referentie(link) aanmaken met een Razor helper-->
-                    <td>@Html.ActionLink("Nieuw product toevoegen", "add_product", "Home")</td>
+                    <td>@Html.ActionLink("Nieuw product toevoegen", "AddProduct", "Home")</td>
                 </tr>
             </table>
 

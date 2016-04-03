@@ -21,27 +21,23 @@
             <div class="headertop_desc">
                 <div class="call">
                     <p>
-                        <span>Hulp nodig?</span> Bel ons <span class="number">06-245684732</span></span>
+                        <span>Hulp nodig?</span> Bel ons <span class="number">06-245684732</span>
                     </p>
                 </div>
                 <div class="account_desc">
                     <ul>
                         @if (s != null && s.LoggedIn == true)
                         {
+                            <li>@Html.ActionLink("Uitloggen", "Logout", "Home")</li>
+                            <li>@Html.ActionLink("Mijn account", "Account", "Home")</li>
                             if (s.User.Role == Webshop.Enums.UserRole.ADMIN)
                             {
-                                <li>
-                                    Producten
-                                    <ul class="dropdown">
-                                        <li>@Html.ActionLink("Producten overzicht", "Product", "Home")</li>
-                                        <li>@Html.ActionLink("Producten Toevoegen", "Add_Product", "Home")</li>
-                                    </ul>
-                                </li>
-                                
+                                <li>@Html.ActionLink("Administratie", "Admin", "Home")</li> 
                             }
-                            <li>@Html.ActionLink("Uitloggen", "Logout", "Home")</li>
-
-                           <li>@Html.ActionLink("Mijn account", "Account", "Home")</li>
+                            if (s.User.Role == Webshop.Enums.UserRole.MANAGER)
+                            {
+                                <li>@Html.ActionLink("Management", "Manage", "Home")</li>
+                            }
                         }
                         else
                         {
@@ -61,38 +57,44 @@
                     <h2> &nbsp &nbsp &nbsp  &nbsp &nbsp &nbsp  &nbsp &nbsp  &nbsp <b>MijnDierenWinkel.nl</b></h2>
                 </div>
                 <div class="cart">
-                    <p> 
-                        Welkom bij Mijn Dieren Winkel!  <span>@Html.ActionLink("Winkelwagen", "Shoppingbag", "Home"):</span><div id="dd" class="wrapper-dropdown-2">
-
-
+                    @if (s != null && s.ShoppingBag != null && s.ShoppingBag.OrderLines != null)
+                    {  <p>
+                            Welkom bij Mijn Dieren Winkel!  <span>@Html.ActionLink("Winkelwagen", "Shoppingbag", "Home"):</span><div id="dd" class="wrapper-dropdown-2">
                             @s.ShoppingBag.OrderLines.Count
-                             voorwerp(en) - €
-                            @s.ShoppingBag.TotalCost
+                            voorwerp(en) - €
+                            @s.ShoppingBag.TotalCost()
+                        </p>
+                    }
+                    else
+                    {
+                        <p>
+                            Welkom bij Mijn Dieren Winkel!  <span>@Html.ActionLink("Winkelwagen", "Shoppingbag", "Home"):</span><div id="dd" class="wrapper-dropdown-2">
+                                0 voorwerp(en) - € 0
+                        </p>
+                    }
+                    <ul class="dropdown">
+                        @if (s != null && s.ShoppingBag != null && s.ShoppingBag.OrderLines != null && s.ShoppingBag.OrderLines.Count > 0)
+                        {
+                            <li class="dropdown-header">
+                                <p>Naam</p>
+                                <p style="float: right;">Aantal</p>
+                            </li>
 
-
-                            <ul class="dropdown">
-                                @if (s != null && s.ShoppingBag != null && s.ShoppingBag.OrderLines != null && s.ShoppingBag.OrderLines.Count > 0)
-                                {
-                                    <li class="dropdown-header">
-                                            <p>Naam</p>
-                                            <p style="float: right;">Aantal</p>
-                                    </li>
-
-                                    ShoppingBag ShoppingBag = s.ShoppingBag;
-                                    foreach(OrderLine ol in ShoppingBag.OrderLines)
-                                    {
-                                        <li>
-                                            <p>@ol.Product.ProductName</p>
-                                            <p style="float: right">@ol.Amount</p>
-                                        </li>
-                                    }
-                                }
-                                else
-                                {
-                                    <li>U heeft geen voorwerpen in uw winkelwagen</li>
-                                }
-                                </ul>
-                            </div>
+                            ShoppingBag ShoppingBag = s.ShoppingBag;
+                            foreach (OrderLine ol in ShoppingBag.OrderLines)
+                            {
+                                <li>
+                                    <p>@ol.Product.ProductName</p>
+                                    <p style="float: right">@ol.Amount</p>
+                                </li>
+                            }
+                        }
+                        else
+                        {
+                            <li>U heeft geen voorwerpen in uw winkelwagen</li>
+                        }
+                    </ul>
+                </div>
 
                         </div>
 
@@ -138,6 +140,14 @@
                                 {
                                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
                                 }
+                                @if (@ViewBag.Active == "product")
+                                {
+                                    <li class="active">@Html.ActionLink("Producten", "Products", "Home")</li>
+                                }
+                                else
+                                {
+                                    <li>@Html.ActionLink("Producten", "Products", "Home")</li>
+                                }
                                 @if (@ViewBag.Active == "about")
                                 {
                                     <li class="active">@Html.ActionLink("Over ons", "About", "Home")</li>
@@ -175,7 +185,11 @@
                         </div>
                     </div>
                 </div>
-                @RenderBody()
+    <div class="clear">
+    </div>
+    @RenderBody()
+    <div class="clear">
+    </div>
                 <div class="footer">
                     <div class="wrap">
                         <div class="section group">
@@ -202,10 +216,6 @@
                                 <ul>
                                     @if (s != null && s.LoggedIn == true)
                                     {
-                                        if (s.User.Role == Webshop.Enums.UserRole.MANAGER)
-                                        {
-                                        <li>@Html.ActionLink("Product Toevoegen", "Add_Product", "Home")</li>
-                                        }
                                         <li>@Html.ActionLink("Bekijk winkelmand", "Shoppingbag", "Home")</li>
                                         <li>@Html.ActionLink("Bestllingen", "Orders", "Home")</li>
                                         <li>@Html.ActionLink("Help", "Help", "Home")</li>

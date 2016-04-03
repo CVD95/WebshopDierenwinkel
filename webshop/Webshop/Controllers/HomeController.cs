@@ -39,6 +39,16 @@ namespace Webshop.Controllers
             return View(model);
         }
 
+        public void CheckSession()
+        {
+            Session session = (Session)this.Session["__MySessionObject"]; //Check of sessie object al bestaat
+            if (session == null)
+            {
+                Session newSession = new Session();
+                this.Session["__MySessionObject"] = newSession;
+            }
+        }
+
         [HttpPost]
         public ActionResult Shoppingbag(ShoppingBag model)
         {
@@ -60,8 +70,13 @@ namespace Webshop.Controllers
 
         public ActionResult Orders()
         {
+            CheckSession();
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
+            }
             Session session = ((Session)this.Session["__MySessionObject"]);
-            if (session.User.Role == UserRole.MANAGER)
+            if (session.User.Role == UserRole.ADMIN)
             {
                 using (DatabaseQuery query = new DatabaseQuery())
                 {
@@ -79,8 +94,20 @@ namespace Webshop.Controllers
             }
         }
 
+        public ActionResult Order(ulong orderId)
+        {
+            CheckSession();
+            Order order = new Order();
+            using (DatabaseQuery query = new DatabaseQuery())
+            {
+                order = query.GetOrder(orderId);
+            }
+            return View(order);
+        }
+
         public ActionResult CreateOrder()
         {
+            CheckSession();
             Session session = ((Session)this.Session["__MySessionObject"]);
             if (session.User != null)
             {
@@ -102,80 +129,46 @@ namespace Webshop.Controllers
             }
         }
 
-        public ActionResult PayOrder(Order order)
+        public ActionResult PayOrder(ulong orderId)
         {
+            CheckSession();
             PayOrderViewModel model = new PayOrderViewModel();
-            model.Order = order;
             using (DatabaseQuery query = new DatabaseQuery())
             {
                 List<PaymentOption> paymentOptions = query.GetPaymentOptions();
                 model.PaymentOptions = new SelectList(paymentOptions, "id", "name");
+                model.Order = query.GetOrder(orderId);
             }
             return View(model);
         }
 
-        public ActionResult OrderPaid(Order order)
-        {
-            order.Status = OrderStatus.PAID;
-            UpdateOrderStatus(order);
-            return View(order);
-        }
-
-        public ActionResult OrderProcessing(Order order)
-        {
-            order.Status = OrderStatus.PROCESSING;
-            UpdateOrderStatus(order);
-            return View(order);
-        }
-
-        public ActionResult OrderExpired(Order order)
-        {
-            order.Status = OrderStatus.EXPIRED;
-            UpdateOrderStatus(order);
-            return View(order);
-        }
-
-        public ActionResult OrderSent(Order order)
-        {
-            order.Status = OrderStatus.SENT;
-            UpdateOrderStatus(order);
-            return View(order);
-        }
-
-        public ActionResult OrderReturned(Order order)
-        {
-            order.Status = OrderStatus.RETURNED;
-            UpdateOrderStatus(order);
-            return View(order);
-        }
-
-        private void UpdateOrderStatus(Order order)
+        public ActionResult OrderStatusChanged(ulong orderId, OrderStatus status)
         {
             try
             {
                 using (DatabaseQuery query = new DatabaseQuery())
                 {
+                    Order order = query.GetOrder(orderId);
+                    order.Status = status;
                     query.UpdateOrderStatus(order);
                 }
             }
             catch (Exception e)
             {
-                ViewBag.Error = "Er is iets fout gegaan met het ophalen van het product: " + e;
+                TempData["ErrorMessage"] = "Er is iets fout gegaan met het schrijven naar de database: " + e;
             }
+            return RedirectToAction("Orders", "Home");
         }
 
-        public ActionResult Login(LoginDataModel model)
+
+        public ActionResult Login()
         {
-            if(model == null || !ModelState.IsValid)
-            { //first attempt, or something went wrong. assume no username typed.
-                model = new LoginDataModel();
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
             }
-            else
-            { //second attempt, probably wrong credentials. leave username, but erase pwrd.
-                model.Password = null;
-                ModelState.AddModelError("Password", "Wachtwoord en / of gebruikersnaam is incorrect.");
-            }
-            return View(model);
+
+            return View(new LoginDataModel());
         }
 
         public ActionResult Logout()
@@ -205,6 +198,19 @@ namespace Webshop.Controllers
                                     session.User = userQuery.GetUser(user); //Klant krijgt een sessie
                                     session.LoggedIn = true;
                                     this.Session["__MySessionObject"] = session;
+                                    List<Order> orders = userQuery.GetOrdersByUser(session.User);
+                                    foreach(Order order in orders)
+                                    {
+                                        if (order.Status == OrderStatus.TOBEPAID)
+                                        {
+                                            double days = (DateTime.Now - order.DTime).TotalDays;
+                                            if (days > 14)
+                                            {
+                                                order.Status = OrderStatus.EXPIRED;
+                                                userQuery.UpdateOrderStatus(order);
+                                            }
+                                        }
+                                    }
                                 }
                                 if (((Session)this.Session["__MySessionObject"]).User.Role == UserRole.MANAGER)
                                 {
@@ -216,7 +222,7 @@ namespace Webshop.Controllers
                                 }
                                 else if(((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines.Count > 0)
                                 {
-                                    return RedirectToAction("CreateOrder");
+                                    return RedirectToAction("Shoppingbag");
                                 }
                                 return RedirectToAction("Index"); //Ga terug naar de index
                             }
@@ -226,11 +232,13 @@ namespace Webshop.Controllers
                             }
                         }
                     }
+                    TempData["ErrorMessage"] = "Gebruikersnaam en wachtwoord combinatie zijn onbekend";
                     return RedirectToAction("login", user); //redirect to faillure
                 }
             }
             else
             {
+                TempData["ErrorMessage"] = "Gebruikersnaam en/of wachtwoord combinatie is fout";
                 return RedirectToAction("Login", "Home", user);
             }
         }
@@ -253,6 +261,7 @@ namespace Webshop.Controllers
 
         public ActionResult Register()
         {
+            CheckSession();
             User model = new User();
             return View(model);
         }
@@ -260,26 +269,25 @@ namespace Webshop.Controllers
         
         public ActionResult AddProductToShoppingbag(ulong productId)
         {
-            bool productAdded = false;
-            using (DatabaseQuery query = new DatabaseQuery())
+            CheckSession();
+            if (TempData["ErrorMessage"] != null)
             {
-                if (TempData["ErrorMessage"] != null)
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
+            }
+
+            bool amountChanged = false;
+            Session ses = ((Session)this.Session["__MySessionObject"]);
+            foreach (OrderLine ol in ses.ShoppingBag.OrderLines)
+            {
+                if (ol.Product.Id == productId)
                 {
-                    ViewBag.Error = TempData["ErrorMessage"].ToString();
+                    ol.Amount++;
+                    amountChanged = true;
                 }
-                Session ses = ((Session)this.Session["__MySessionObject"]);
-                if (ses.ShoppingBag.OrderLines != null)
-                {
-                    foreach (OrderLine ol in ses.ShoppingBag.OrderLines)
-                    {
-                        if (ol.Product.Id == productId)
-                        {
-                            ol.Amount++;
-                            productAdded = true;
-                        }
-                    }
-                }
-                if (!productAdded)
+            }
+            if (!amountChanged)
+            {
+                using (DatabaseQuery query = new DatabaseQuery())
                 {
                     Product product = query.GetProduct(productId);
                     OrderLine ol = new OrderLine();
@@ -287,79 +295,79 @@ namespace Webshop.Controllers
                     ol.Amount = 1;
                     ses.ShoppingBag.OrderLines.Add(ol);
                 }
-                this.Session["__MySessionObject"] = ses;
             }
+            this.Session["__MySessionObject"] = ses;
             return RedirectToAction("Products", "Home");
         }
 
-
-        public ActionResult Product() //Nullable ulong
+        [AuthorizeRoles(UserRole.ADMIN)]
+        public ActionResult Product() 
         {
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
+            }
             using (DatabaseQuery query = new DatabaseQuery())
-            { //Als het ID niet null is Krijg alle producten uit de Query
-                if (TempData["ErrorMessage"] != null)
-                {
-                    ViewBag.Error = TempData["ErrorMessage"].ToString();
-                }
+            { 
                 return View(query.GetProducts());
             }
-
         }
 
-
-        public ActionResult CategoryOverview() //Nullable ulong
+        [AuthorizeRoles(UserRole.ADMIN)]
+        public ActionResult CustomerOverview()
         {
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
+            }
             using (DatabaseQuery query = new DatabaseQuery())
-            { //Als het ID niet null is Krijg alle producten uit de Query
-                if (TempData["ErrorMessage"] != null)
-                {
-                    ViewBag.Error = TempData["ErrorMessage"].ToString();
-                }
+            {
+                return View(query.GetUsers());
+            }
+        }
+
+        [AuthorizeRoles(UserRole.ADMIN)]
+        public ActionResult CategoryOverview()
+        {
+            if (TempData["ErrorMessage"] != null)
+            {
+                ViewBag.Error = TempData["ErrorMessage"].ToString();
+            }
+            using (DatabaseQuery query = new DatabaseQuery())
+            {
                 return View(query.GetCategories());
             }
-
         }
 
-        public ActionResult Customer() //Nullable ulong
+        public ActionResult UserDetails()
         {
             using (DatabaseQuery query = new DatabaseQuery())
-            { //Als het ID niet null is Krijg alle producten uit de Query
-
-                return View(query.GetUserDetails());
+            {
+                return View(((Session)this.Session["__MySessionObject"]).User);
             }
-
         }
 
-        
-		public ActionResult Products(ProductPageModel p)
-		{
+        public ActionResult Products(int? PageNumber, int? CategoryId)
+        {
+            CheckSession();
             IndexModel model = fillIndexModel();
-            model.ProductPageModel = p;
-            if (model.ProductPageModel.Category != null)
+            if (CategoryId != null && CategoryId >= 0)
             {
-                for (int i = model.Products.Count - 1; i >= 0; i--)
-                {
-                    if (!model.Products[i].Category.Name.Equals(ViewBag.Category.Name))
-                    {
-                        model.Products.RemoveAt(i);
-                    }
-                }
+                model.Products.RemoveAll(item => item.Category.Id != (ulong)CategoryId);
             }
-            int page;
-            if(p.PageNumber < 1)
+            int page = (PageNumber ?? 1);
+            if (PageNumber < 1)
             {
                 page = 1;
             }
-            else
-            {
-                page = p.PageNumber;
-            }
+
             var products = model.Products;
             var onePageOfProducts = products.ToPagedList(page, 8);
 
             ViewBag.OnePageOfProducts = onePageOfProducts;
             return View(model);
         }
+
 
         private IndexModel fillIndexModel()
         {
@@ -372,13 +380,7 @@ namespace Webshop.Controllers
 
         public ActionResult Index()
         {  //Index returned een ViewModel
-            ViewBag.Active = "index";
-            Session session = (Session)this.Session["__MySessionObject"]; //Check of sessie object al bestaat
-            if (session == null)
-            {
-                Session newSession = new Session();
-                this.Session["__MySessionObject"] = newSession;
-            }
+            CheckSession();
             return View(fillIndexModel());
         }
 
@@ -396,6 +398,7 @@ namespace Webshop.Controllers
             {
                 ManagerViewModel viewModel = new ManagerViewModel();
                 DatabaseQuery dbq = new DatabaseQuery();
+                viewModel.Orders = dbq.GetOrders();
                 viewModel.Orderlines = dbq.GetOrderlines();
                 viewModel.OrderlinesAsc = dbq.GetOrderlines();
 
@@ -438,17 +441,18 @@ namespace Webshop.Controllers
 
         public ActionResult Contact()
         {
+            CheckSession();
             ViewBag.Active = "contact";
             return View(); //Contact pagina
         }
 
-        [Authorize] //Je moet ingelogd zijn om de pagina te mogen bezoeken.
         public ActionResult Delivery()
         {
             ViewBag.Active = "delivery";
             return View(); //Laat pagina zien
         }
 
+        [AuthorizeRoles(UserRole.ADMIN)]
         public ActionResult ProductAdded()
         {
             return View(); //laat pagina zien
@@ -487,34 +491,23 @@ namespace Webshop.Controllers
 
         public ActionResult News()
         {
+            CheckSession();
             ViewBag.Active = "news";
             return View(); //nieuwsPagina
         }
 
-        public ActionResult PreviewFromId(ulong id)
+        public ActionResult Preview(ulong productId)
         {
-            
+            CheckSession();
             using (DatabaseQuery querry = new DatabaseQuery())
             {
-                Product product = querry.GetProduct(id);
-                //return RedirectToAction("Preview", "Home", product);
-                return View("Preview", product);
-            }
-        }
-
-        public ActionResult Preview(Product product)
-        {
-            //here product.Category is null. WHY???
-            if (ModelState.IsValid)
-            {   //Preview pagina. Laat producten zien
-                ViewBag.Active = "preview";
+                Product product = querry.GetProduct(productId);
                 return View(product);
             }
-            return RedirectToAction("Index", "Home");
         }
 
         [AuthorizeRoles(UserRole.ADMIN)]
-        public ActionResult Add_Product()
+        public ActionResult AddProduct()
         {
             ProductViewModel model = FillProductViewModel();
             return View(model); //Geef pagina weer
@@ -530,7 +523,7 @@ namespace Webshop.Controllers
         }
 
         [AuthorizeRoles(UserRole.ADMIN)]
-        public ActionResult Add_Category()
+        public ActionResult AddCategory()
         {
             Category model = new Category();
             return View(model); //Geef pagina weer
@@ -538,6 +531,7 @@ namespace Webshop.Controllers
 
         public ActionResult FAQ()
         {
+            CheckSession();
             ViewBag.Active = "FAQ";
 
             return View(); //Geef pagina weer
@@ -545,13 +539,60 @@ namespace Webshop.Controllers
 
         public ActionResult Account()
         {
+            CheckSession();
             ViewBag.Active = "Account";
 
             return View(); //Geef pagina weer
         }
 
-        public ActionResult Search_Result(string Search)
+        public ActionResult ClearShoppingbag()
         {
+            ((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines = new List<OrderLine>();
+            return RedirectToAction("products");
+        }
+
+        public ActionResult RemoveProductFromShoppingbag(ulong productId)
+        {
+            ((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines.RemoveAll(product => product.Product.Id == (ulong)productId);
+            return RedirectToAction("shoppingbag");
+        }
+
+        public ActionResult AddAmount(ulong productId)
+        {
+            foreach(OrderLine ol in ((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines)
+            {
+                if(ol.Product.Id == productId)
+                {
+                    ol.Amount++;
+                }
+            }
+            return RedirectToAction("shoppingbag");
+        }
+
+        public ActionResult SubtractAmount(ulong productId)
+        {
+            bool amountIsZero = false;
+            foreach (OrderLine ol in ((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines)
+            {
+                if (ol.Product.Id == productId)
+                {
+                    ol.Amount--;
+                    if(ol.Amount <= 0)
+                    {
+                        amountIsZero = true;
+                    }
+                }
+            }
+            if (amountIsZero)
+            {
+                ((Session)this.Session["__MySessionObject"]).ShoppingBag.OrderLines.RemoveAll(product => product.Product.Id == (ulong)productId);
+            }
+            return RedirectToAction("shoppingbag");
+        }
+
+        public ActionResult SearchResult(string Search)
+        {
+            CheckSession();
             //try {
             SearchResultModel model = new SearchResultModel(Search);
             return View(model);
@@ -564,7 +605,7 @@ namespace Webshop.Controllers
         }
 
         [AuthorizeRoles(UserRole.ADMIN)]
-        public ActionResult Change_Product(ulong productId)
+        public ActionResult ChangeProduct(ulong productId)
         {
             try
             {
@@ -601,14 +642,14 @@ namespace Webshop.Controllers
             catch (Exception e)
             {
                 ViewBag.Error = "Er is iets fout gegaan met het updaten van het product: " + e;
-                return RedirectToAction("Change_Product", model.Product.Id); //Ga terug naar de Add_product pagina
+                return RedirectToAction("ChangeProduct", model.Product.Id); //Ga terug naar de Add_product pagina
             }
             return RedirectToAction("product"); //Ga terug naar de Add_product pagina
 
         }
 
         [AuthorizeRoles(UserRole.ADMIN)]
-        public ActionResult Change_Category(ulong categoryId)
+        public ActionResult ChangeCategory(ulong categoryId)
         {
             try
             {
@@ -623,6 +664,46 @@ namespace Webshop.Controllers
                 ViewBag.Error = "Er is iets fout gegaan met het ophalen van de category: " + e;
                 return View();
             }
+        }
+
+        public ActionResult ChangeUser(ulong id)
+        {
+            try
+            {
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    User user = query.GetUser(id);
+                    return View(user);
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = "Er is iets fout gegaan met het ophalen van de gebruiker: " + e;
+                return View();
+            }
+        }
+
+        [HttpPost]
+        public ActionResult UpdateUser(User user)
+        {
+            try
+            {
+                user.Prepare();
+                using (DatabaseQuery query = new DatabaseQuery())
+                {
+                    if (ModelState.IsValid) //is niet goed door password (wordt ofc niet opgehaald + password moet los aangepast kunnen worden)
+                    {
+                        query.UpdateUser(user);
+                        return RedirectToAction("UserDetails");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                ViewBag.Error = "Er is iets fout gegaan met het updaten van de gebruiker: " + e;
+                return RedirectToAction("ChangeUser", user);
+            }
+            return RedirectToAction("UserDetails");
         }
 
         [HttpPost]
@@ -642,18 +723,19 @@ namespace Webshop.Controllers
             catch (Exception e)
             {
                 ViewBag.Error = "Er is iets fout gegaan met het updaten van de categorie: " + e;
-                return RedirectToAction("Change_Category", category);
+                return RedirectToAction("ChangeCategory", category);
             }
             return RedirectToAction("category"); 
         }
 
         public ActionResult Error(Exception e)
         { //Return de error pagina
+            CheckSession();
             return View();
         }
 
         [HttpPost]
-        public ActionResult New_Product(ProductViewModel model)
+        public ActionResult NewProduct(ProductViewModel model)
         {
             try
             {
@@ -672,11 +754,11 @@ namespace Webshop.Controllers
                 ModelState.AddModelError("Product is niet toegevoegd aan de Database" , error);
                 //Adds a model error to the errors collection for the model-state dictionary.
             }
-            return RedirectToAction("Add_Product", model); //Ga terug naar de Add_product pagina
+            return RedirectToAction("AddProduct", model); //Ga terug naar de Add_product pagina
         }
 
         [HttpPost]
-        public ActionResult New_Category(Category category)
+        public ActionResult NewCategory(Category category)
         {
             try
             {
@@ -695,10 +777,10 @@ namespace Webshop.Controllers
                 ModelState.AddModelError("Product is niet toegevoegd aan de Database", error);
                 //Adds a model error to the errors collection for the model-state dictionary.
             }
-            return RedirectToAction("Add_Category", category);
+            return RedirectToAction("AddCategory", category);
         }
 
-     
+        [AuthorizeRoles(UserRole.ADMIN)]
         public ActionResult DeleteProduct(ulong productId)
         {
             try
@@ -715,6 +797,7 @@ namespace Webshop.Controllers
             return RedirectToAction("product");
         }
 
+        [AuthorizeRoles(UserRole.ADMIN)]
         public ActionResult DeleteCategory(ulong categoryId)
         {
             try

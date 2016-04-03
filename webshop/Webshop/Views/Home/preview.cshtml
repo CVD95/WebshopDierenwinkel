@@ -38,71 +38,17 @@
                             <p>Price: <span>€@(Model.Price.ToString("#.##"))</span></p>
                         </div>
                         <div class="available">
-                            <!--
-                            <p>mogelijke kleuren.:</p>
-                            <ul>
-                                <li>
-                                    Color:
-                                    <select>
-                                        <option>zilver</option>
-                                        <option>zwart</option>
-                                        <option>wit</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    snoerlengte:<select>
-                                        <option>150 cm</option>
-                                        <option>175 cm</option>
-                                        <option>200 cm</option>
-                                    </select>
-                                </li>
-                                <li>
-                                    Hoeveelheid extra hulpstukken:<select>
-                                        <option>1</option>
-                                        <option>2</option>
-                                        <option>3</option>
-                                        <option>4</option>
-                                        <option>5</option>
-                                    </select>
-                                </li>
-                            </ul>
-                                -->
+                            <p>Voorraad: @Model.Stock</p>
                         </div>
                         <div class="share-desc">
-                            
-                          <div class="button"><span>@Html.ActionLink("Direct bestellen", "Make_Order", "Home", new { Id = Model.Id }, null)</span></div>         
-                                        <div class="clear"></div>
-                                    </div>
-                            </div>
+                            <div class="button"><span>@Html.ActionLink("Voeg aan winkelwagen toe", "AddProductToShoppingbag", new { productId = Model.Id })</span></div>         
                             <div class="clear"></div>
                         </div>
-                        <div class="product_desc">
-                            <div id="horizontalTab">
-                                <div class="your-review">
-                                    <h3>Wat vindt je van dit product?</h3>
-                                    <p>Schrijf een review!</p>
-                                    <form>
-                                        <div>
-                                            <span><label>Naam<span class="red">*</span></label></span>
-                                            <span><input type="text" value=""></span>
-                                        </div>
-                                        <div>
-                                            <span><label>Samenvatting van het product<span class="red">*</span></label></span>
-                                            <span><input type="text" value=""></span>
-                                        </div>
-                                        <div>
-                                            <span><label>Review<span class="red">*</span></label></span>
-                                            <span><textarea> </textarea></span>
-                                        </div>
-                                        <div>
-                                            <span><input type="submit" value="verstuur review"></span>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+                    <div class="clear"></div>
                 </div>
+            </div>
+        </div>
                 <script type="text/javascript">
                     $(document).ready(function () {
                         $('#horizontalTab').easyResponsiveTabs({

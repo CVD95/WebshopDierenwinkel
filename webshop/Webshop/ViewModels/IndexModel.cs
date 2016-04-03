@@ -12,8 +12,6 @@ namespace Webshop.ViewModels
 
         public List<Product> Products { get; set; }
 
-        public ProductPageModel ProductPageModel { get; set; }
-
         public string FrontImage { get; set; }
     }
 }

@@ -1,18 +1,20 @@
 ﻿@using Webshop;
+@using Webshop.Enums;
+
 @model Webshop.ViewModels.PayOrderViewModel
 @{Session s = (Session)HttpContext.Current.Session["__MySessionObject"]; }
+@{
+    Layout = "~/Views/Shared/_AccountLayout.cshtml";
+}
 
 @if (s.LoggedIn)
 {
-    <div class="editor-label">Categorie</div>
-
+    <div class="editor-label">Betaalmethode</div>
     <div class="editor-field">
         @Html.DropDownListFor(model => model.SelectedPaymentId, Model.PaymentOptions)
         @Html.ValidationMessageFor(model => model.SelectedPaymentId)
     </div>
-    <p>
-        <td><input type="submit" value="Betalen" /></td>
-    </p>
+    <input type="submit" value="Betalen" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Order.Id, status = OrderStatus.PAID})'"/>
 }
 else
 {

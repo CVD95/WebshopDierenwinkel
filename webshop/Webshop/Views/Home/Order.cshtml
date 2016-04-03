@@ -1,22 +1,95 @@
 ﻿@model Webshop.Models.Order
+@using Webshop.Enums;
+@using Webshop;
+@{Session s = (Session)HttpContext.Current.Session["__MySessionObject"]; }
 
 @{
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
 }
-
-<h2>Bestelnummer: @Model.Id</h2>
-besteld op @Model.DTime
-
-<div class="content">
-    <div class="section group">
-        <div>
-            <ul>
-                @foreach (var orderline in Model.OrderLines)
-                {
-                <li>Naam: @orderline.Product.ProductName, Aantal: @orderline.Amount</li>
-                }
-            </ul>
-
-        </div>
-    </div>
+    <div class="categories categories_multiple">
+    <h3>Bestelnummer: @Model.Id</h3>
+    <h2>besteld op @Model.DTime</h2>
 </div>
+    <div class="content">
+        <div class="section group">
+            
+            <ul>
+                @if (Model.OrderLines != null)
+            {
+                if (Model.OrderLines.Count > 0)
+                {
+                        <div class="col_1_of_3 span_1_of_3">
+                            <h3>Naam</h3>
+                        </div>
+                        <div class="col_1_of_3 span_1_of_3">
+                            <h3>Aantal</h3>
+                        </div>
+                        <div class="col_1_of_3 span_1_of_3">
+                            <h3>Prijs</h3>
+                        </div>
+
+                        foreach (var ol in Model.OrderLines)
+                        {
+                            <li>
+                                <div class="col_1_of_3 span_1_of_3">
+                                    Product.ProductName
+                                </div>
+                                <div class="col_1_of_3 span_1_of_3">
+                                    @ol.Amount
+                                </div>
+                                <div class="col_1_of_3 span_1_of_3">
+                                    <p>@(ol.Product.Price * ol.Amount)</p>
+                                </div>
+                            </li>
+                        }
+                        <hr />
+                        <li>
+                            <div class="col_1_of_3 span_1_of_3">
+                            </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                            </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                                <h1>Totaal</h1>
+                                <p>@Model.TotalCost()</p>
+                            </div>
+                        </li>
+                        <div class="txt-center">
+                            @if (s.User.Role == UserRole.ADMIN)
+                            {
+                                <input type="submit" value="Betaald" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.PAID})'" />
+                                <input type="submit" value="Geannuleerd" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.CANCELLED})'" />
+                                <input type="submit" value="Geretourneerd" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.RETURNED})'" />
+                                <input type="submit" value="Nog niet betaald" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.TOBEPAID})'" />
+                                <input type="submit" value="In behandeling" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.PROCESSING})'" />
+                                <input type="submit" value="Vervallen" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.EXPIRED})'" />
+                                <input type="submit" value="Verzonden" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.SENT})'" />
+                            }
+                            else {
+                                if (Model.Status == OrderStatus.TOBEPAID)
+                                {
+                                    <input type="submit" value="Betalen" onclick="location.href='@Url.Action("PayOrder", "Home", new {orderId = Model.Id})'" />
+                                }
+                                if (Model.Status == OrderStatus.SENT)
+                                {
+                                    <input type="submit" value="Retourneren" onclick="location.href='@Url.Action("ReturnOrder", "Home", new {orderId = Model.Id})'" />
+                                }
+                                    double days = (DateTime.Now - Model.DTime).TotalDays;
+                                    if (days < 7 && Model.Status != OrderStatus.CANCELLED)
+                                    {
+                                        <input type="submit" value="Annuleren" onclick="location.href='@Url.Action("OrderStatusChanged", "Home", new {orderId = Model.Id, status = OrderStatus.CANCELLED})'" />
+                                    }
+                                }
+                        
+                        </div>
+                            }
+                            }
+                            else
+                            {
+                                ViewBag.Error = "Orderlines is null";
+                            }
+
+            </ul>
+        </div>
+
+
+    </div>

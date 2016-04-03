@@ -1,16 +1,38 @@
 ﻿@{
-    Layout = "~/Views/Shared/_SmallVieuwStart.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml"; //was smallviewstart
 }
-<div class="header_slide">
-    <div class="header_bottom_left">
-        <div class="categories">
-            <ul>
-                <li><a href="@Url.Content("~/Home/add_product/")"> Product toevoegen</a></li>
-                <li><a href="@Url.Content("~/Home/product/")"> Producten aanpassen/verwijderen</a></li>
-                <li><a href="@Url.Content("~/Home/deals/")"> Kortingsactie toevoegen</a></li>
-                <li><a href="@Url.Content("~/Home/add_category/")"> Categorie toevoegen</a></li>
-                <li><a href="@Url.Content("~/Home/CategoryOverview/")"> Categorie aanpassen/verwijderen</a></li>
-            </ul>
-        </div>
+    <div class="header_slide">
+            <div class="categories categories_multiple">
+                <h3>Producten</h3>
+                <ul>
+                    <li><a href="@Url.Content("~/Home/AddProduct/")"> Product toevoegen</a></li>
+                    <li><a href="@Url.Content("~/Home/product/")"> Producten aanpassen/verwijderen</a></li>
+                </ul>
+            </div>
+            <div class="categories categories_multiple">
+                <h3>Categoriën</h3>
+                <ul>
+                    <li><a href="@Url.Content("~/Home/AddCategory/")"> Categorie toevoegen</a></li>
+                    <li><a href="@Url.Content("~/Home/CategoryOverview/")"> Categorie aanpassen/verwijderen</a></li>
+                </ul>
+            </div>
+            <div class="categories categories_multiple">
+                <h3>Klanten</h3>
+                <ul>
+                    <li><a href="@Url.Content("~/Home/CustomerOverview/")">Klantenoverzicht</a></li>
+                </ul>
+            </div>
+            <div class="categories categories_multiple">
+                <h3>Bestellingen</h3>
+                    <ul>
+                        <li><a href="@Url.Content("~/Home/Orders/")">Bestellingoverzicht</a></li>
+                    </ul>
+            </div>
+        <!--
+            <div class="categories categories_multiple">
+                <h3>korting</h3>
+                <ul>
+                    <li><a href="@Url.Content("~/Home/deals/")"> Kortingsactie toevoegen</a></li>
+                </ul>
+            </div>-->
     </div>
-</div>

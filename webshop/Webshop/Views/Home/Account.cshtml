@@ -1,3 +1,6 @@
-﻿@{
+﻿@using Webshop;
+@{
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
+    Session s = (Session)HttpContext.Current.Session["__MySessionObject"];
 }
+<!--<h1>Welkom @s.User.FirstName!</h1>-->

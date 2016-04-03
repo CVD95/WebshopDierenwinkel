@@ -1,0 +1,47 @@
+﻿@model List<Webshop.Models.User>
+@{
+    ViewBag.Title = "Beheerder";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<div class="content">
+    @if (Model != null)
+    {
+        foreach(var user in Model)
+        {
+        <table id="hor-minimalist-b" style="margin:0.5%; border-width:5px;">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Username</th>
+                    <th>Voornaam</th>
+                    <th>Achternaam</th>
+                    <th>Email-adres</th>
+                    <th>Geboortedatum</th>
+                    <th>Postcode</th>
+                    <th>Straatnaam</th>
+                    <th>Huisnummer</th>
+                    <th>Huisnummer toevoeging</th>
+                    <th>Plaatsnaam</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <th>@user.Id</th>
+                    <td>@user.Username</td>
+                    <td>@user.FirstName</td>
+                    <td>@user.LastName</td>
+                    <td>@user.Email</td>
+                    <td>@user.GetDateOfBirth()</td>
+                    <td>@user.Address.PostalCode</td>
+                    <td>@user.Address.Street</td>
+                    <td>@user.Address.HouseNumber</td>
+                    <td>@user.Address.Suffix</td>
+                    <td>@user.Address.City</td>
+                    <td>@Html.ActionLink("Wijzigen", "ChangeUser", new { id = user.Id })</td>
+                </tr>
+            </tbody>
+        </table>
+        }
+    }
+</div>

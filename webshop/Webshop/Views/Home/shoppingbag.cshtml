@@ -1,56 +1,68 @@
 ﻿@model Webshop.Models.ShoppingBag
+
 <div class="content">
     <ul>
         <div class="section group">
             @if (Model.OrderLines != null)
             {
-                <div class="col_1_of_3 span_1_of_3">
-                    <h3>Naam</h3>
-                </div>
-                <div class="col_1_of_3 span_1_of_3">
-                    <h3>Aantal</h3>
-                </div>
-                <div class="col_1_of_3 span_1_of_3">
-                    <h3>Prijs</h3>
-                </div>
-
-                foreach (var ol in Model.OrderLines)
+                if (Model.OrderLines.Count > 0)
                 {
+                    <div class="col_1_of_3 span_1_of_3">
+                        <h3>Naam</h3>
+                    </div>
+                    <div class="col_1_of_3 span_1_of_3">
+                        <h3>Aantal</h3>
+                    </div>
+                    <div class="col_1_of_3 span_1_of_3">
+                        <h3>Prijs</h3>
+                    </div>
+
+                        foreach (var ol in Model.OrderLines)
+                        {
+                        <li>
+                            <div class="col_1_of_3 span_1_of_3">
+                                @Html.ActionLink(ol.Product.ProductName, "Preview", "Home", new { productId = ol.Product.Id }, null)
+                            </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                                <input type="submit" value="-" onclick="location.href='@Url.Action("SubtractAmount", "Home", new { productId = ol.Product.Id})'" />
+                                   @ol.Amount
+                                <input type="submit" value="+" onclick="location.href='@Url.Action("AddAmount", "Home", new { productId = ol.Product.Id})'" />
+                                </div>
+                            <div class="col_1_of_3 span_1_of_3">
+                                <p>@(ol.Product.Price * ol.Amount)</p>
+                                <input type="submit" value="Verwijderen" onclick="location.href='@Url.Action("RemoveProductFromShoppingbag", "Home", new { productId = ol.Product.Id})'" />
+                            </div>
+                        </li>
+                        }
+                    <hr />
                     <li>
                         <div class="col_1_of_3 span_1_of_3">
-                            @Html.ActionLink(ol.Product.ProductName, "Product", "Home", new { Id = ol.Product.Id }, null)
                         </div>
                         <div class="col_1_of_3 span_1_of_3">
-                               @ol.Amount
-                            </div>
+                        </div>
                         <div class="col_1_of_3 span_1_of_3">
-                            <p>@(ol.Product.Price * ol.Amount)</p>
+                            <h1>Totaal</h1>
+                            <p>@Model.TotalCost()</p>
                         </div>
                     </li>
-                }
-                <hr />
-                <li>
-                    <div class="col_1_of_3 span_1_of_3">
+                    <div class="txt-center">
+                        <input type="submit" value="Winkelwagen leegmaken" onclick="location.href='@Url.Action("ClearShoppingbag", "Home")'" />
+                        <input type="submit" value="Bestellen" onclick="location.href='@Url.Action("CreateOrder", "Home")'" />
                     </div>
-                    <div class="col_1_of_3 span_1_of_3">
-                    </div>
-                    <div class="col_1_of_3 span_1_of_3">
-                        <h1>Totaal</h1>
-                        <p>@Model.TotalCost</p>
-                    </div>
-                </li>
+                        }
+                        else
+                        {
+                        <br />
+                        <p>Uw winkelwagen is leeg</p>
+                        <br />
+                        }
+                        }
 
-            }
+                        else
+                        {
+                        ViewBag.Error = "Orderlines is null";
+                        }
 
-            else
-            {
-                <br />
-                <p>Uw winkelwagen is leeg</p>
-                <br />
-            }
-        </div>
+                    </div>
     </ul>
-    <p>
-        <input type="submit" value="Bestellen" onclick="location.href='@Url.Action("CreateOrder", "Home")'" />
-    </p>
 </div>

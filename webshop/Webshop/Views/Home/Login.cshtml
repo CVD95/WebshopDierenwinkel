@@ -1,6 +1,10 @@
 ﻿@model Webshop.Models.LoginDataModel
 
 <br /><br />
+@if (ViewBag.Error != null)
+{
+    <span style="color:red">@ViewBag.Error</span>
+}
 @using (Html.BeginForm("LoginRequest", "Home"))
 {
     @Html.ValidationSummary(true);

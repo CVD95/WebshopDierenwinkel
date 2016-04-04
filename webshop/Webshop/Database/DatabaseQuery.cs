@@ -59,7 +59,7 @@ namespace Webshop.Database
                 cmd.Connection = _connection;
                 _transaction = cmd.Connection.BeginTransaction();
 
-                cmd.CommandText = "INSERT INTO address (street, city, postalcode, number, suffix) "
+                cmd.CommandText = "INSERT INTO address (street, city, postalcode, \"number\", suffix) "
                     + "VALUES(@street, @city, @postalcode, @number, @suffix); ";
 
 
@@ -793,11 +793,11 @@ namespace Webshop.Database
 
                 cmd.CommandText = "UPDATE \"user\" SET first_name=@first_name, last_name=@last_name, email_address=@email_address, date_of_birth=@date_of_birth where id = @id;";
 
-                cmd.Parameters.AddWithValue("id", user.Id);
                 cmd.Parameters.AddWithValue("first_name", user.FirstName);
                 cmd.Parameters.AddWithValue("last_name", user.LastName);
                 cmd.Parameters.AddWithValue("email_address", user.Email);
                 cmd.Parameters.AddWithValue("date_of_birth", user.DateOfBirth);
+                cmd.Parameters.AddWithValue("id", (long)user.Id);
 
                 //Parameters
                 bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
@@ -805,22 +805,24 @@ namespace Webshop.Database
                 {
                     _transaction.Commit();
                     _transaction.Dispose();
-                    UpdateUserAddress(user);
+                    UpdateAddress(user);
                 }
                 return success;
             }
         }
 
-        internal bool UpdateUserAddress(User user)
+        internal bool UpdateAddress(User user)
         {
             using (NpgsqlCommand cmd = new NpgsqlCommand())
             {
                 cmd.Connection = _connection;
                 _transaction = cmd.Connection.BeginTransaction();
 
-                cmd.CommandText = "UPDATE user_address set postalcode=@postalcode, number=@number, suffix=@suffix where user_id=@user_id";
+                cmd.CommandText = "UPDATE address set street=@street, city=@city, postalcode=@postalcode, \"number\"=@number, suffix=@suffix where postalcode=@postalcode and \"number\"=@number and suffix=@suffix";
 
-                cmd.Parameters.AddWithValue("user_id", (long)user.Id);
+
+                cmd.Parameters.AddWithValue("street", user.Address.Street);
+                cmd.Parameters.AddWithValue("city", user.Address.City);
                 cmd.Parameters.AddWithValue("postalcode", user.Address.PostalCode);
                 cmd.Parameters.AddWithValue("number", user.Address.HouseNumber);
                 cmd.Parameters.AddWithValue("suffix", user.Address.Suffix);
@@ -829,15 +831,16 @@ namespace Webshop.Database
                 bool success = parseNonqueryResult(cmd.ExecuteNonQuery());
                 if (success)
                 {
-                    _transaction.Commit();
-                    _transaction.Dispose();
-                    return success; //Commit als het sucessvol is
-                }
-                _transaction.Rollback();
+                _transaction.Commit();
                 _transaction.Dispose();
-                return success; //Rollback en dispose als het niet lukt
+                return success; //Commit als het sucessvol is
             }
+            _transaction.Rollback();
+            _transaction.Dispose();
+            return success; //Rollback en dispose als het niet lukt
         }
+    }
+        
 
         internal bool DeleteCategory(ulong categoryId)
         {

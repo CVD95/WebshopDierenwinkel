@@ -14,7 +14,7 @@ namespace Webshop.Models
         public string PostalCode { get; set; }
         //sa, ss, sd aren't allowed in the Netherlands
 
-        [Required(ErrorMessage = "huisnummer is verplicht")]
+        [Required(ErrorMessage = "Huisnummer is verplicht")]
         [RegularExpression("^[0-9]*$", ErrorMessage = "Huisnummer(s) moet(en) positief zijn")]
         public int HouseNumber { get; set; }
         //Regex any number of 0 to 9 numbers.
@@ -44,12 +44,12 @@ namespace Webshop.Models
         }
 
             [Required(ErrorMessage = "Straatnaam is verplicht")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Mag alleen uit letters bestaan.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Mag alleen uit letters bestaan.")]
         public string Street { get; set; }
         //REGEX : Alle letters A-Z en a-z
 
         [Required(ErrorMessage = "Stad / dorp is verplicht")]
-        [RegularExpression("^[a-zA-Z]*$", ErrorMessage = "Mag alleen uit letters bestaan.")]
+        [RegularExpression("^[a-zA-Z ]*$", ErrorMessage = "Mag alleen uit letters bestaan.")]
         //REGEX : Alle letters A-Z en a-z
         public string City { get; set; }
 

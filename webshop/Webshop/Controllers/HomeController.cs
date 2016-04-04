@@ -17,9 +17,6 @@ namespace Webshop.Controllers
 {
     public class HomeController : Controller
     {
-        //private ProductDBController productenDBController = new ProductenDBController();
-
-        //
         // GET: /Home/
         public ActionResult Shoppingbag()
         {
@@ -689,14 +686,16 @@ namespace Webshop.Controllers
             try
             {
                 user.Prepare();
-                using (DatabaseQuery query = new DatabaseQuery())
-                {
-                    if (ModelState.IsValid) //is niet goed door password (wordt ofc niet opgehaald + password moet los aangepast kunnen worden)
+                //if (TryUpdateModel(user, null, null, new[] { "Password" })) --> werkt niet
+                    using (DatabaseQuery query = new DatabaseQuery())
                     {
-                        query.UpdateUser(user);
-                        return RedirectToAction("UserDetails");
+                        if (ModelState.IsValid) //is niet goed door password (wordt ofc niet opgehaald + password moet los aangepast kunnen worden)
+                        {
+                            query.UpdateUser(user);
+                            ((Session)this.Session["__MySessionObject"]).User = query.GetUser(user.Id);
+                            return RedirectToAction("UserDetails");
+                        }
                     }
-                }
             }
             catch (Exception e)
             {

@@ -21,7 +21,7 @@
                         @Html.HiddenFor(model => model.Username)
                     </div>
                     <div class="editor-field">
-                        @Html.HiddenFor(model => model.Password)
+                        @Html.HiddenFor(model => model.Password, new {@Value = 1111 })
                     </div>
 
                     <div class="editor-label">Voornaam</div>
